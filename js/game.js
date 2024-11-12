@@ -7,7 +7,7 @@ function init() {
   world = new World(canvas, keyboard);
 
   console.log("my character is: ", world.character); //oder world['character'] = ist beides das gleiche
-  console.log("my enemies are: ", world.enemies);
+  console.log("my enemies are: ", world.level.enemies);
 }
 
 window.addEventListener("keydown", (e) => {
