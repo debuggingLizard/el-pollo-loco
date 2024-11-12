@@ -37,15 +37,13 @@ class Character extends MovableObject {
   animate() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.x += this.speed;
-        this.otherDirection = false;
+        this.moveRight(false);
         if (this.walking_sound.paused) {
           this.walking_sound.currentTime = 0;
           this.walking_sound.play();
         }
       } else if (this.world.keyboard.LEFT && this.x > 0) {
-        this.x -= this.speed;
-        this.otherDirection = true;
+        this.moveLeft(true);
         if (this.walking_sound.paused) {
           this.walking_sound.currentTime = 0;
           this.walking_sound.play();
@@ -56,7 +54,7 @@ class Character extends MovableObject {
       }
 
       if (this.world.keyboard.UP && this.y == 110) {
-        this.speedY = 28;
+        this.jump();
       }
       this.world.camera_x = -this.x + 80;
     }, 1000 / 60);
@@ -70,5 +68,4 @@ class Character extends MovableObject {
     }, 90);
   }
 
-  jump() {}
 }

@@ -32,14 +32,14 @@ class MovableObject {
     this.currentImage++;
   }
 
-  moveRight() {
-    console.log("moving right");
+  moveRight(bool) {
+    this.x += this.speed;
+    this.otherDirection = bool;
   }
 
-  moveLeft() {
-    setInterval(() => {
-      this.x -= this.speed;
-    }, 1000 / 60);
+  moveLeft(bool) {
+    this.x -= this.speed;
+    this.otherDirection = bool;
   }
 
   applyGravity() {
@@ -53,5 +53,9 @@ class MovableObject {
 
   isAboveGround() {
     return this.y < 110;
+  }
+
+  jump() {
+    this.speedY = 28;
   }
 }
