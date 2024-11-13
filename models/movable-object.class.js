@@ -10,6 +10,7 @@ class MovableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2;
+  energy = 100;
 
   loadImage(path) {
     this.img = new Image(); //<img>
@@ -22,6 +23,41 @@ class MovableObject {
       img.src = path;
       this.imageCache[path] = img;
     });
+  }
+
+  draw(ctx) {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  }
+
+  drawFrame(ctx) {
+    if (
+      this instanceof Character ||
+      this instanceof Chicken ||
+      this instanceof Endboss
+    ) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  isColliding(mo) {
+    return (
+      // rechte Seite mit linke Seite von mo vergleichen
+      this.x + this.width > mo.x &&
+      // untere Seite mit obere Seite von mo vergleichen
+      this.y + this.height > mo.y &&
+      // linke Seite mit linke Seite von mo vergleichen
+      this.x < mo.x &&
+      // obere Seite mit untere Seite von mo vergleichen
+      this.y < mo.y + mo.height
+    );
+  }
+
+  hit() {
+    this.energy -= 5; 
   }
 
   playAnimation(images) {
@@ -45,7 +81,7 @@ class MovableObject {
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY; 
+        this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
     }, 1000 / 25);
