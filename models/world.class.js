@@ -1,7 +1,7 @@
 class World {
   character = new Character();
   statusBar = new StatusBar();
-  throwableObjects = [new ThrowableObject()];
+  throwableObjects = [];
   level = level1;
   canvas;
   ctx;
@@ -24,7 +24,15 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkThrowObjects();
     }, 200);
+  }
+
+  checkThrowObjects() {
+    if (this.keyboard.ENTER) {
+      let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 130);
+      this.throwableObjects.push(bottle);
+    }
   }
 
   checkCollisions() {
