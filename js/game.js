@@ -23,8 +23,8 @@ window.addEventListener("keydown", (e) => {
   if (e.key == 's' || e.key == 'S') {
     keyboard.DOWN = true;
   }
-  if (e.key == ' ') {
-    keyboard.SPACE = true;
+  if (e.code == 'Enter') {
+    keyboard.ENTER = true;
   }
 });
 
@@ -41,7 +41,7 @@ window.addEventListener("keyup", (e) => {
   if (e.key == 's' || e.key == 'S') {
     keyboard.DOWN = false;
   }
-  if (e.key == ' ') {
-    keyboard.SPACE = false;
+  if (e.code == 'Enter') {
+    keyboard.ENTER = false;
   }
 })
