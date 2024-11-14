@@ -41,12 +41,12 @@ class World {
   }
 
   checkCollisions() {
-    // this.level.enemies.forEach((enemy) => {
-    //   if (this.character.isColliding(enemy)) {
-    //     this.character.hit();
-    //     this.healthBar.setPercentage(this.character.energy);
-    //   }
-    // });
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    });
     this.level.bottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
         console.log("flasche aufgesammelt");
@@ -66,7 +66,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addObjectsToMap(this.level.clouds);
-    // this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.bottles);
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
