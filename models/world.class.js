@@ -4,6 +4,7 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   throwableObjects = [];
+  inventory = 0;
   level = level1;
   canvas;
   ctx;
@@ -31,9 +32,11 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.ENTER) {
+    if (this.keyboard.ENTER && this.inventory > 0) {
+      this.inventory--;
       let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 130);
       this.throwableObjects.push(bottle);
+      this.bottleBar.setPercentage(6.25 * this.inventory);
     }
   }
 
@@ -44,6 +47,14 @@ class World {
     //     this.healthBar.setPercentage(this.character.energy);
     //   }
     // });
+    this.level.bottles.forEach((bottle, index) => {
+      if (this.character.isColliding(bottle)) {
+        console.log("flasche aufgesammelt");
+        this.level.bottles.splice(index, 1);
+        this.inventory++;
+        this.bottleBar.setPercentage(6.25 * this.inventory);
+      }
+    })
   }
 
 
