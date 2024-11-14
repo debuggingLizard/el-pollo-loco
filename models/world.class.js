@@ -1,6 +1,8 @@
 class World {
   character = new Character();
-  statusBar = new StatusBar();
+  bottleBar = new BottleBar();
+  healthBar = new HealthBar();
+  coinBar = new CoinBar();
   throwableObjects = [];
   level = level1;
   canvas;
@@ -39,7 +41,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        this.healthBar.setPercentage(this.character.energy);
       }
     });
   }
@@ -59,7 +61,9 @@ class World {
 
     // Space for fixed Objects
     this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.statusBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.healthBar);
+    this.addToMap(this.coinBar);
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
