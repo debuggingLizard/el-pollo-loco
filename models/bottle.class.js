@@ -1,7 +1,7 @@
 class Bottle extends Collectable {
-    height = 80;
-    width = 60;
-    y = 350;
+    height = 60;
+    width = 30;
+    y = 370;
 
     constructor(x) {
         super();
