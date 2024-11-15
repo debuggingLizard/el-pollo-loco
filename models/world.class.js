@@ -45,9 +45,13 @@ class World {
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         if (this.character.isJumpingOn(enemy)) {
-          console.log("character ist auf enemy gesprungen");
-          this.level.enemies.splice(index, 1);
-        } else {
+          console.log("character ist auf enemy gesprungen und hat ihn besiegt");
+          enemy.energy = 0;
+          console.log(enemy.energy);
+          setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+          }, 1000);
+        } else if (enemy.energy > 0) {
           this.character.hit();
           this.healthBar.setPercentage(this.character.energy);
         }
