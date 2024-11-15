@@ -28,7 +28,8 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
-    }, 200);
+      this.character.updatePreviousY();
+    }, 60);
   }
 
   checkThrowObjects() {
@@ -41,20 +42,32 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
+    this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.healthBar.setPercentage(this.character.energy);
+        if (this.character.isJumpingOn(enemy)) {
+          console.log("character ist auf enemy gesprungen");
+          this.level.enemies.splice(index, 1);
+        } else {
+          this.character.hit();
+          this.healthBar.setPercentage(this.character.energy);
+        }
       }
     });
-    this.level.bottles.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
-        console.log("flasche aufgesammelt");
-        this.level.bottles.splice(index, 1);
-        this.inventory++;
-        this.bottleBar.setPercentage(6.25 * this.inventory);
-      }
-    })
+    // this.level.bottles.forEach((bottle, index) => {
+    //   if (this.character.isColliding(bottle)) {
+    //     console.log("flasche aufgesammelt");
+    //     this.level.bottles.splice(index, 1);
+    //     this.inventory++;
+    //     this.bottleBar.setPercentage(6.25 * this.inventory);
+    //   }
+    // })
+    // this.level.coins.forEach((coin, index) => {
+    //   if (this.character.isColliding(coin)) {
+    //     console.log("Coin gesammelt");
+    //     this.level.coins.splice(index, 1);
+    //     this.coinBar.setPercentage(100);
+    //   }
+    // })
   }
 
 
@@ -67,8 +80,8 @@ class World {
 
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.bottles);
-    this.addObjectsToMap(this.level.coins);
+    // this.addObjectsToMap(this.level.bottles);
+    // this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
 

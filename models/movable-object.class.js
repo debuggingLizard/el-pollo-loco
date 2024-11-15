@@ -5,6 +5,9 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   energy = 100;
   lastHit = 0;
+  invincible = false;
+  invincibilityDuration = 1000;
+  previousY;
 
   constructor() {
     super();
@@ -12,23 +15,40 @@ class MovableObject extends DrawableObject {
 
   isColliding(mo) {
     return (
-      // rechte Seite mit linke Seite von mo vergleichen
       this.x + this.width > mo.x &&
-      // untere Seite mit obere Seite von mo vergleichen
+      this.x < mo.x + mo.width &&
       this.y + this.height > mo.y &&
-      // linke Seite mit linke Seite von mo vergleichen
-      this.x < mo.x &&
-      // obere Seite mit untere Seite von mo vergleichen
       this.y < mo.y + mo.height
     );
   }
 
+  isJumpingOn(mo) {
+    return (
+      this.y + this.height >= mo.y &&
+      this.y + this.height <= mo.y + mo.height &&
+      this.previousY + this.height <= mo.y &&
+      this.x + this.width > mo.x &&
+      this.x < mo.x + mo.width
+    );
+  }
+
+  updatePreviousY() {
+    this.previousY = this.y;
+  }
+
   hit() {
-    this.energy -= 5;
-    if (this.energy <= 0) {
-      this.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+    if (!this.invincible) { //wenn invincible = false
+      this.energy -= 1;
+      console.log((this.energy));
+      if (this.energy <= 0) {
+        this.energy = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+        this.invincible = true;
+        setTimeout(() => {
+          this.invincible = false;
+        }, this.invincibilityDuration);
+      }
     }
   }
 
