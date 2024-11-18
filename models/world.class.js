@@ -4,7 +4,7 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   throwableObjects = [];
-  inventory = 0;
+  inventory = 20; //muss später wieder auf null
   level = level1;
   canvas;
   ctx;
@@ -35,14 +35,17 @@ class World {
   checkThrowObjects() {
     if (this.keyboard.ENTER && this.inventory > 0) {
       this.inventory--;
-      let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 130);
+      let bottle = new ThrowableObject(
+        this.character.x + 60,
+        this.character.y + 130
+      );
       this.throwableObjects.push(bottle);
       this.bottleBar.setPercentage(6.25 * this.inventory);
     }
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy, index) => {
+    this.level.enemies.forEach((enemy) => {
       if (enemy.active && this.character.isColliding(enemy)) {
         if (this.character.isJumpingOn(enemy)) {
           console.log("character ist auf enemy gesprungen und hat ihn besiegt");
@@ -52,12 +55,27 @@ class World {
             enemy.active = false;
           }, 1000);
         } else if (enemy.energy > 0) {
-          this.character.hit();
+          this.character.hit(1);
           this.healthBar.setPercentage(this.character.energy);
         }
       }
     });
-    // this.level.bottles.forEach((bottle, index) => {
+    this.level.boss.forEach((boss) => {
+      if (this.character.isColliding(boss)) {
+        this.character.hit(4);
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    })
+
+    this.throwableObjects.forEach((throwBottle) => {
+      if (this.level.boss[0].isColliding(throwBottle)) {
+        this.level.boss[0].hit(7);
+        
+      }
+    });
+
+
+    // this.level.bottles.forEach((bottle) => {
     //   if (bottle.active && this.character.isColliding(bottle)) {
     //     console.log("flasche aufgesammelt");
     //     bottle.active = false;
@@ -65,7 +83,7 @@ class World {
     //     this.bottleBar.setPercentage(6.25 * this.inventory);
     //   }
     // })
-    // this.level.coins.forEach((coin, index) => {
+    // this.level.coins.forEach((coin) => {
     //   if (coin.active && this.character.isColliding(coin)) {
     //     console.log("Coin gesammelt");
     //     coin.active = false;
@@ -73,8 +91,6 @@ class World {
     //   }
     // })
   }
-
-
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -84,6 +100,7 @@ class World {
 
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.boss);
     // this.addObjectsToMap(this.level.bottles);
     // this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
