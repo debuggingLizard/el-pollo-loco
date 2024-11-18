@@ -71,6 +71,9 @@ class World {
     this.throwableObjects.forEach((throwBottle) => {
       if (this.level.boss[0].isColliding(throwBottle)) {
         this.level.boss[0].hit(7);
+        if (this.level.boss[0].energy < 20) {
+          this.level.boss[0].energy = 0;
+        }
         this.bossBar.setPercentage(this.level.boss[0].energy);
       }
     });
