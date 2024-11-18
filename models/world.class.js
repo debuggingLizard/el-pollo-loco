@@ -43,13 +43,13 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy, index) => {
-      if (this.character.isColliding(enemy)) {
+      if (enemy.active && this.character.isColliding(enemy)) {
         if (this.character.isJumpingOn(enemy)) {
           console.log("character ist auf enemy gesprungen und hat ihn besiegt");
           enemy.energy = 0;
           console.log(enemy.energy);
           setTimeout(() => {
-            this.level.enemies.splice(index, 1);
+            enemy.active = false;
           }, 1000);
         } else if (enemy.energy > 0) {
           this.character.hit();
@@ -58,17 +58,17 @@ class World {
       }
     });
     // this.level.bottles.forEach((bottle, index) => {
-    //   if (this.character.isColliding(bottle)) {
+    //   if (bottle.active && this.character.isColliding(bottle)) {
     //     console.log("flasche aufgesammelt");
-    //     this.level.bottles.splice(index, 1);
+    //     bottle.active = false;
     //     this.inventory++;
     //     this.bottleBar.setPercentage(6.25 * this.inventory);
     //   }
     // })
     // this.level.coins.forEach((coin, index) => {
-    //   if (this.character.isColliding(coin)) {
+    //   if (coin.active && this.character.isColliding(coin)) {
     //     console.log("Coin gesammelt");
-    //     this.level.coins.splice(index, 1);
+    //     coin.active = false;
     //     this.coinBar.setPercentage(100);
     //   }
     // })
@@ -106,7 +106,9 @@ class World {
 
   addObjectsToMap(objects) {
     objects.forEach((element) => {
-      this.addToMap(element);
+      if (element.active) {
+        this.addToMap(element);
+      }
     });
   }
 
