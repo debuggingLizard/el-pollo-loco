@@ -3,6 +3,7 @@ class World {
   bottleBar = new BottleBar();
   healthBar = new HealthBar();
   coinBar = new CoinBar();
+  bossBar = new BossBar();
   throwableObjects = [];
   inventory = 20; //muss später wieder auf null
   level = level1;
@@ -70,7 +71,7 @@ class World {
     this.throwableObjects.forEach((throwBottle) => {
       if (this.level.boss[0].isColliding(throwBottle)) {
         this.level.boss[0].hit(7);
-        
+        this.bossBar.setPercentage(this.level.boss[0].energy);
       }
     });
 
@@ -111,6 +112,7 @@ class World {
     this.addToMap(this.bottleBar);
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
+    this.addToMap(this.bossBar);
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
