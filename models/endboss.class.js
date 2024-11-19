@@ -1,4 +1,5 @@
 class Endboss extends MovableObject {
+  energy = 0; //muss später wieder raus
   height = 400;
   width = 250;
   x = 9750;
