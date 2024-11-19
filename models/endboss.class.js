@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
   width = 250;
   x = 9750;
   y = 60;
+  speed = 1.6;
   status;
   world;
 
@@ -63,7 +64,7 @@ class Endboss extends MovableObject {
   animate() {
     setInterval(() => {
       if (this.status == 'attack') {
-        if (this.world && this.x >= this.world.character.x) {
+        if (this.x >= this.world.character.x) {
           this.moveLeft(false);
         } else {
           this.moveRight(true);
@@ -77,9 +78,12 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.status == 'alert') {
         this.playAnimation(this.IMAGES_ALERT);
+      } else if (this.status == 'attack' && Math.abs(this.x - this.world.character.x) < 180) {
+        this.playAnimation(this.IMAGES_ATTACK);
       } else if (this.status == 'attack') {
-        this.playAnimation(this.IMAGES_ATTACK)
+        this.playAnimation(this.IMAGES_WALKING);
       }
+
     }, 200);
   }
 }
