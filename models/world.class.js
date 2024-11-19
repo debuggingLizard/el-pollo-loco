@@ -11,30 +11,41 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  bossActivated = false;
+  canThrow = true;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.draw();
     this.setWorld();
+    this.draw();
     this.run();
   }
 
   setWorld() {
     this.character.world = this;
+    this.level.boss[0].world = this;
   }
 
   run() {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
+      this.checkBossActivation();
       this.character.updatePreviousY();
     }, 60);
   }
 
+  checkBossActivation() {
+    if (this.character.x > 400 && !this.bossActivated) {
+      this.bossActivated = true;
+      this.level.boss[0].startAlert();
+    }
+  }
+
   checkThrowObjects() {
-    if (this.keyboard.ENTER && this.inventory > 0) {
+    if (this.keyboard.ENTER && this.canThrow && this.inventory > 0) {
       this.inventory--;
       let bottle = new ThrowableObject(
         this.character.x + 60,
@@ -42,6 +53,10 @@ class World {
       );
       this.throwableObjects.push(bottle);
       this.bottleBar.setPercentage(6.25 * this.inventory);
+      this.canThrow = false;
+      setTimeout(() => {
+        this.canThrow = true;
+      }, 1000);
     }
   }
 
@@ -66,7 +81,7 @@ class World {
         this.character.hit(4);
         this.healthBar.setPercentage(this.character.energy);
       }
-    })
+    });
 
     this.throwableObjects.forEach((throwBottle) => {
       if (this.level.boss[0].isColliding(throwBottle)) {
@@ -77,7 +92,6 @@ class World {
         this.bossBar.setPercentage(this.level.boss[0].energy);
       }
     });
-
 
     // this.level.bottles.forEach((bottle) => {
     //   if (bottle.active && this.character.isColliding(bottle)) {
@@ -104,7 +118,7 @@ class World {
 
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.boss);
+    this.addToMap(this.level.boss[0]);
     // this.addObjectsToMap(this.level.bottles);
     // this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
@@ -115,7 +129,9 @@ class World {
     this.addToMap(this.bottleBar);
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
-    this.addToMap(this.bossBar);
+    if (this.bossActivated) {
+      this.addToMap(this.bossBar);
+    }
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
