@@ -51,9 +51,8 @@ const level1 = new Level(
     new Coin(9620, 200),
   ],
   [
-    new Chicken(440),
-    new Chicken(440),
-    new Chicken(440),
+    new Chicken(640),
+    new Chicken(640),
 
     new Chicken(1000),
     new Chicken(1000),
@@ -84,6 +83,38 @@ const level1 = new Level(
     new Chicken(8200),
     new Chicken(8200),
     new Chicken(8200),
+  ],
+  [
+    new Chick(600),
+    new Chick(640),
+    new Chick(640),
+
+    new Chick(1000),
+    new Chick(1000),
+    new Chick(1000),
+
+    new Chick(2440),
+    new Chick(2460),
+    new Chick(2480),
+
+    new Chick(3400),
+    new Chick(3400),
+
+    new Chick(4200),
+    new Chick(4300),
+    new Chick(4200),
+
+    new Chick(5600),
+    new Chick(5600),
+    new Chick(5600),
+
+    new Chick(6400),
+    new Chick(6600),
+    new Chick(6800),
+
+    new Chick(7800),
+    new Chick(7800),
+    new Chick(7800),
   ],
   [new Endboss()],
   [new Cloud()],

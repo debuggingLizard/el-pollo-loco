@@ -40,6 +40,9 @@ class World {
     this.level.enemies.forEach(enemy => {
       enemy.world = this;
     })
+    this.level.enemiesSmall.forEach(enemy => {
+      enemy.world = this;
+    })
   }
 
   run() {
@@ -85,14 +88,29 @@ class World {
     //         enemy.active = false;
     //       }, 1000);
     //     } else if (enemy.energy > 0) {
-    //       this.character.hit(1);
+    //       this.character.hit(2);
     //       this.healthBar.setPercentage(this.character.energy);
     //     }
     //   }
     // });
+        this.level.enemiesSmall.forEach((enemy) => {
+      if (enemy.active && this.character.isColliding(enemy)) {
+        if (this.character.isJumpingOn(enemy)) {
+          console.log("character ist auf enemy gesprungen und hat ihn besiegt");
+          enemy.energy = 0;
+          console.log(enemy.energy);
+          setTimeout(() => {
+            enemy.active = false;
+          }, 1000);
+        } else if (enemy.energy > 0) {
+          this.character.hit(1);
+          this.healthBar.setPercentage(this.character.energy);
+        }
+      }
+    });
     // this.level.boss.forEach((boss) => {
     //   if (this.character.isColliding(boss)) {
-    //     this.character.hit(4);
+    //     this.character.hit(5);
     //     this.healthBar.setPercentage(this.character.energy);
     //   }
     // });
@@ -131,6 +149,7 @@ class World {
 
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.enemiesSmall);
     this.addToMap(this.level.boss[0]);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.coins);

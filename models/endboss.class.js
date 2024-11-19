@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
   animate() {
     setInterval(() => {
       if (this.status == 'attack') {
-        if (this.x >= this.world.character.x) {
+        if (this.world && this.x >= this.world.character.x) {
           this.moveLeft(false);
         } else {
           this.moveRight(true);
