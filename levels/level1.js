@@ -50,7 +50,41 @@ const level1 = new Level(
     new Coin(9560, 200),
     new Coin(9620, 200),
   ],
-  [new Chicken(), new Chicken(), new Chicken()],
+  [
+    new Chicken(440),
+    new Chicken(440),
+    new Chicken(440),
+
+    new Chicken(1000),
+    new Chicken(1000),
+
+    new Chicken(1600),
+
+    new Chicken(2200),
+    new Chicken(2200),
+    new Chicken(2200),
+
+    new Chicken(3000),
+    new Chicken(3000),
+
+    new Chicken(3600),
+
+    new Chicken(4400),
+    new Chicken(4400),
+
+    new Chicken(6200),
+    new Chicken(6200),
+    new Chicken(6200),
+
+    new Chicken(6800),
+    new Chicken(6800),
+
+    new Chicken(7400),
+
+    new Chicken(8200),
+    new Chicken(8200),
+    new Chicken(8200),
+  ],
   [new Endboss()],
   [new Cloud()],
   [

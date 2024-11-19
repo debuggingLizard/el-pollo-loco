@@ -37,6 +37,9 @@ class World {
   setWorld() {
     this.character.world = this;
     this.level.boss[0].world = this;
+    this.level.enemies.forEach(enemy => {
+      enemy.world = this;
+    })
   }
 
   run() {
@@ -110,14 +113,14 @@ class World {
     //     this.bottleBar.setPercentage(6.25 * this.inventory);
     //   }
     // })
-    this.level.coins.forEach((coin) => {
-      if (coin.active && this.character.isColliding(coin)) {
-        console.log("Coin gesammelt");
-        coin.active = false;
-        this.coinCounter++;
-        this.coinBar.setPercentage(6.25 * this.coinCounter);
-      }
-    })
+    // this.level.coins.forEach((coin) => {
+    //   if (coin.active && this.character.isColliding(coin)) {
+    //     console.log("Coin gesammelt");
+    //     coin.active = false;
+    //     this.coinCounter++;
+    //     this.coinBar.setPercentage(6.25 * this.coinCounter);
+    //   }
+    // })
   }
 
   draw() {
@@ -127,7 +130,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addObjectsToMap(this.level.clouds);
-    // this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.level.boss[0]);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.coins);
