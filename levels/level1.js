@@ -21,10 +21,9 @@ const level1 = new Level(
     new Bottle(6040),
 
     new Bottle(6120),
-//hier
     new Bottle(7200),
 
-    new Bottle(9600),
+    new Bottle(9700),
   ],
   [
     new Coin(600, 120),
@@ -45,12 +44,11 @@ const level1 = new Level(
 
     new Coin(5600, 110),
     new Coin(5660, 90),
-//hier
     new Coin(8000, 220),
 
-    new Coin(9000, 200),
-    new Coin(9060, 200),
-    new Coin(9120, 200),
+    new Coin(9500, 200),
+    new Coin(9560, 200),
+    new Coin(9620, 200),
   ],
   [new Chicken(), new Chicken(), new Chicken()],
   [new Endboss()],

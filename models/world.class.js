@@ -5,12 +5,14 @@ class World {
   coinBar = new CoinBar();
   bossBar = new BossBar();
   throwableObjects = [];
-  inventory = 20; //muss später wieder auf null
+  inventory = 0; 
+  coinCounter = 0;
   level = level1;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
+
   bossActivated = false;
   canThrow = true;
 
@@ -41,13 +43,13 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
-      this.checkBossActivation();
+      // this.checkBossActivation();
       this.character.updatePreviousY();
     }, 60);
   }
 
   checkBossActivation() {
-    if (this.character.x > 400 && !this.bossActivated) {
+    if (this.character.x > 9280 && !this.bossActivated) {
       this.bossActivated = true;
       this.level.boss[0].startAlert();
     }
@@ -108,13 +110,14 @@ class World {
     //     this.bottleBar.setPercentage(6.25 * this.inventory);
     //   }
     // })
-    // this.level.coins.forEach((coin) => {
-    //   if (coin.active && this.character.isColliding(coin)) {
-    //     console.log("Coin gesammelt");
-    //     coin.active = false;
-    //     this.coinBar.setPercentage(100);
-    //   }
-    // })
+    this.level.coins.forEach((coin) => {
+      if (coin.active && this.character.isColliding(coin)) {
+        console.log("Coin gesammelt");
+        coin.active = false;
+        this.coinCounter++;
+        this.coinBar.setPercentage(6.25 * this.coinCounter);
+      }
+    })
   }
 
   draw() {
@@ -125,7 +128,7 @@ class World {
 
     this.addObjectsToMap(this.level.clouds);
     // this.addObjectsToMap(this.level.enemies);
-    // this.addToMap(this.level.boss[0]);
+    this.addToMap(this.level.boss[0]);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);

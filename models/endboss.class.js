@@ -1,7 +1,7 @@
 class Endboss extends MovableObject {
   height = 400;
   width = 250;
-  x = 900;
+  x = 9750;
   y = 60;
   status;
   world;
@@ -51,7 +51,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.status = 'alert';
-    this.animate();
+    // this.animate();
   }
 
   startAlert() {
