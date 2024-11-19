@@ -23,6 +23,15 @@ class World {
     this.run();
   }
 
+  drawVerticalLine(x, y, length) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
+    this.ctx.lineTo(x, y + length);
+    this.ctx.strokeStyle = "red";
+    this.ctx.lineWidth = 2;
+    this.ctx.stroke();
+  }
+
   setWorld() {
     this.character.world = this;
     this.level.boss[0].world = this;
@@ -82,7 +91,6 @@ class World {
     //     this.healthBar.setPercentage(this.character.energy);
     //   }
     // });
-
     // this.throwableObjects.forEach((throwBottle) => {
     //   if (this.level.boss[0].isColliding(throwBottle)) {
     //     this.level.boss[0].hit(7);
@@ -92,7 +100,6 @@ class World {
     //     this.bossBar.setPercentage(this.level.boss[0].energy);
     //   }
     // });
-
     // this.level.bottles.forEach((bottle) => {
     //   if (bottle.active && this.character.isColliding(bottle)) {
     //     console.log("flasche aufgesammelt");
@@ -120,7 +127,7 @@ class World {
     // this.addObjectsToMap(this.level.enemies);
     // this.addToMap(this.level.boss[0]);
     this.addObjectsToMap(this.level.bottles);
-    // this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
 
@@ -133,6 +140,8 @@ class World {
       this.addToMap(this.bossBar);
     }
     this.ctx.translate(this.camera_x, 0);
+
+    this.drawVerticalLine(10000, 0, this.canvas.height);
 
     this.ctx.translate(-this.camera_x, 0);
 
