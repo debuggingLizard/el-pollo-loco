@@ -61,37 +61,37 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          console.log("character ist auf enemy gesprungen und hat ihn besiegt");
-          enemy.energy = 0;
-          console.log(enemy.energy);
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(1);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
-    this.level.boss.forEach((boss) => {
-      if (this.character.isColliding(boss)) {
-        this.character.hit(4);
-        this.healthBar.setPercentage(this.character.energy);
-      }
-    });
+    // this.level.enemies.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       console.log("character ist auf enemy gesprungen und hat ihn besiegt");
+    //       enemy.energy = 0;
+    //       console.log(enemy.energy);
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(1);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
+    // this.level.boss.forEach((boss) => {
+    //   if (this.character.isColliding(boss)) {
+    //     this.character.hit(4);
+    //     this.healthBar.setPercentage(this.character.energy);
+    //   }
+    // });
 
-    this.throwableObjects.forEach((throwBottle) => {
-      if (this.level.boss[0].isColliding(throwBottle)) {
-        this.level.boss[0].hit(7);
-        if (this.level.boss[0].energy < 20) {
-          this.level.boss[0].energy = 0;
-        }
-        this.bossBar.setPercentage(this.level.boss[0].energy);
-      }
-    });
+    // this.throwableObjects.forEach((throwBottle) => {
+    //   if (this.level.boss[0].isColliding(throwBottle)) {
+    //     this.level.boss[0].hit(7);
+    //     if (this.level.boss[0].energy < 20) {
+    //       this.level.boss[0].energy = 0;
+    //     }
+    //     this.bossBar.setPercentage(this.level.boss[0].energy);
+    //   }
+    // });
 
     // this.level.bottles.forEach((bottle) => {
     //   if (bottle.active && this.character.isColliding(bottle)) {
@@ -117,9 +117,9 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.enemies);
-    this.addToMap(this.level.boss[0]);
-    // this.addObjectsToMap(this.level.bottles);
+    // this.addObjectsToMap(this.level.enemies);
+    // this.addToMap(this.level.boss[0]);
+    this.addObjectsToMap(this.level.bottles);
     // this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
