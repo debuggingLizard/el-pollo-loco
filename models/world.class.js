@@ -6,7 +6,7 @@ class World {
   bossBar = new BossBar();
   winScreen = new Endscreen("./img/9_intro_outro_screens/win/won_2.png", 460, 460, 10);
   loseScreen = new Endscreen("./img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
-  gameOver = false; //muss später auf false gesetzt werden
+  gameOver = false; 
   throwableObjects = [];
   inventory = 16;
   coinCounter = 0;
@@ -15,7 +15,6 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-
   bossActivated = false;
   canThrow = true;
 
@@ -74,36 +73,32 @@ class World {
   }
 
   checkCollisions() {
-    // this.level.enemies.forEach((enemy) => {
-    //   if (enemy.active && this.character.isColliding(enemy)) {
-    //     if (this.character.isJumpingOn(enemy)) {
-    //       console.log("character ist auf enemy gesprungen und hat ihn besiegt");
-    //       enemy.energy = 0;
-    //       console.log(enemy.energy);
-    //       setTimeout(() => {
-    //         enemy.active = false;
-    //       }, 1000);
-    //     } else if (enemy.energy > 0) {
-    //       this.character.hit(2);
-    //       this.healthBar.setPercentage(this.character.energy);
-    //     }
-    //   }
-    // });
-    //     this.level.enemiesSmall.forEach((enemy) => {
-    //   if (enemy.active && this.character.isColliding(enemy)) {
-    //     if (this.character.isJumpingOn(enemy)) {
-    //       console.log("character ist auf enemy gesprungen und hat ihn besiegt");
-    //       enemy.energy = 0;
-    //       console.log(enemy.energy);
-    //       setTimeout(() => {
-    //         enemy.active = false;
-    //       }, 1000);
-    //     } else if (enemy.energy > 0) {
-    //       this.character.hit(1);
-    //       this.healthBar.setPercentage(this.character.energy);
-    //     }
-    //   }
-    // });
+    this.level.enemies.forEach((enemy) => {
+      if (enemy.active && this.character.isColliding(enemy)) {
+        if (this.character.isJumpingOn(enemy)) {
+          enemy.energy = 0;
+          setTimeout(() => {
+            enemy.active = false;
+          }, 1000);
+        } else if (enemy.energy > 0) {
+          this.character.hit(2);
+          this.healthBar.setPercentage(this.character.energy);
+        }
+      }
+    });
+        this.level.enemiesSmall.forEach((enemy) => {
+      if (enemy.active && this.character.isColliding(enemy)) {
+        if (this.character.isJumpingOn(enemy)) {
+          enemy.energy = 0;
+          setTimeout(() => {
+            enemy.active = false;
+          }, 1000);
+        } else if (enemy.energy > 0) {
+          this.character.hit(1);
+          this.healthBar.setPercentage(this.character.energy);
+        }
+      }
+    });
     this.level.boss.forEach((boss) => {
       if (this.character.isColliding(boss)) {
         this.character.hit(5);
@@ -115,27 +110,24 @@ class World {
         this.level.boss[0].hit(7);
         if (this.level.boss[0].energy < 20) {
           this.level.boss[0].energy = 0;
-          // this.gameOver = true;
         }
         this.bossBar.setPercentage(this.level.boss[0].energy);
       }
     });
-    // this.level.bottles.forEach((bottle) => {
-    //   if (bottle.active && this.character.isColliding(bottle)) {
-    //     console.log("flasche aufgesammelt");
-    //     bottle.active = false;
-    //     this.inventory++;
-    //     this.bottleBar.setPercentage(6.25 * this.inventory);
-    //   }
-    // })
-    // this.level.coins.forEach((coin) => {
-    //   if (coin.active && this.character.isColliding(coin)) {
-    //     console.log("Coin gesammelt");
-    //     coin.active = false;
-    //     this.coinCounter++;
-    //     this.coinBar.setPercentage(6.25 * this.coinCounter);
-    //   }
-    // })
+    this.level.bottles.forEach((bottle) => {
+      if (bottle.active && this.character.isColliding(bottle)) {
+        bottle.active = false;
+        this.inventory++;
+        this.bottleBar.setPercentage(6.25 * this.inventory);
+      }
+    })
+    this.level.coins.forEach((coin) => {
+      if (coin.active && this.character.isColliding(coin)) {
+        coin.active = false;
+        this.coinCounter++;
+        this.coinBar.setPercentage(6.25 * this.coinCounter);
+      }
+    })
   }
 
   draw() {
@@ -170,7 +162,6 @@ class World {
         this.addToMap(this.winScreen);
       }
       if (this.gameOver && this.character.energy <= 0) {
-        // this.loseScreen.x = this.camera_x;
         this.addToMap(this.loseScreen);
       }
       this.ctx.translate(this.camera_x, 0);
@@ -196,7 +187,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }

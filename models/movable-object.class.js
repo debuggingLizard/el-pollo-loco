@@ -37,9 +37,8 @@ class MovableObject extends DrawableObject {
   }
 
   hit(damage) {
-    if (!this.invincible) { //wenn invincible = false
+    if (!this.invincible) { 
       this.energy -= damage;
-      console.log("Leben vom Boss ist: ", this.energy);
       if (this.energy <= 0) {
         this.energy = 0;
       } else {

@@ -1,13 +1,32 @@
+let overlay;
+let startScreen;
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let startImages = [
+  "./img/9_intro_outro_screens/start/startscreen_1.png",
+  "./img/9_intro_outro_screens/start/startscreen_2.png"
+]
+let currentImageIndex = 0;
 
 function init() {
+  overlay = document.getElementById("overlay");
   canvas = document.getElementById("canvas");
-  world = new World(canvas, keyboard);
 
-  console.log("my character is: ", world.character); //oder world['character'] = ist beides das gleiche
-  console.log("my enemies are: ", world.level.enemies);
+  animateStartScreen();
+}
+
+function animateStartScreen() {
+  startScreen = document.getElementById("startScreen");
+  setInterval(() => {
+    currentImageIndex = (currentImageIndex + 1) % startImages.length;
+    startScreen.src = startImages[currentImageIndex];
+    }, 1000);
+}
+
+function startGame() {
+  overlay.style.display = "none";
+  world = new World(canvas, keyboard);
 }
 
 window.addEventListener("keydown", (e) => {

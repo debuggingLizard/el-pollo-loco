@@ -35,7 +35,22 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="game-container">
+        <div id="overlay" class="overlay">
+            <button onclick="startGame()">Start Game</button>
+            <img id="startScreen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+        </div>
+        <canvas id="canvas" width="720" height="480">
+        </canvas>
+    </div>
+
+    <div class="game-explain">
+        <span>W - Sprung</span>
+        <span>A - nach links</span>
+        <span>D - nach rechts</span>
+        <span>ENTER - Flasche werfen</span>
+    </div>
+
 
 </body>
 
