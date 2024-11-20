@@ -90,7 +90,7 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) {
+    if (this instanceof ThrowableObject || this.isDead()) {
       return true;
     } else {
       return this.y < 110;

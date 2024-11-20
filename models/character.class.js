@@ -1,8 +1,8 @@
 class Character extends MovableObject {
-    //später wieder raus
+  //dd
+  x = 8600;
   energy = 10;
-  x = 8600; 
-  //später wieder raus
+  //dd 
   height = 320;
   width = 150;
   y = 110;

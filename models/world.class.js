@@ -6,7 +6,7 @@ class World {
   bossBar = new BossBar();
   gameOver = false; 
   throwableObjects = [];
-  inventory = 6; //später wieder auf 0;
+  inventory = 0;
   coinCounter = 0;
   level = level1;
   canvas;

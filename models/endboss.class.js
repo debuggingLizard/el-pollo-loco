@@ -1,12 +1,9 @@
 class Endboss extends MovableObject {
-      //später wieder raus
-      energy = 25;
-      //später wieder raus
   height = 400;
   width = 250;
   x = 9750;
   y = 60;
-  speed = 1.6;
+  speed = 1.8;
   status;
   world;
 
