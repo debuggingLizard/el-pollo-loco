@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'Maiden Orange';
+    src: url(./fonts/Maiden_Orange/MaidenOrange-Regular.ttf);
+}
+
 * {
     font-family:Arial, Helvetica, sans-serif;
 }
+
+
 
 body {
     display: flex;
@@ -10,6 +17,13 @@ body {
     color: white;
     height: 100vh;
     margin: 0;
+}
+
+h1 {
+    font-family: 'Maiden Orange';
+    color: #ffde00;
+    font-size: 48px;
+    margin-bottom: 12px;
 }
 
 .game-container {
@@ -31,11 +45,30 @@ canvas {
 }
 
 .overlay button {
+    font-family: 'Maiden Orange';
+    font-size: 32px;
+    border: unset;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0px 0px #9a3a17;
     position: absolute;
-    top: 60px;
-    padding: 16px;
+    top: 48px;
+    padding: 8px;
     cursor: pointer;
     z-index: 100;
+    background-color: #ffde00;
+    color: #4d1f16;
+}
+
+.overlay button:hover {
+    transition: 0.4s;
+    background-color: #ffa500;
+}
+
+.overlay button:active {
+    box-shadow: inset 4px 4px 0px 0px #9a3a17;
+    border-style: none inset inset none;
+    border-width: 1px;
+    border-color: #4d1f16;
 }
 
 .start-screen {

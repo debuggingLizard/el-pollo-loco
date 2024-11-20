@@ -4,6 +4,7 @@ let startScreen;
 let startButton;
 let winScreen;
 let loseScreen;
+let restartButton;
 let world;
 let keyboard = new Keyboard();
 let startImages = [
@@ -20,6 +21,7 @@ function init() {
   startButton = document.getElementById("start-button");
   winScreen = document.getElementById("win-screen");
   loseScreen = document.getElementById("lose-screen");
+  restartButton = document.getElementById("restart-button");
 
   animateStartScreen();
 }
@@ -38,7 +40,7 @@ function startGame() {
   overlay.style.display = "none";
   startScreen.style.display = "none";
   startButton.style.display = "none";
-  world = new World(canvas, keyboard, overlay, winScreen, loseScreen);
+  world = new World(canvas, keyboard, overlay, winScreen, loseScreen, restartButton);
 }
 
 window.addEventListener("keydown", (e) => {

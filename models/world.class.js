@@ -18,15 +18,17 @@ class World {
   overlay;
   winScreen;
   loseScreen;
+  restartButton;
 
 
-  constructor(canvas, keyboard, overlay, winScreen, loseScreen) {
+  constructor(canvas, keyboard, overlay, winScreen, loseScreen, restartButton) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.overlay = overlay;
     this.winScreen = winScreen;
     this.loseScreen = loseScreen;
+    this.restartButton = restartButton;
     this.setWorld();
     this.draw();
     this.run();
@@ -164,6 +166,7 @@ class World {
       if (this.gameOver && this.level.boss[0].energy <= 0) {
         this.overlay.style = "";
         this.winScreen.style = "";
+        this.restartButton.style = "";
 
         // this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
         // this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
@@ -172,6 +175,7 @@ class World {
       if (this.gameOver && this.character.energy <= 0) {
         this.overlay.style = "";
         this.loseScreen.style = "";
+        this.restartButton.style = "";
 
         // this.addToMap(this.loseScreen);
       }
