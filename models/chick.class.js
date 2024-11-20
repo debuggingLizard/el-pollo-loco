@@ -5,9 +5,9 @@ class Chick extends MovableObject {
   world;
 
   IMAGES_WALKING = [
-    "../img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
-    "../img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
-    "../img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
+    "./img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "./img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "./img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
 
   constructor(start) {
@@ -30,7 +30,7 @@ class Chick extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.loadImage(
-          "../img/3_enemies_chicken/chicken_small/2_dead/dead.png"
+          "./img/3_enemies_chicken/chicken_small/2_dead/dead.png"
         );
       } else {
         this.playAnimation(this.IMAGES_WALKING);

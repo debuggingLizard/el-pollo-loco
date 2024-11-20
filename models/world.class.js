@@ -4,8 +4,8 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bossBar = new BossBar();
-  winScreen = new Endscreen("../img/9_intro_outro_screens/win/won_2.png", 460, 460, 10);
-  loseScreen = new Endscreen("../img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
+  winScreen = new Endscreen("./img/9_intro_outro_screens/win/won_2.png", 460, 460, 10);
+  loseScreen = new Endscreen("./img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
   gameOver = false; //muss später auf false gesetzt werden
   throwableObjects = [];
   inventory = 16;
