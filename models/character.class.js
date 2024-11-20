@@ -3,6 +3,30 @@ class Character extends MovableObject {
   width = 150;
   y = 110;
   speed = 10;
+  IMAGES_IDLE = [
+    "./img/2_character_pepe/1_idle/idle/I-1.png",
+    "./img/2_character_pepe/1_idle/idle/I-2.png",
+    "./img/2_character_pepe/1_idle/idle/I-3.png",
+    "./img/2_character_pepe/1_idle/idle/I-4.png",
+    "./img/2_character_pepe/1_idle/idle/I-5.png",
+    "./img/2_character_pepe/1_idle/idle/I-6.png",
+    "./img/2_character_pepe/1_idle/idle/I-7.png",
+    "./img/2_character_pepe/1_idle/idle/I-8.png",
+    "./img/2_character_pepe/1_idle/idle/I-9.png",
+    "./img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+  IMAGES_LONG_IDLE = [
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
   IMAGES_WALKING = [
     "./img/2_character_pepe/2_walk/W-21.png",
     "./img/2_character_pepe/2_walk/W-22.png",
@@ -38,11 +62,17 @@ class Character extends MovableObject {
   ];
   world;
   walking_sound = new Audio("./audio/running.mp3");
+  idleFrameCount = 0;
+  noMovementTime = 2000;
+  idleDelay = 2000;
+  longIdleDelay = 10000;
 
   constructor() {
     super();
     this.previousY = this.y;
-    this.loadImage("./img/2_character_pepe/2_walk/W-21.png");
+    this.loadImage(this.IMAGES_IDLE[0]);
+    this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_LONG_IDLE);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -53,28 +83,41 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
+      let moved = false;
       if (!this.world.gameOver) {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+        if (
+          this.world.keyboard.RIGHT &&
+          this.x < this.world.level.level_end_x
+        ) {
           this.moveRight(false);
           if (this.walking_sound.paused) {
             this.walking_sound.currentTime = 0;
             this.walking_sound.play();
           }
+          moved = true;
         } else if (this.world.keyboard.LEFT && this.x > 0) {
           this.moveLeft(true);
           if (this.walking_sound.paused) {
             this.walking_sound.currentTime = 0;
             this.walking_sound.play();
           }
+          moved = true;
         } else {
           this.walking_sound.pause();
           this.walking_sound.currentTime = 0;
         }
-  
+
         if (this.world.keyboard.UP && this.y == 110) {
           this.jump();
+          moved = true;
         }
         this.world.camera_x = -this.x + 80;
+      }
+
+      if (moved) {
+        this.noMovementTime = 0;
+      } else {
+        this.noMovementTime += 1000 / 60;
       }
     }, 1000 / 60);
     setInterval(() => {
@@ -84,19 +127,21 @@ class Character extends MovableObject {
           this.world.gameOver = true;
           return;
         }, 1000);
-
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-      } else {
-        if (
-          this.y == 110 &&
-          (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
-        ) {
-          this.playAnimation(this.IMAGES_WALKING);
+      } else if (
+        this.y == 110 &&
+        (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+      ) {
+        this.playAnimation(this.IMAGES_WALKING);
+      }  else if (this.noMovementTime >= this.longIdleDelay) {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+      } else if (this.noMovementTime >= this.idleDelay) {
+          this.playAnimation(this.IMAGES_IDLE, this.idleFrameCount, 2);
+          this.idleFrameCount++;
         }
-      }
-    }, 90);
+    }, 160);
   }
 }

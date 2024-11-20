@@ -21,7 +21,7 @@ function animateStartScreen() {
   setInterval(() => {
     currentImageIndex = (currentImageIndex + 1) % startImages.length;
     startScreen.src = startImages[currentImageIndex];
-    }, 1000);
+    }, 1200);
 }
 
 function startGame() {

@@ -8,7 +8,7 @@ class World {
   loseScreen = new Endscreen("./img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
   gameOver = false; 
   throwableObjects = [];
-  inventory = 16;
+  inventory = 0;
   coinCounter = 0;
   level = level1;
   canvas;
@@ -41,7 +41,7 @@ class World {
   run() {
     setInterval(() => {
       if (!this.gameOver) {
-        this.checkCollisions();
+        // this.checkCollisions();
         this.checkThrowObjects();
         this.checkBossActivation();
         this.character.updatePreviousY();
