@@ -4,11 +4,9 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bossBar = new BossBar();
-  winScreen = new Endscreen("./img/9_intro_outro_screens/win/won_2.png", 460, 460, 10);
-  loseScreen = new Endscreen("./img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
   gameOver = false; 
   throwableObjects = [];
-  inventory = 0;
+  inventory = 6; //später wieder auf 0;
   coinCounter = 0;
   level = level1;
   canvas;
@@ -17,11 +15,18 @@ class World {
   camera_x = 0;
   bossActivated = false;
   canThrow = true;
+  overlay;
+  winScreen;
+  loseScreen;
 
-  constructor(canvas, keyboard) {
+
+  constructor(canvas, keyboard, overlay, winScreen, loseScreen) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.overlay = overlay;
+    this.winScreen = winScreen;
+    this.loseScreen = loseScreen;
     this.setWorld();
     this.draw();
     this.run();
@@ -41,7 +46,7 @@ class World {
   run() {
     setInterval(() => {
       if (!this.gameOver) {
-        // this.checkCollisions();
+        this.checkCollisions();
         this.checkThrowObjects();
         this.checkBossActivation();
         this.character.updatePreviousY();
@@ -73,32 +78,32 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(2);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
-        this.level.enemiesSmall.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(1);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
+    // this.level.enemies.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(2);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
+    //     this.level.enemiesSmall.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(1);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
     this.level.boss.forEach((boss) => {
       if (this.character.isColliding(boss)) {
         this.character.hit(5);
@@ -156,13 +161,19 @@ class World {
           this.addToMap(this.bossBar);
         }
       }
-      if (this.gameOver && this.level.boss[0].energy == 0) {
-        this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
-        this.addToMap(this.winScreen);
+      if (this.gameOver && this.level.boss[0].energy <= 0) {
+        this.overlay.style = "";
+        this.winScreen.style = "";
+
+        // this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        // this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
+        // this.addToMap(this.winScreen);
       }
       if (this.gameOver && this.character.energy <= 0) {
-        this.addToMap(this.loseScreen);
+        this.overlay.style = "";
+        this.loseScreen.style = "";
+
+        // this.addToMap(this.loseScreen);
       }
       this.ctx.translate(this.camera_x, 0);
     

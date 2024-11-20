@@ -1,6 +1,9 @@
 let overlay;
-let startScreen;
 let canvas;
+let startScreen;
+let startButton;
+let winScreen;
+let loseScreen;
 let world;
 let keyboard = new Keyboard();
 let startImages = [
@@ -8,25 +11,34 @@ let startImages = [
   "./img/9_intro_outro_screens/start/startscreen_2.png"
 ]
 let currentImageIndex = 0;
+let gameStarted = false;
 
 function init() {
   overlay = document.getElementById("overlay");
   canvas = document.getElementById("canvas");
+  startScreen = document.getElementById("start-screen");
+  startButton = document.getElementById("start-button");
+  winScreen = document.getElementById("win-screen");
+  loseScreen = document.getElementById("lose-screen");
 
   animateStartScreen();
 }
 
 function animateStartScreen() {
-  startScreen = document.getElementById("startScreen");
   setInterval(() => {
-    currentImageIndex = (currentImageIndex + 1) % startImages.length;
-    startScreen.src = startImages[currentImageIndex];
+    if (!gameStarted) {
+      currentImageIndex = (currentImageIndex + 1) % startImages.length;
+      startScreen.src = startImages[currentImageIndex];
+    }
     }, 1200);
 }
 
 function startGame() {
+  gameStarted = true;
   overlay.style.display = "none";
-  world = new World(canvas, keyboard);
+  startScreen.style.display = "none";
+  startButton.style.display = "none";
+  world = new World(canvas, keyboard, overlay, winScreen, loseScreen);
 }
 
 window.addEventListener("keydown", (e) => {

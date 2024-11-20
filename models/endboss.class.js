@@ -1,4 +1,7 @@
 class Endboss extends MovableObject {
+      //später wieder raus
+      energy = 25;
+      //später wieder raus
   height = 400;
   width = 250;
   x = 9750;
@@ -63,7 +66,7 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.status == 'attack') {
+      if (this.status == 'attack' && !this.isDead()) {
         if (this.x >= this.world.character.x) {
           this.moveLeft(false);
         } else {

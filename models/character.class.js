@@ -1,4 +1,8 @@
 class Character extends MovableObject {
+    //später wieder raus
+  energy = 10;
+  x = 8600; 
+  //später wieder raus
   height = 320;
   width = 150;
   y = 110;
@@ -123,6 +127,7 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        this.world.level.boss[0].status = 'alert';
         setTimeout(() => {
           this.world.gameOver = true;
           return;

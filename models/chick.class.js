@@ -21,10 +21,12 @@ class Chick extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.world && this.x >= this.world.character.x) {
-        this.moveLeft(false);
-      } else {
-        this.moveRight(true);
+      if (!this.isDead()) {
+        if (this.world && this.x >= this.world.character.x) {
+          this.moveLeft(false);
+        } else {
+          this.moveRight(true);
+        }
       }
     }, 1000 / 60);
     setInterval(() => {
