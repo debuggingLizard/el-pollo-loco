@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {
   }
 
   hit(damage) {
-    if (!this.invincible) { 
+    if (!this.invincible) {
       this.energy -= damage;
       if (this.energy <= 0) {
         this.energy = 0;

@@ -31,9 +31,7 @@ class Chick extends MovableObject {
     }, 1000 / 60);
     setInterval(() => {
       if (this.isDead()) {
-        this.loadImage(
-          "./img/3_enemies_chicken/chicken_small/2_dead/dead.png"
-        );
+        this.loadImage("./img/3_enemies_chicken/chicken_small/2_dead/dead.png");
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }

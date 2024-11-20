@@ -1,8 +1,4 @@
 class Character extends MovableObject {
-  //dd
-  x = 8600;
-  energy = 10;
-  //dd 
   height = 320;
   width = 150;
   y = 110;
@@ -127,7 +123,7 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        this.world.level.boss[0].status = 'alert';
+        this.world.level.boss[0].status = "alert";
         setTimeout(() => {
           this.world.gameOver = true;
           return;
@@ -141,12 +137,12 @@ class Character extends MovableObject {
         (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
       ) {
         this.playAnimation(this.IMAGES_WALKING);
-      }  else if (this.noMovementTime >= this.longIdleDelay) {
+      } else if (this.noMovementTime >= this.longIdleDelay) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
       } else if (this.noMovementTime >= this.idleDelay) {
-          this.playAnimation(this.IMAGES_IDLE, this.idleFrameCount, 2);
-          this.idleFrameCount++;
-        }
+        this.playAnimation(this.IMAGES_IDLE, this.idleFrameCount, 2);
+        this.idleFrameCount++;
+      }
     }, 160);
   }
 }

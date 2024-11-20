@@ -9,7 +9,7 @@ class DrawableObject {
   active = true;
 
   loadImage(path) {
-    this.img = new Image(); 
+    this.img = new Image();
     this.img.src = path;
   }
 
