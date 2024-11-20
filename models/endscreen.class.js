@@ -1,11 +1,14 @@
 class Endscreen extends DrawableObject {
-    width = 460;
-    height = 460;
+    width;
+    height;
     y = 10;
     // x = 0; 
 
-    constructor(path) {
+    constructor(path, width, height, y) {
         super();
         this.loadImage(path);
+        this.width = width;
+        this.height = height;
+        this.y = y;
     }
 }

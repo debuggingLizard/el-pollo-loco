@@ -2,7 +2,8 @@ class Character extends MovableObject {
   height = 320;
   width = 150;
   y = 110;
-  // x = 8600; //muss später wieder raus
+  x = 8600; //muss später wieder raus
+  energy = 8; //muss später wieder raus
   speed = 10;
   IMAGES_WALKING = [
     "../img/2_character_pepe/2_walk/W-21.png",
@@ -81,9 +82,11 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        console.log("Character died, show game over screen");
-        
-        return;
+        setTimeout(() => {
+          this.world.gameOver = true;
+          return;
+        }, 1000);
+
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {

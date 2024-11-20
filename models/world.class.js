@@ -4,11 +4,11 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bossBar = new BossBar();
-  winScreen = new Endscreen("../img/9_intro_outro_screens/win/won_2.png");
-  loseScreen = new Endscreen("../img/9_intro_outro_screens/game_over/oh no you lost!.png");
-  gameOver = true; //muss später auf false gesetzt werden
+  winScreen = new Endscreen("../img/9_intro_outro_screens/win/won_2.png", 460, 460, 10);
+  loseScreen = new Endscreen("../img/9_intro_outro_screens/game_over/oh no you lost!.png", 720, 480, 0);
+  gameOver = false; //muss später auf false gesetzt werden
   throwableObjects = [];
-  inventory = 0;
+  inventory = 16;
   coinCounter = 0;
   level = level1;
   canvas;
@@ -104,18 +104,18 @@ class World {
     //     }
     //   }
     // });
-    // this.level.boss.forEach((boss) => {
-    //   if (this.character.isColliding(boss)) {
-    //     this.character.hit(5);
-    //     this.healthBar.setPercentage(this.character.energy);
-    //   }
-    // });
+    this.level.boss.forEach((boss) => {
+      if (this.character.isColliding(boss)) {
+        this.character.hit(5);
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    });
     this.throwableObjects.forEach((throwBottle) => {
       if (this.level.boss[0].isColliding(throwBottle)) {
         this.level.boss[0].hit(7);
         if (this.level.boss[0].energy < 20) {
           this.level.boss[0].energy = 0;
-          this.gameOver = true;
+          // this.gameOver = true;
         }
         this.bossBar.setPercentage(this.level.boss[0].energy);
       }
@@ -144,7 +144,7 @@ class World {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
 
-    if (this.level.boss[0].energy > 0) {
+    if (!this.gameOver) {
       this.addObjectsToMap(this.level.clouds);
       this.addObjectsToMap(this.level.enemies);
       this.addObjectsToMap(this.level.enemiesSmall);
@@ -156,7 +156,7 @@ class World {
     }
       // Space for fixed Objects
       this.ctx.translate(-this.camera_x, 0);
-      if (this.level.boss[0].energy > 0) {
+      if (!this.gameOver) {
         this.addToMap(this.bottleBar);
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
@@ -164,10 +164,14 @@ class World {
           this.addToMap(this.bossBar);
         }
       }
-      if (this.level.boss[0].energy == 0) {
+      if (this.gameOver && this.level.boss[0].energy == 0) {
         this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
         this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
         this.addToMap(this.winScreen);
+      }
+      if (this.gameOver && this.character.energy <= 0) {
+        // this.loseScreen.x = this.camera_x;
+        this.addToMap(this.loseScreen);
       }
       this.ctx.translate(this.camera_x, 0);
     

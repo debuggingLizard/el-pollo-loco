@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-  energy = 0; //muss später wieder raus
+  energy = 25; //muss später wieder raus
   height = 400;
   width = 250;
   x = 9750;
@@ -53,7 +53,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.status = 'alert';
-    // this.animate();
+    this.animate();
   }
 
   startAlert() {
@@ -63,18 +63,22 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (this.status == 'attack') {
-        if (this.x >= this.world.character.x) {
-          this.moveLeft(false);
-        } else {
-          this.moveRight(true);
-        }
-      }
-    }, 1000 / 60);
+    // setInterval(() => {
+    //   if (this.status == 'attack') {
+    //     if (this.x >= this.world.character.x) {
+    //       this.moveLeft(false);
+    //     } else {
+    //       this.moveRight(true);
+    //     }
+    //   }
+    // }, 1000 / 60);
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+          this.world.gameOver = true;
+        }, 1000);
+        return;
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.status == 'alert') {
