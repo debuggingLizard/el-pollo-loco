@@ -139,7 +139,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       } else if (this.noMovementTime >= this.longIdleDelay) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-      } else if (this.noMovementTime >= this.idleDelay) {
+      } else  {
         this.playAnimation(this.IMAGES_IDLE, this.idleFrameCount, 2);
         this.idleFrameCount++;
       }

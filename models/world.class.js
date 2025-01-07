@@ -47,7 +47,7 @@ class World {
   run() {
     setInterval(() => {
       if (!this.gameOver) {
-        this.checkCollisions();
+        // this.checkCollisions();
         this.checkThrowObjects();
         this.checkBossActivation();
         this.character.updatePreviousY();
