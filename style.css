@@ -16,35 +16,53 @@ body {
     height: 100vh;
     margin: 0;
     overflow-y: auto;
-    --sb-track-color: #4d1f16;
-    --sb-thumb-color: #ff9d00;
-    --sb-thumb-hover: #ffde00;
-    --sb-size: 8px;
 }
 
 ::-webkit-scrollbar {
-    width: var(--sb-size)
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
+    background: #4d1f16;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
+    background: #ff9d00;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--sb-thumb-hover);
+    background: #ffde00;
     cursor: pointer;
+}
+
+nav {
+    width: 100%;
+    max-width: 1440px;
+}
+
+nav>div {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 12px;
+}
+
+nav a {
+    color: #ffa500;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+nav a:hover {
+    color: #ffde00;
+    transition: 125ms;
 }
 
 h1 {
     font-family: 'Maiden Orange';
     color: #ffde00;
     font-size: 48px;
-    margin-bottom: 12px;
+    margin: 0 0 12px;
 }
 
 .game-container {
