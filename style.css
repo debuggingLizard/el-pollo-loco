@@ -15,6 +15,29 @@ body {
     color: white;
     height: 100vh;
     margin: 0;
+    overflow-y: auto;
+    --sb-track-color: #4d1f16;
+    --sb-thumb-color: #ff9d00;
+    --sb-thumb-hover: #ffde00;
+    --sb-size: 8px;
+}
+
+::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sb-thumb-hover);
+    cursor: pointer;
 }
 
 h1 {
@@ -76,7 +99,48 @@ canvas {
 }
 
 .game-explain {
+    margin-top: 16px;
     display: flex;
     width: 720px;
+    gap: 24px;
+}
+
+.game-explain .left {
+    display: flex;
     flex-direction: column;
+    gap: 12px;
+
+}
+
+.game-explain .left>div,
+.game-explain .left .move>div,
+.game-explain .right>div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.game-explain .left .move {
+    gap: 12px;
+}
+
+.game-explain .key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 24px;
+    font-family: 'Maiden Orange';
+    font-size: 24px;
+    border: unset;
+    border-radius: 4px;
+    box-shadow: 2px 2px 0px 0px #9a3a17;
+    padding: 0 4px;
+    background-color: #ffde00;
+    color: #4d1f16;
+}
+
+.game-explain .text {
+    color: #ffde00;
+    font-size: 20px;
 }
