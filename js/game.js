@@ -50,6 +50,24 @@ function startGame() {
   );
 }
 
+function restartGame() {
+  level1 = {};
+  createNewLevel();
+  world = {};
+  overlay.style.display = "none";
+  winScreen.style.display = "none";
+  loseScreen.style.display = "none";
+  restartButton.style.display = "none";
+  world = new World (
+    canvas,
+    keyboard,
+    overlay,
+    winScreen,
+    loseScreen,
+    restartButton
+  )
+}
+
 window.addEventListener("keydown", (e) => {
   if (e.key == "d" || e.key == "D") {
     keyboard.RIGHT = true;
