@@ -21,6 +21,7 @@ function init() {
   startButton = document.getElementById("start-button");
   winScreen = document.getElementById("win-screen");
   loseScreen = document.getElementById("lose-screen");
+  menuButton = document.getElementById("menu-button");
   restartButton = document.getElementById("restart-button");
 
   animateStartScreen();
@@ -46,11 +47,26 @@ function startGame() {
     overlay,
     winScreen,
     loseScreen,
-    restartButton
+    restartButton,
+    menuButton
   );
 }
 
+function returnToMenu() {
+  gameStarted = false;
+  level1 = {};
+  createNewLevel();
+  world = {};
+  startScreen.style.display = "";
+  startButton.style.display = "";
+  winScreen.style.display = "none";
+  loseScreen.style.display = "none";
+  restartButton.style.display = "none";
+  menuButton.style.display = "none";
+}
+
 function restartGame() {
+  gameStarted = true;
   level1 = {};
   createNewLevel();
   world = {};
@@ -58,13 +74,15 @@ function restartGame() {
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
   restartButton.style.display = "none";
+  menuButton.style.display = "none";
   world = new World (
     canvas,
     keyboard,
     overlay,
     winScreen,
     loseScreen,
-    restartButton
+    restartButton,
+    menuButton
   )
 }
 

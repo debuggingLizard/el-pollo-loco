@@ -4,7 +4,7 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bossBar = new BossBar();
-  gameOver = false;
+  gameOver = false; //muss später wieder auf false
   throwableObjects = [];
   inventory = 0;
   coinCounter = 0;
@@ -19,8 +19,9 @@ class World {
   winScreen;
   loseScreen;
   restartButton;
+  menuButton;
 
-  constructor(canvas, keyboard, overlay, winScreen, loseScreen, restartButton) {
+  constructor(canvas, keyboard, overlay, winScreen, loseScreen, restartButton, menuButton) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -28,6 +29,7 @@ class World {
     this.winScreen = winScreen;
     this.loseScreen = loseScreen;
     this.restartButton = restartButton;
+    this.menuButton = menuButton;
     this.setWorld();
     this.draw();
     this.run();
@@ -79,32 +81,32 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(2);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
-    this.level.enemiesSmall.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(1);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
+    // this.level.enemies.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(2);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
+    // this.level.enemiesSmall.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(1);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
     this.level.boss.forEach((boss) => {
       if (this.character.isColliding(boss)) {
         this.character.hit(5);
@@ -166,11 +168,15 @@ class World {
       this.overlay.style = "";
       this.winScreen.style = "";
       this.restartButton.style = "";
+      this.menuButton.style = "";
+      return;
     }
     if (this.gameOver && this.character.energy <= 0) {
       this.overlay.style = "";
       this.loseScreen.style = "";
       this.restartButton.style = "";
+      this.menuButton.style = "";
+      return;
     }
     this.ctx.translate(this.camera_x, 0);
 

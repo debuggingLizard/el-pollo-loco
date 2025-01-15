@@ -83,13 +83,23 @@ canvas {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.buttons {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+}
+
 .overlay button {
     font-family: 'Maiden Orange';
     font-size: 32px;
     border: unset;
     border-radius: 4px;
     box-shadow: 4px 4px 0px 0px #9a3a17;
-    position: absolute;
+    position: relative;
+    height: 56px;
     top: 48px;
     padding: 8px;
     cursor: pointer;

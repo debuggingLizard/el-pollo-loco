@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
   speed = 1.8;
   status;
   world;
+  energy = 1; //muss später wieder raus
 
   IMAGES_WALKING = [
     "./img/4_enemie_boss_chicken/1_walk/G1.png",
