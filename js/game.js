@@ -70,11 +70,11 @@ function restartGame() {
   level1 = {};
   createNewLevel();
   world = {};
+  restartButton.style.display = "none";
+  menuButton.style.display = "none";
   overlay.style.display = "none";
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
-  restartButton.style.display = "none";
-  menuButton.style.display = "none";
   world = new World (
     canvas,
     keyboard,
