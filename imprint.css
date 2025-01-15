@@ -1,0 +1,24 @@
+.wrapper {
+    padding: 48px;
+    max-width: 1440px;
+}
+
+p {
+    color: #f3efdb;
+}
+
+a {
+    text-decoration: none;
+    color: #ffde00;
+    transition: 125ms;
+}
+
+a:hover {
+    color: #ff9d00;
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        padding: 24px;
+    }
+}
