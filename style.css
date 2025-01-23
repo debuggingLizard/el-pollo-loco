@@ -72,6 +72,8 @@ h1 {
 canvas {
     background-color: #7e3807;
     z-index: 1;
+    width: 720px;
+    max-height: 100dvh;
 }
 
 .overlay {
@@ -80,6 +82,7 @@ canvas {
     justify-content: center;
     width: 720px;
     height: 480px;
+    max-height: 100dvh;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
