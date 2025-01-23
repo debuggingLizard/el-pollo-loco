@@ -24,7 +24,7 @@ function init() {
   menuButton = document.getElementById("menu-button");
   restartButton = document.getElementById("restart-button");
 
-  animateStartScreen();
+  // animateStartScreen();
 }
 
 function animateStartScreen() {
