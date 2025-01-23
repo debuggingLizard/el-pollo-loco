@@ -70,7 +70,8 @@ h1 {
 }
 
 canvas {
-    background-color: #7e3807;
+    /* background-color: #7e3807; */
+    background-color: #532605;
     z-index: 1;
     width: 720px;
     max-height: 100dvh;
@@ -84,6 +85,55 @@ canvas {
     height: 480px;
     max-height: 100dvh;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mobile-nav-buttons {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.mobile-nav-buttons img {
+    height: 24px;
+    width: auto;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(16%) saturate(7106%) hue-rotate(345deg) brightness(100%) contrast(90%);
+}
+
+#navigation-left img {
+    transform: rotate(180deg);
+}
+
+.mobile-nav-buttons .column-left {
+    display: flex;
+    gap: 16px;
+}
+
+.mobile-nav-buttons .column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mobile-nav-buttons button {
+    font-family: 'Maiden Orange';
+    font-size: 24px;
+    border: unset;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0px 0px #9a3a17;
+    padding: 4px;
+    cursor: pointer;
+    z-index: 100;
+    background-color: #ffde00;
+    color: #4d1f16;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons {
@@ -111,11 +161,13 @@ canvas {
     color: #4d1f16;
 }
 
+.mobile-nav-buttons button:hover,
 .overlay button:hover {
     transition: 0.4s;
     background-color: #ffa500;
 }
 
+.mobile-nav-buttons button:active,
 .overlay button:active {
     box-shadow: inset 4px 4px 0px 0px #9a3a17;
     border-style: none inset inset none;
@@ -177,15 +229,15 @@ canvas {
 }
 
 .responsive-overlay {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.911);  
-  width: 100%;
-  height: 100dvh;
-  z-index: 1000;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.911);
+    width: 100%;
+    height: 100dvh;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .responsive-overlay img {
@@ -197,6 +249,3 @@ canvas {
     font-size: 32px;
     color: #ffa500;
 }
-
-
-

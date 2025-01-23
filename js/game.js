@@ -23,8 +23,8 @@ function init() {
   loseScreen = document.getElementById("lose-screen");
   menuButton = document.getElementById("menu-button");
   restartButton = document.getElementById("restart-button");
-
   // animateStartScreen();
+  addMobileNavigationLogic()
 }
 
 function animateStartScreen() {
@@ -75,7 +75,7 @@ function restartGame() {
   overlay.style.display = "none";
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
-  world = new World (
+  world = new World(
     canvas,
     keyboard,
     overlay,
@@ -83,7 +83,7 @@ function restartGame() {
     loseScreen,
     restartButton,
     menuButton
-  )
+  );
 }
 
 window.addEventListener("keydown", (e) => {
@@ -121,3 +121,53 @@ window.addEventListener("keyup", (e) => {
     keyboard.ENTER = false;
   }
 });
+
+function addMobileNavigationLogic() {
+  document
+    .getElementById("navigation-left")
+    .addEventListener("touchstart", () => {
+      keyboard.LEFT = true;
+    });
+
+  document
+    .getElementById("navigation-right")
+    .addEventListener("touchstart", () => {
+      keyboard.RIGHT = true;
+    });
+
+  document
+    .getElementById("navigation-jump")
+    .addEventListener("touchstart", () => {
+      keyboard.UP = true;
+    });
+
+  document
+    .getElementById("navigation-throw")
+    .addEventListener("touchstart", () => {
+      keyboard.ENTER = true;
+    });
+
+  document
+    .getElementById("navigation-left")
+    .addEventListener("touchend", () => {
+      keyboard.LEFT = false;
+    });
+
+  document
+    .getElementById("navigation-right")
+    .addEventListener("touchend", () => {
+      keyboard.RIGHT = false;
+    });
+
+  document
+    .getElementById("navigation-jump")
+    .addEventListener("touchend", () => {
+      keyboard.UP = false;
+    });
+
+  document
+    .getElementById("navigation-throw")
+    .addEventListener("touchend", () => {
+      keyboard.ENTER = false;
+    });
+}
