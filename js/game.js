@@ -13,6 +13,8 @@ let startImages = [
 ];
 let currentImageIndex = 0;
 let gameStarted = false;
+let touchCheckbox; 
+let touchNavigation;
 
 function init() {
   overlay = document.getElementById("overlay");
@@ -23,8 +25,10 @@ function init() {
   loseScreen = document.getElementById("lose-screen");
   menuButton = document.getElementById("menu-button");
   restartButton = document.getElementById("restart-button");
+  touchCheckbox = document.getElementById("touch-checkbox");
+  touchNavigation = document.getElementById("touch-navigation");
   // animateStartScreen();
-  addMobileNavigationLogic()
+  addTouchNavigationLogic()
 }
 
 function animateStartScreen() {
@@ -122,7 +126,7 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
-function addMobileNavigationLogic() {
+function addTouchNavigationLogic() {
   document
     .getElementById("navigation-left")
     .addEventListener("touchstart", () => {
@@ -170,4 +174,15 @@ function addMobileNavigationLogic() {
     .addEventListener("touchend", () => {
       keyboard.ENTER = false;
     });
+}
+
+
+function showTouchNavigation() {
+touchCheckbox.addEventListener('change', () => {
+  if (touchCheckbox.checked) {
+    touchNavigation.classList.add('touch-nav-visible');
+  } else {
+    touchNavigation.classList.remove('touch-nav-visible');
+  }
+})
 }
