@@ -28,7 +28,8 @@ function init() {
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
   // animateStartScreen();
-  addTouchNavigationLogic()
+  addTouchNavigationLogic();
+  toggleTouchNavigation();
 }
 
 function animateStartScreen() {
@@ -177,7 +178,7 @@ function addTouchNavigationLogic() {
 }
 
 
-function showTouchNavigation() {
+function toggleTouchNavigation() {
 touchCheckbox.addEventListener('change', () => {
   if (touchCheckbox.checked) {
     touchNavigation.classList.add('touch-nav-visible');

@@ -9,12 +9,23 @@
     }
 
     .game-explain {
-        width: 100%;
-        justify-content: center;
+        box-sizing: border-box;
+        justify-content: space-between;
+        padding: 0 16px;
+    }
+
+    .touch-toggle-switch {
+        display: none;
     }
 
     .mobile-nav-buttons {
         display: flex;
+    }
+}
+
+@media (max-width: 720px) {
+    .game-explain {
+        width: 100%;
     }
 }
 

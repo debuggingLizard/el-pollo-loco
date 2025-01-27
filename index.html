@@ -43,14 +43,15 @@
         </div>
     </nav>
     <h1>El Pollo Loco</h1>
-    <label class="switch">
-        <input type="checkbox" id="touch-checkbox">
-        <span class="slider round"></span>
-        <span class="text">Touchscreen</span>
-    </label>
-
+    <div class="touch-toggle-switch">
+        <label class="switch">
+            <input type="checkbox" id="touch-checkbox">
+            <span class="slider round"></span>
+            <span class="switch-text">I use a touchscreen</span>
+        </label>
+    </div>
     <div class="game-container">
-        <!-- <div id="overlay" class="overlay">
+        <div id="overlay" class="overlay">
             <div class="buttons">
                 <button id="start-button" onclick="startGame()">Game Start</button>
                 <button style="display: none;" id="menu-button" onclick="returnToMenu()">&larr; Back to Menu</button>
@@ -64,7 +65,7 @@
             <img style="display: none;" id="win-screen" src="./img/9_intro_outro_screens/win/won_2.png" alt="You Won!">
             <img style="display: none;" id="lose-screen" class="start-screen"
                 src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Oh No! You Lost!">
-        </div> -->
+        </div>
         <div class="mobile-nav-buttons" id="touch-navigation">
             <div class="column-left">
                 <button id="navigation-left"><img src="./img/arrow-thick.png" alt="move left"></button>
