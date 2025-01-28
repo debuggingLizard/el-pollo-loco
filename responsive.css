@@ -3,9 +3,11 @@
     canvas,
     .overlay {
         width: 100%;
-        /* height: 100dvh; */
-        /* max-height: 100dvh; */
         min-width: 667px;
+    }
+
+    .overlay {
+        height: 100%;
     }
 
     .game-explain {

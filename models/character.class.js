@@ -61,7 +61,11 @@ class Character extends MovableObject {
     "./img/2_character_pepe/5_dead/D-57.png",
   ];
   world;
-  walking_sound = new Audio("./audio/running.mp3");
+  walking_sound = new Audio("./audio/pepe/walking.mp3");
+  longIdle_sound = new Audio("./audio/pepe/long_idle-snoring.mp3");
+  jump_sound = new Audio("./audio/pepe/jump.mp3");
+  hurt_sound = new Audio("./audio/pepe/hurt.mp3");
+  dying_sound = new Audio("./audio/pepe/dying.mp3");
   idleFrameCount = 0;
   noMovementTime = 2000;
   idleDelay = 2000;
