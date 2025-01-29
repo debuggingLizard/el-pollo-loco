@@ -81,32 +81,32 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy)) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(2);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
-    this.level.enemiesSmall.forEach((enemy) => {
-      if (enemy.active && this.character.isColliding(enemy)) {
-        if (this.character.isJumpingOn(enemy) || this.keyboard.RIGHT || this.keyboard.LEFT) {
-          enemy.energy = 0;
-          setTimeout(() => {
-            enemy.active = false;
-          }, 1000);
-        } else if (enemy.energy > 0) {
-          this.character.hit(1);
-          this.healthBar.setPercentage(this.character.energy);
-        }
-      }
-    });
+    // this.level.enemies.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy)) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(2);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
+    // this.level.enemiesSmall.forEach((enemy) => {
+    //   if (enemy.active && this.character.isColliding(enemy)) {
+    //     if (this.character.isJumpingOn(enemy) || this.keyboard.RIGHT || this.keyboard.LEFT) {
+    //       enemy.energy = 0;
+    //       setTimeout(() => {
+    //         enemy.active = false;
+    //       }, 1000);
+    //     } else if (enemy.energy > 0) {
+    //       this.character.hit(1);
+    //       this.healthBar.setPercentage(this.character.energy);
+    //     }
+    //   }
+    // });
     this.level.boss.forEach((boss) => {
       if (this.character.isColliding(boss)) {
         this.character.hit(5);
