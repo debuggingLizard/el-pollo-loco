@@ -9,6 +9,8 @@ class Chick extends MovableObject {
     "./img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
     "./img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
+  dying_sound = new Audio("./audio/enemies/chick_dead.mp3");
+  dyingHasPlayed = false;
 
   constructor(start) {
     super().loadImage(this.IMAGES_WALKING[0]);
@@ -22,19 +24,31 @@ class Chick extends MovableObject {
   animate() {
     setInterval(() => {
       if (!this.isDead()) {
-        if (this.world && this.x >= this.world.character.x) {
-          this.moveLeft(false);
-        } else {
-          this.moveRight(true);
-        }
+        this.followPepe();
       }
     }, 1000 / 60);
     setInterval(() => {
       if (this.isDead()) {
-        this.loadImage("./img/3_enemies_chicken/chicken_small/2_dead/dead.png");
+       this.playDyingAnimation();
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 150);
+  }
+
+  followPepe() {
+    if (this.world && this.x >= this.world.character.x) {
+      this.moveLeft(false);
+    } else {
+      this.moveRight(true);
+    }
+  }
+
+  playDyingAnimation() {
+    this.loadImage("./img/3_enemies_chicken/chicken_small/2_dead/dead.png");
+    if (!this.dyingHasPlayed) {
+      this.dying_sound.play();
+      this.dyingHasPlayed = true;
+    }
   }
 }

@@ -4,7 +4,7 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bossBar = new BossBar();
-  gameOver = false; //muss später wieder auf false
+  gameOver = false;
   throwableObjects = [];
   inventory = 0;
   coinCounter = 0;
@@ -20,8 +20,19 @@ class World {
   loseScreen;
   restartButton;
   menuButton;
+  win_sound = new Audio("./audio/world/win.mp3");
+  lose_sound = new Audio("./audio/world/lose.mp3");
+  atmosphere_sound = new Audio("./audio/world/atmosphere.mp3");
 
-  constructor(canvas, keyboard, overlay, winScreen, loseScreen, restartButton, menuButton) {
+  constructor(
+    canvas,
+    keyboard,
+    overlay,
+    winScreen,
+    loseScreen,
+    restartButton,
+    menuButton
+  ) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -30,6 +41,7 @@ class World {
     this.loseScreen = loseScreen;
     this.restartButton = restartButton;
     this.menuButton = menuButton;
+    this.atmosphere_sound.play();
     this.setWorld();
     this.draw();
     this.run();
@@ -60,6 +72,7 @@ class World {
   checkBossActivation() {
     if (this.character.x > 9280 && !this.bossActivated) {
       this.bossActivated = true;
+      this.level.boss[0].boss_sound.play();
       this.level.boss[0].startAlert();
     }
   }
@@ -81,69 +94,113 @@ class World {
   }
 
   checkCollisions() {
-    // this.level.enemies.forEach((enemy) => {
-    //   if (enemy.active && this.character.isColliding(enemy)) {
-    //     if (this.character.isJumpingOn(enemy)) {
-    //       enemy.energy = 0;
-    //       setTimeout(() => {
-    //         enemy.active = false;
-    //       }, 1000);
-    //     } else if (enemy.energy > 0) {
-    //       this.character.hit(2);
-    //       this.healthBar.setPercentage(this.character.energy);
-    //     }
-    //   }
-    // });
-    // this.level.enemiesSmall.forEach((enemy) => {
-    //   if (enemy.active && this.character.isColliding(enemy)) {
-    //     if (this.character.isJumpingOn(enemy) || this.keyboard.RIGHT || this.keyboard.LEFT) {
-    //       enemy.energy = 0;
-    //       setTimeout(() => {
-    //         enemy.active = false;
-    //       }, 1000);
-    //     } else if (enemy.energy > 0) {
-    //       this.character.hit(1);
-    //       this.healthBar.setPercentage(this.character.energy);
-    //     }
-    //   }
-    // });
+    this.level.enemies.forEach((enemy) => {
+      this.checkEnemyCollision(enemy);
+    });
+    this.level.enemiesSmall.forEach((enemySmall) => {
+      this.checkSmallEnemyCollision(enemySmall);
+    });
     this.level.boss.forEach((boss) => {
-      if (this.character.isColliding(boss)) {
-        this.character.hit(5);
-        this.healthBar.setPercentage(this.character.energy);
-      }
+      this.checkBossCollision(boss);
     });
     this.throwableObjects.forEach((throwBottle) => {
-      if (this.level.boss[0].isColliding(throwBottle)) {
-        this.level.boss[0].hit(7);
-        if (this.level.boss[0].energy < 20) {
-          this.level.boss[0].energy = 0;
-        }
-        this.bossBar.setPercentage(this.level.boss[0].energy);
-      }
+      this.checkThrowBottleCollision(throwBottle);
     });
     this.level.bottles.forEach((bottle) => {
-      if (bottle.active && this.character.isColliding(bottle)) {
-        bottle.active = false;
-        this.inventory++;
-        this.bottleBar.setPercentage(6.25 * this.inventory);
-      }
+      this.checkBottleCollision(bottle);
     });
     this.level.coins.forEach((coin) => {
-      if (coin.active && this.character.isColliding(coin)) {
-        coin.active = false;
-        this.coinCounter++;
-        this.coinBar.setPercentage(6.25 * this.coinCounter);
-      }
+      this.checkCoinCollision(coin);
     });
+  }
+
+  checkEnemyCollision(enemy) {
+    if (enemy.active && this.character.isColliding(enemy)) {
+      if (this.character.isJumpingOn(enemy)) {
+        enemy.energy = 0;
+        setTimeout(() => {
+          enemy.active = false;
+        }, 1000);
+      } else if (enemy.energy > 0) {
+        this.character.hit(2);
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    }
+  }
+
+  checkSmallEnemyCollision(enemySmall) {
+    if (enemySmall.active && this.character.isColliding(enemySmall)) {
+      if (
+        this.character.isJumpingOn(enemySmall) ||
+        this.keyboard.RIGHT ||
+        this.keyboard.LEFT
+      ) {
+        enemySmall.energy = 0;
+        setTimeout(() => {
+          enemySmall.active = false;
+        }, 1000);
+      } else if (enemySmall.energy > 0) {
+        this.character.hit(1);
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    }
+  }
+
+  checkBossCollision(boss) {
+    if (this.character.isColliding(boss)) {
+      this.character.hit(5);
+      this.healthBar.setPercentage(this.character.energy);
+    }
+  }
+
+  checkThrowBottleCollision(throwBottle) {
+    if (this.level.boss[0].isColliding(throwBottle)) {
+      this.level.boss[0].hit(7);
+      throwBottle.bossIsHit = true;
+      throwBottle.playAnimation(throwBottle.IMAGES_SMASH);
+      if (this.level.boss[0].energy < 20) {
+        this.level.boss[0].energy = 0;
+      }
+      this.bossBar.setPercentage(this.level.boss[0].energy);
+    }
+  }
+
+  checkBottleCollision(bottle) {
+    if (bottle.active && this.character.isColliding(bottle)) {
+      bottle.active = false;
+      this.inventory++;
+      this.bottleBar.setPercentage(6.25 * this.inventory);
+    }
+  }
+
+  checkCoinCollision(coin) {
+    if (coin.active && this.character.isColliding(coin)) {
+      coin.active = false;
+      this.coinCounter++;
+      this.coinBar.setPercentage(6.25 * this.coinCounter);
+    }
   }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.addMovableObjects();
+    this.ctx.translate(-this.camera_x, 0);
+    this.addStatusBars();
+    if (this.gameOver) {
+      this.finishGame();
+      return;
+    }
+    this.ctx.translate(this.camera_x, 0);
+    this.ctx.translate(-this.camera_x, 0);
+    self = this;
+    requestAnimationFrame(function () {
+      self.draw();
+    });
+  }
 
+  addMovableObjects() {
     if (!this.gameOver) {
       this.addObjectsToMap(this.level.clouds);
       this.addObjectsToMap(this.level.enemies);
@@ -154,8 +211,9 @@ class World {
       this.addToMap(this.character);
       this.addObjectsToMap(this.throwableObjects);
     }
-    // Space for fixed Objects
-    this.ctx.translate(-this.camera_x, 0);
+  }
+
+  addStatusBars() {
     if (!this.gameOver) {
       this.addToMap(this.bottleBar);
       this.addToMap(this.healthBar);
@@ -164,28 +222,35 @@ class World {
         this.addToMap(this.bossBar);
       }
     }
-    if (this.gameOver && this.level.boss[0].energy <= 0) {
-      this.overlay.style = "";
-      this.winScreen.style = "";
-      this.restartButton.style = "";
-      this.menuButton.style = "";
-      return;
-    }
-    if (this.gameOver && this.character.energy <= 0) {
-      this.overlay.style = "";
-      this.loseScreen.style = "";
-      this.restartButton.style = "";
-      this.menuButton.style = "";
-      return;
-    }
-    this.ctx.translate(this.camera_x, 0);
+  }
 
-    this.ctx.translate(-this.camera_x, 0);
+  finishGame() {
+    if (this.level.boss[0].energy <= 0) {
+      this.winGameOver();
+    }
+    if (this.character.energy <= 0) {
+      this.lostGameOver();
+    }
+  }
+  w;
 
-    self = this;
-    requestAnimationFrame(function () {
-      self.draw();
-    });
+  winGameOver() {
+    this.atmosphere_sound.pause();
+    this.win_sound.play();
+    this.overlay.style = "";
+    this.winScreen.style = "";
+    this.restartButton.style = "";
+    this.menuButton.style = "";
+  }
+
+  lostGameOver() {
+    this.atmosphere_sound.pause();
+    this.level.boss[0].boss_sound.pause();
+    this.lose_sound.play();
+    this.overlay.style = "";
+    this.loseScreen.style = "";
+    this.restartButton.style = "";
+    this.menuButton.style = "";
   }
 
   addObjectsToMap(objects) {

@@ -70,7 +70,6 @@ h1 {
 }
 
 canvas {
-    /* background-color: #7e3807; */
     background-color: #532605;
     z-index: 1;
     width: 720px;

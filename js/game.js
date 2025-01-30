@@ -13,7 +13,7 @@ let startImages = [
 ];
 let currentImageIndex = 0;
 let gameStarted = false;
-let touchCheckbox; 
+let touchCheckbox;
 let touchNavigation;
 
 function init() {
@@ -27,7 +27,7 @@ function init() {
   restartButton = document.getElementById("restart-button");
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
-  // animateStartScreen();
+  animateStartScreen();
   addTouchNavigationLogic();
   toggleTouchNavigation();
 }
@@ -133,43 +133,36 @@ function addTouchNavigationLogic() {
     .addEventListener("touchstart", () => {
       keyboard.LEFT = true;
     });
-
   document
     .getElementById("navigation-right")
     .addEventListener("touchstart", () => {
       keyboard.RIGHT = true;
     });
-
   document
     .getElementById("navigation-jump")
     .addEventListener("touchstart", () => {
       keyboard.UP = true;
     });
-
   document
     .getElementById("navigation-throw")
     .addEventListener("touchstart", () => {
       keyboard.ENTER = true;
     });
-
   document
     .getElementById("navigation-left")
     .addEventListener("touchend", () => {
       keyboard.LEFT = false;
     });
-
   document
     .getElementById("navigation-right")
     .addEventListener("touchend", () => {
       keyboard.RIGHT = false;
     });
-
   document
     .getElementById("navigation-jump")
     .addEventListener("touchend", () => {
       keyboard.UP = false;
     });
-
   document
     .getElementById("navigation-throw")
     .addEventListener("touchend", () => {
@@ -177,13 +170,12 @@ function addTouchNavigationLogic() {
     });
 }
 
-
 function toggleTouchNavigation() {
-touchCheckbox.addEventListener('change', () => {
-  if (touchCheckbox.checked) {
-    touchNavigation.classList.add('touch-nav-visible');
-  } else {
-    touchNavigation.classList.remove('touch-nav-visible');
-  }
-})
+  touchCheckbox.addEventListener("change", () => {
+    if (touchCheckbox.checked) {
+      touchNavigation.classList.add("touch-nav-visible");
+    } else {
+      touchNavigation.classList.remove("touch-nav-visible");
+    }
+  });
 }

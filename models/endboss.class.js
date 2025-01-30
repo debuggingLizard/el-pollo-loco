@@ -6,8 +6,6 @@ class Endboss extends MovableObject {
   speed = 1.8;
   status;
   world;
-  energy = 1; //muss später wieder raus
-
   IMAGES_WALKING = [
     "./img/4_enemie_boss_chicken/1_walk/G1.png",
     "./img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -44,6 +42,9 @@ class Endboss extends MovableObject {
     "./img/4_enemie_boss_chicken/5_dead/G25.png",
     "./img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
+  boss_sound = new Audio("./audio/enemies/boss_chicken.mp3");
+  dying_sound = new Audio("./audio/enemies/boss_chicken_dead.mp3");
+  dyingHasPlayed = false;
 
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
@@ -64,33 +65,62 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.status == "attack" && !this.isDead()) {
-        if (this.x >= this.world.character.x) {
-          this.moveLeft(false);
-        } else {
-          this.moveRight(true);
-        }
+      if (this.bossIsAwake()) {
+        this.followPepe();
       }
     }, 1000 / 60);
     setInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-        setTimeout(() => {
-          this.world.gameOver = true;
-        }, 1000);
-        return;
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.status == "alert") {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (
-        this.status == "attack" &&
-        Math.abs(this.x - this.world.character.x) < 180
-      ) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else if (this.status == "attack") {
-        this.playAnimation(this.IMAGES_WALKING);
-      }
+      this.animateBoss();
     }, 200);
+  }
+
+  animateBoss() {
+    if (this.isDead()) {
+      this.wrapUpGame();
+    } else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+    } else if (this.bossIsInactive()) {
+      this.playAnimation(this.IMAGES_ALERT);
+    } else if (this.bossAttacks()) {
+      this.playAnimation(this.IMAGES_ATTACK);
+    } else if (this.bossIsActive()) {
+      this.playAnimation(this.IMAGES_WALKING);
+    }
+  }
+
+  bossIsAwake() {
+    return this.status == "attack" && !this.isDead();
+  }
+
+  followPepe() {
+    if (this.x >= this.world.character.x) {
+      this.moveLeft(false);
+    } else {
+      this.moveRight(true);
+    }
+  }
+
+  wrapUpGame() {
+    this.boss_sound.pause();
+    if (!this.dyingHasPlayed) {
+      this.dying_sound.play();
+      this.dyingHasPlayed = true;
+    }
+    this.playAnimation(this.IMAGES_DEAD);
+    setTimeout(() => {
+      this.world.gameOver = true;
+    }, 1600);
+  }
+
+  bossIsInactive() {
+    return this.status == "alert";
+  }
+
+  bossAttacks() {
+    return this.status == "attack" && Math.abs(this.x - this.world.character.x) < 180;
+  }
+
+  bossIsActive() {
+    return this.status == "attack";
   }
 }
