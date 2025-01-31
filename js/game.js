@@ -93,9 +93,6 @@ function muteObjects() {
 
 function startGame() {
   gameStarted = true;
-  overlay.style.display = "none";
-  startScreen.style.display = "none";
-  startButton.style.display = "none";
   world = new World(
     canvas,
     keyboard,
@@ -105,6 +102,9 @@ function startGame() {
     restartButton,
     menuButton
   );
+  overlay.style.display = "none";
+  startScreen.style.display = "none";
+  startButton.style.display = "none";
 }
 
 function returnToMenu() {
@@ -125,11 +125,6 @@ function restartGame() {
   level1 = {};
   createNewLevel();
   world = {};
-  restartButton.style.display = "none";
-  menuButton.style.display = "none";
-  overlay.style.display = "none";
-  winScreen.style.display = "none";
-  loseScreen.style.display = "none";
   world = new World(
     canvas,
     keyboard,
@@ -139,6 +134,11 @@ function restartGame() {
     restartButton,
     menuButton
   );
+  restartButton.style.display = "none";
+  menuButton.style.display = "none";
+  overlay.style.display = "none";
+  winScreen.style.display = "none";
+  loseScreen.style.display = "none";
 }
 
 window.addEventListener("keydown", (e) => {

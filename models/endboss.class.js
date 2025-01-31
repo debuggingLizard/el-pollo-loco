@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
   width = 250;
   x = 9750;
   y = 60;
-  speed = 2.4;
+  speed = 2.8;
   status;
   world;
   IMAGES_WALKING = [
@@ -83,10 +83,10 @@ class Endboss extends MovableObject {
     } else if (this.bossIsInactive()) {
       this.playAnimation(this.IMAGES_ALERT);
     } else if (this.bossAttacks()) {
-      this.speed = 6;
+      this.speed = 8;
       this.playAnimation(this.IMAGES_ATTACK);
       setTimeout(() => {
-        this.speed = 2.4;
+        this.speed = 2.8;
       }, 1000);
     } else if (this.bossIsActive()) {
       this.playAnimation(this.IMAGES_WALKING);
@@ -128,7 +128,7 @@ class Endboss extends MovableObject {
   }
 
   bossAttacks() {
-    return this.status == "attack" && Math.abs(this.x - this.world.character.x) < 180;
+    return this.status == "attack" && Math.abs(this.x - this.world.character.x) < 220;
   }
 
   bossIsActive() {
