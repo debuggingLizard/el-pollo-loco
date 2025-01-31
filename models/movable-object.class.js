@@ -13,14 +13,7 @@ class MovableObject extends DrawableObject {
     super();
   }
 
-  isColliding(mo) {
-    return (
-      this.x + this.width > mo.x &&
-      this.x < mo.x + mo.width &&
-      this.y + this.height > mo.y &&
-      this.y < mo.y + mo.height
-    );
-  }
+
 
   isJumpingOn(mo) {
     return (
@@ -93,7 +86,7 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject || this.isDead()) {
       return true;
     } else {
-      return this.y < 110;
+      return this.y < 160;
     }
   }
 

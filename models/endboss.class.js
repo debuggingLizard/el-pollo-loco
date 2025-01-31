@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
   width = 250;
   x = 9750;
   y = 60;
-  speed = 1.8;
+  speed = 2.4;
   status;
   world;
   IMAGES_WALKING = [
@@ -57,6 +57,15 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  isColliding(mo) {
+    return (
+      this.x + this.width - 20 > mo.x && //rechts
+      this.x + 20 < mo.x + mo.width && //links
+      this.y + this.height - 16 > mo.y && //unten
+      this.y + 70 < mo.y + mo.height //oben
+    );
+  }
+
   startAlert() {
     setTimeout(() => {
       this.status = "attack";
@@ -82,7 +91,11 @@ class Endboss extends MovableObject {
     } else if (this.bossIsInactive()) {
       this.playAnimation(this.IMAGES_ALERT);
     } else if (this.bossAttacks()) {
+      this.speed = 6;
       this.playAnimation(this.IMAGES_ATTACK);
+      setTimeout(() => {
+        this.speed = 2.4;
+      }, 1000);
     } else if (this.bossIsActive()) {
       this.playAnimation(this.IMAGES_WALKING);
     }
@@ -93,11 +106,17 @@ class Endboss extends MovableObject {
   }
 
   followPepe() {
-    if (this.x >= this.world.character.x) {
+    if (this.x >= this.world.character.x + 4) {
       this.moveLeft(false);
-    } else {
+    } else if (this.x <= this.world.character.x - 4) {
       this.moveRight(true);
-    }
+    } else {
+      this.standStill();
+    } 
+  }
+
+  standStill() {
+    this.x += 0;
   }
 
   wrapUpGame() {

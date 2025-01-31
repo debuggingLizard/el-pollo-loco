@@ -1,7 +1,7 @@
 class Character extends MovableObject {
-  height = 320;
+  height = 280;
   width = 150;
-  y = 110;
+  y = 160;
   speed = 10;
   IMAGES_IDLE = [
     "./img/2_character_pepe/1_idle/idle/I-1.png",
@@ -72,6 +72,7 @@ class Character extends MovableObject {
   noMovementTime = 2000;
   idleDelay = 2000;
   longIdleDelay = 10000;
+  x = 8000; //muss später wieder raus
 
   constructor() {
     super();
@@ -86,6 +87,15 @@ class Character extends MovableObject {
     this.applyGravity();
     this.getSoundSettings();
     this.animate();
+  }
+
+  isColliding(mo) {
+    return (
+      this.x + this.width - 20 > mo.x && //rechts
+      this.x + 20 < mo.x + mo.width && //links
+      this.y + this.height - 16 > mo.y && //unten
+      this.y + 70 < mo.y + mo.height //oben
+    );
   }
 
   getSoundSettings() {
@@ -168,7 +178,7 @@ class Character extends MovableObject {
   }
 
   playerJumps() {
-    return this.world.keyboard.UP && this.y == 110;
+    return this.world.keyboard.UP && this.y == 160;
   }
 
   wrapUpGame() {
@@ -204,7 +214,7 @@ class Character extends MovableObject {
 
   pepeIsWalking() {
     return (
-      this.y == 110 && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+      this.y == 160 && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
     );
   }
 

@@ -39,5 +39,19 @@ class DrawableObject {
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.stroke();
     }
-  }
+    if (this instanceof Character) {
+      ctx.beginPath();
+      ctx.lineWidth = "2";
+      ctx.strokeStyle = "green";
+      ctx.rect(this.x + 20 , this.y +70, this.width -40 , this.height -86);
+      ctx.stroke();
+    }
+    if (this instanceof Endboss) {
+      ctx.beginPath();
+      ctx.lineWidth = "2";
+      ctx.strokeStyle = "green";
+      ctx.rect(this.x + 20 , this.y +70, this.width -40 , this.height -86);
+      ctx.stroke();
+    }
+  } 
 }

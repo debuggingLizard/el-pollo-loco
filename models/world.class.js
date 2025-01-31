@@ -6,7 +6,7 @@ class World {
   bossBar = new BossBar();
   gameOver = false;
   throwableObjects = [];
-  inventory = 0;
+  inventory = 12; //später wieder auf 0 setzen
   coinCounter = 0;
   level = level1;
   canvas;
@@ -42,6 +42,7 @@ class World {
     this.restartButton = restartButton;
     this.menuButton = menuButton;
     this.atmosphere_sound.play();
+    this.atmosphere_sound.loop = true;
     this.setWorld();
     this.draw();
     this.run();
@@ -73,6 +74,7 @@ class World {
     if (this.character.x > 9280 && !this.bossActivated) {
       this.bossActivated = true;
       this.level.boss[0].boss_sound.play();
+      this.level.boss[0].boss_sound.loop = true;
       this.level.boss[0].startAlert();
     }
   }
@@ -94,24 +96,24 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      this.checkEnemyCollision(enemy);
-    });
-    this.level.enemiesSmall.forEach((enemySmall) => {
-      this.checkSmallEnemyCollision(enemySmall);
-    });
-    this.level.boss.forEach((boss) => {
-      this.checkBossCollision(boss);
-    });
+    // this.level.enemies.forEach((enemy) => {
+    //   this.checkEnemyCollision(enemy);
+    // });
+    // this.level.enemiesSmall.forEach((enemySmall) => {
+    //   this.checkSmallEnemyCollision(enemySmall);
+    // });
+    // this.level.boss.forEach((boss) => {
+    //   this.checkBossCollision(boss);
+    // });
     this.throwableObjects.forEach((throwBottle) => {
       this.checkThrowBottleCollision(throwBottle);
     });
-    this.level.bottles.forEach((bottle) => {
-      this.checkBottleCollision(bottle);
-    });
-    this.level.coins.forEach((coin) => {
-      this.checkCoinCollision(coin);
-    });
+    // this.level.bottles.forEach((bottle) => {
+    //   this.checkBottleCollision(bottle);
+    // });
+    // this.level.coins.forEach((coin) => {
+    //   this.checkCoinCollision(coin);
+    // });
   }
 
   checkEnemyCollision(enemy) {
@@ -122,7 +124,7 @@ class World {
           enemy.active = false;
         }, 1000);
       } else if (enemy.energy > 0) {
-        this.character.hit(2);
+        this.character.hit(4);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -140,7 +142,7 @@ class World {
           enemySmall.active = false;
         }, 1000);
       } else if (enemySmall.energy > 0) {
-        this.character.hit(1);
+        this.character.hit(2);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -148,7 +150,7 @@ class World {
 
   checkBossCollision(boss) {
     if (this.character.isColliding(boss)) {
-      this.character.hit(5);
+      this.character.hit(9);
       this.healthBar.setPercentage(this.character.energy);
     }
   }
@@ -203,8 +205,8 @@ class World {
   addMovableObjects() {
     if (!this.gameOver) {
       this.addObjectsToMap(this.level.clouds);
-      this.addObjectsToMap(this.level.enemies);
-      this.addObjectsToMap(this.level.enemiesSmall);
+      // this.addObjectsToMap(this.level.enemies);
+      // this.addObjectsToMap(this.level.enemiesSmall);
       this.addToMap(this.level.boss[0]);
       this.addObjectsToMap(this.level.bottles);
       this.addObjectsToMap(this.level.coins);
@@ -266,7 +268,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    // mo.drawFrame(this.ctx);
+    mo.drawFrame(this.ctx); //für debugging
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
