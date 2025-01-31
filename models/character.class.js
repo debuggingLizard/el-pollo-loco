@@ -72,7 +72,6 @@ class Character extends MovableObject {
   noMovementTime = 2000;
   idleDelay = 2000;
   longIdleDelay = 10000;
-  x = 8000; //muss später wieder raus
 
   constructor() {
     super();
@@ -87,15 +86,6 @@ class Character extends MovableObject {
     this.applyGravity();
     this.getSoundSettings();
     this.animate();
-  }
-
-  isColliding(mo) {
-    return (
-      this.x + this.width - 20 > mo.x && //rechts
-      this.x + 20 < mo.x + mo.width && //links
-      this.y + this.height - 16 > mo.y && //unten
-      this.y + 70 < mo.y + mo.height //oben
-    );
   }
 
   getSoundSettings() {

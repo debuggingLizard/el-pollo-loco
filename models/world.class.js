@@ -62,10 +62,11 @@ class World {
   run() {
     setInterval(() => {
       if (!this.gameOver) {
+        this.character.updatePreviousY();
         this.checkCollisions();
         this.checkThrowObjects();
         this.checkBossActivation();
-        this.character.updatePreviousY();
+        
       }
     }, 60);
   }
@@ -96,29 +97,30 @@ class World {
   }
 
   checkCollisions() {
-    // this.level.enemies.forEach((enemy) => {
-    //   this.checkEnemyCollision(enemy);
-    // });
-    // this.level.enemiesSmall.forEach((enemySmall) => {
-    //   this.checkSmallEnemyCollision(enemySmall);
-    // });
-    // this.level.boss.forEach((boss) => {
-    //   this.checkBossCollision(boss);
-    // });
+    this.level.enemies.forEach((enemy) => {
+      this.checkEnemyCollision(enemy);
+    });
+    this.level.enemiesSmall.forEach((enemySmall) => {
+      this.checkSmallEnemyCollision(enemySmall);
+    });
+    this.level.boss.forEach((boss) => {
+      this.checkBossCollision(boss);
+    });
     this.throwableObjects.forEach((throwBottle) => {
       this.checkThrowBottleCollision(throwBottle);
     });
-    // this.level.bottles.forEach((bottle) => {
-    //   this.checkBottleCollision(bottle);
-    // });
-    // this.level.coins.forEach((coin) => {
-    //   this.checkCoinCollision(coin);
-    // });
+    this.level.bottles.forEach((bottle) => {
+      this.checkBottleCollision(bottle);
+    });
+    this.level.coins.forEach((coin) => {
+      this.checkCoinCollision(coin);
+    });
   }
 
   checkEnemyCollision(enemy) {
     if (enemy.active && this.character.isColliding(enemy)) {
       if (this.character.isJumpingOn(enemy)) {
+        console.log("jumped on enemy");
         enemy.energy = 0;
         setTimeout(() => {
           enemy.active = false;
@@ -205,8 +207,8 @@ class World {
   addMovableObjects() {
     if (!this.gameOver) {
       this.addObjectsToMap(this.level.clouds);
-      // this.addObjectsToMap(this.level.enemies);
-      // this.addObjectsToMap(this.level.enemiesSmall);
+      this.addObjectsToMap(this.level.enemies);
+      this.addObjectsToMap(this.level.enemiesSmall);
       this.addToMap(this.level.boss[0]);
       this.addObjectsToMap(this.level.bottles);
       this.addObjectsToMap(this.level.coins);
