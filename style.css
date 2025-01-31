@@ -98,7 +98,7 @@ canvas {
 }
 
 .mobile-nav-buttons img {
-    height: 24px;
+    height: 44px;
     width: auto;
     filter: brightness(0) saturate(100%) invert(10%) sepia(16%) saturate(7106%) hue-rotate(345deg) brightness(100%) contrast(90%);
 }
@@ -109,18 +109,18 @@ canvas {
 
 .mobile-nav-buttons .column-left {
     display: flex;
-    gap: 16px;
+    gap: 32px;
 }
 
 .mobile-nav-buttons .column-right {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
 }
 
 .mobile-nav-buttons button {
     font-family: 'Maiden Orange';
-    font-size: 24px;
+    font-size: 38px;
     border: unset;
     border-radius: 4px;
     box-shadow: 4px 4px 0px 0px #9a3a17;

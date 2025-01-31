@@ -178,46 +178,43 @@ window.addEventListener("keyup", (e) => {
 });
 
 function addTouchNavigationLogic() {
-  document
-    .getElementById("navigation-left")
-    .addEventListener("touchstart", () => {
+  let navigationLeft = document.getElementById("navigation-left");
+  let navigationRight = document.getElementById("navigation-right");
+  let navigationJump = document.getElementById("navigation-jump");
+  let navigationThrow = document.getElementById("navigation-throw");
+  let touchElements = [navigationLeft, navigationRight, navigationJump, navigationThrow];
+  navigationLeft.addEventListener("touchstart", () => {
       keyboard.LEFT = true;
-    });
-  document
-    .getElementById("navigation-right")
-    .addEventListener("touchstart", () => {
+  });
+  navigationRight.addEventListener("touchstart", () => {
       keyboard.RIGHT = true;
-    });
-  document
-    .getElementById("navigation-jump")
-    .addEventListener("touchstart", () => {
+  });
+  navigationJump.addEventListener("touchstart", () => {
       keyboard.UP = true;
-    });
-  document
-    .getElementById("navigation-throw")
-    .addEventListener("touchstart", () => {
+  });
+  navigationThrow.addEventListener("touchstart", () => {
       keyboard.ENTER = true;
-    });
-  document
-    .getElementById("navigation-left")
-    .addEventListener("touchend", () => {
+  });
+  navigationLeft.addEventListener("touchend", () => {
       keyboard.LEFT = false;
-    });
-  document
-    .getElementById("navigation-right")
-    .addEventListener("touchend", () => {
+  });
+  navigationRight.addEventListener("touchend", () => {
       keyboard.RIGHT = false;
-    });
-  document
-    .getElementById("navigation-jump")
-    .addEventListener("touchend", () => {
+  });
+  navigationJump.addEventListener("touchend", () => {
       keyboard.UP = false;
-    });
-  document
-    .getElementById("navigation-throw")
-    .addEventListener("touchend", () => {
+  });
+  navigationThrow.addEventListener("touchend", () => {
       keyboard.ENTER = false;
-    });
+  });
+  touchElements.forEach(element => {
+      element.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+      });
+      element.addEventListener("selectstart", (e) => {
+          e.preventDefault();
+      });
+  });
 }
 
 function toggleTouchNavigation() {
