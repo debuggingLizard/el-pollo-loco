@@ -43,13 +43,19 @@
         </div>
     </nav>
     <h1>El Pollo Loco</h1>
-    <div class="touch-toggle-switch">
-        <label class="switch">
-            <input type="checkbox" id="touch-checkbox">
-            <span class="slider round"></span>
-            <span class="switch-text">I use a touchscreen</span>
-        </label>
+    <div class="game-settings">
+        <div class="touch-toggle-switch">
+            <label class="switch">
+                <input type="checkbox" id="touch-checkbox">
+                <span class="slider round"></span>
+                <span class="switch-text">I use a touchscreen</span>
+            </label>
+        </div>
+        <div class="mute-button">
+            <img id="mute-img" class="not-muted" onclick="muteSounds()" src="./img/not-muted.png" alt="Mute Sounds" title="Mute Sounds">
+        </div>
     </div>
+    
     <div class="game-container">
         <div id="overlay" class="overlay">
             <div class="buttons">

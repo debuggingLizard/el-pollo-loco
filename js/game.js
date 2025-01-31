@@ -15,6 +15,7 @@ let currentImageIndex = 0;
 let gameStarted = false;
 let touchCheckbox;
 let touchNavigation;
+let muteImage;
 
 function init() {
   overlay = document.getElementById("overlay");
@@ -27,6 +28,7 @@ function init() {
   restartButton = document.getElementById("restart-button");
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
+  muteImage = document.getElementById("mute-img");
   animateStartScreen();
   addTouchNavigationLogic();
   toggleTouchNavigation();
@@ -39,6 +41,54 @@ function animateStartScreen() {
       startScreen.src = startImages[currentImageIndex];
     }
   }, 1200);
+}
+
+function muteSounds() {
+  muteImage.src = muteImage.src.includes("not") ? "./img/muted.png" : "./img/not-muted.png";
+  muteImage.classList.toggle("not-muted");
+  muteGeneralSounds();
+  muteCharacter();
+  muteEnemies();
+  muteObjects();
+}
+
+function muteGeneralSounds() {
+  world.atmosphere_sound.muted = !world.atmosphere_sound.muted;
+  world.win_sound.muted = !world.win_sound.muted;
+  world.lose_sound.muted = !world.lose_sound.muted;
+}
+
+function muteCharacter() {
+  world.character.walking_sound.muted = !world.character.walking_sound.muted;
+  world.character.longIdle_sound.muted = !world.character.longIdle_sound.muted;
+  world.character.jump_sound.muted = !world.character.jump_sound.muted;
+  world.character.hurt_sound.muted = !world.character.hurt_sound.muted;
+  world.character.dying_sound.muted = !world.character.dying_sound.muted;
+}
+
+function muteEnemies() {
+  world.level.enemies.forEach((enemy) => {
+    enemy.dying_sound.muted = !enemy.dying_sound.muted;
+  });
+  world.level.enemiesSmall.forEach((enemySmall) => {
+    enemySmall.dying_sound.muted = !enemySmall.dying_sound.muted;
+  });
+  world.level.boss.forEach((boss) => {
+    boss.boss_sound.muted = !boss.boss_sound.muted;
+    boss.dying_sound.muted = !boss.dying_sound.muted;
+  });
+}
+
+function muteObjects() {
+  world.throwableObjects.forEach((throwBottle) => {
+    throwBottle.smash_sound.muted = !throwBottle.smash_sound.muted;
+  });
+  world.level.bottles.forEach((bottle) => {
+    bottle.collect_sound.muted = !bottle.collect_sound.muted;
+  });
+  world.level.coins.forEach((coin) => {
+    coin.collect_sound.muted = !coin.collect_sound.muted;
+  });
 }
 
 function startGame() {

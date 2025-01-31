@@ -249,9 +249,27 @@ canvas {
     color: #ffa500;
 }
 
-.touch-toggle-switch {
+.game-settings {
+    display: flex;
+    justify-content: space-between;
     width: 720px;
     margin-bottom: 16px;
+}
+
+.mute-button img {
+    height: 34px;
+    width: auto;
+    cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(16%) saturate(7106%) hue-rotate(345deg) brightness(100%) contrast(90%);
+}
+
+.mute-button img:hover {
+    filter: brightness(0) saturate(100%) invert(86%) sepia(39%) saturate(2725%) hue-rotate(359deg) brightness(104%) contrast(105%);
+    transition: 125ms;
+}
+
+.mute-button .not-muted {
+    filter: brightness(0) saturate(100%) invert(57%) sepia(86%) saturate(643%) hue-rotate(359deg) brightness(101%) contrast(108%);
 }
 
 .switch {
