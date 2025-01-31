@@ -2,27 +2,27 @@ function createNewLevel() {
   return level1 = new Level(
     [
       new Bottle(700),
-      new Bottle(740),
-      new Bottle(780),
+      new Bottle(760),
+      new Bottle(820),
   
       new Bottle(1400),
-      new Bottle(1440),
+      new Bottle(1460),
   
       new Bottle(2000),
-      new Bottle(2040),
+      new Bottle(2060),
   
       new Bottle(2880),
   
       new Bottle(3800),
-      new Bottle(3840),
+      new Bottle(3860),
   
-      new Bottle(4400),
+      new Bottle(4460),
   
       new Bottle(6000),
-      new Bottle(6040),
+      new Bottle(6060),
   
-      new Bottle(6120),
-      new Bottle(7200),
+      new Bottle(6140),
+      new Bottle(7240),
   
       new Bottle(9700),
     ],
@@ -55,8 +55,8 @@ function createNewLevel() {
       new Chicken(640),
       new Chicken(640),
   
-      new Chicken(1000),
-      new Chicken(1000),
+      new Chicken(1200),
+      new Chicken(1200),
   
       new Chicken(1600),
   
@@ -118,7 +118,19 @@ function createNewLevel() {
       new Chick(7800),
     ],
     [new Endboss()],
-    [new Cloud()],
+    [new Cloud(400),
+      new Cloud(1200),
+      new Cloud(2000),
+      new Cloud(2800),
+      new Cloud(3800),
+      new Cloud(5000),
+      new Cloud(6200),
+      new Cloud(7100),
+      new Cloud(7800),
+      new Cloud(8400),
+      new Cloud(9000),
+      new Cloud(9600),
+    ],
     [
       new BackgroundObject("./img/5_background/layers/air.png", -80),
       new BackgroundObject("./img/5_background/layers/air.png", 1359),

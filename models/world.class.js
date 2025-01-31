@@ -6,7 +6,7 @@ class World {
   bossBar = new BossBar();
   gameOver = false;
   throwableObjects = [];
-  inventory = 12; //später wieder auf 0 setzen
+  inventory = 0; 
   coinCounter = 0;
   level = level1;
   canvas;
@@ -14,7 +14,7 @@ class World {
   keyboard;
   camera_x = 0;
   bossActivated = false;
-  canThrow = true;
+  canThrow = false;
   overlay;
   winScreen;
   loseScreen;
@@ -62,13 +62,12 @@ class World {
   run() {
     setInterval(() => {
       if (!this.gameOver) {
-        this.character.updatePreviousY();
         this.checkCollisions();
         this.checkThrowObjects();
         this.checkBossActivation();
-        
+        this.character.updatePreviousY();
       }
-    }, 60);
+    }, 30);
   }
 
   checkBossActivation() {
@@ -92,7 +91,7 @@ class World {
       this.canThrow = false;
       setTimeout(() => {
         this.canThrow = true;
-      }, 1000);
+      }, 1200);
     }
   }
 
@@ -120,13 +119,12 @@ class World {
   checkEnemyCollision(enemy) {
     if (enemy.active && this.character.isColliding(enemy)) {
       if (this.character.isJumpingOn(enemy)) {
-        console.log("jumped on enemy");
         enemy.energy = 0;
         setTimeout(() => {
           enemy.active = false;
         }, 1000);
       } else if (enemy.energy > 0) {
-        this.character.hit(4);
+        this.character.hit(6);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -144,7 +142,7 @@ class World {
           enemySmall.active = false;
         }, 1000);
       } else if (enemySmall.energy > 0) {
-        this.character.hit(2);
+        this.character.hit(3);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -152,7 +150,7 @@ class World {
 
   checkBossCollision(boss) {
     if (this.character.isColliding(boss)) {
-      this.character.hit(9);
+      this.character.hit(10);
       this.healthBar.setPercentage(this.character.energy);
     }
   }

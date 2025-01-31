@@ -60,6 +60,7 @@ class Endboss extends MovableObject {
   startAlert() {
     setTimeout(() => {
       this.status = "attack";
+      this.world.canThrow = true;
     }, 2000);
   }
 
