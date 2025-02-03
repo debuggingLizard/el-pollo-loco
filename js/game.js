@@ -16,8 +16,17 @@ let gameStarted = false;
 let touchCheckbox;
 let touchNavigation;
 let muteImage;
+let throwBottleMuted = false;
+let muteThrowBottleInterval;
 
 function init() {
+  initializeUIElements();
+  animateStartScreen();
+  addTouchNavigationLogic();
+  toggleTouchNavigation();
+}
+
+function initializeUIElements() {
   overlay = document.getElementById("overlay");
   canvas = document.getElementById("canvas");
   startScreen = document.getElementById("start-screen");
@@ -29,9 +38,6 @@ function init() {
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
   muteImage = document.getElementById("mute-img");
-  animateStartScreen();
-  addTouchNavigationLogic();
-  toggleTouchNavigation();
 }
 
 function animateStartScreen() {
@@ -44,15 +50,20 @@ function animateStartScreen() {
 }
 
 function muteSounds() {
-  muteImage.src = muteImage.src.includes("not") ? "./img/muted.png" : "./img/not-muted.png";
-  muteImage.classList.toggle("not-muted");
-  muteGeneralSounds();
-  muteCharacter();
-  muteEnemies();
-  muteObjects();
+  if (gameStarted) {
+    muteImage.src = muteImage.src.includes("not")
+      ? "./img/muted.png"
+      : "./img/not-muted.png";
+    muteImage.classList.toggle("not-muted");
+    muteGeneralSounds();
+    muteCharacter();
+    muteEnemies();
+    muteObjects();
+  }
 }
 
 function muteGeneralSounds() {
+  world.music_sound.muted = !world.music_sound.muted;
   world.atmosphere_sound.muted = !world.atmosphere_sound.muted;
   world.win_sound.muted = !world.win_sound.muted;
   world.lose_sound.muted = !world.lose_sound.muted;
@@ -80,9 +91,12 @@ function muteEnemies() {
 }
 
 function muteObjects() {
-  world.throwableObjects.forEach((throwBottle) => {
-    throwBottle.smash_sound.muted = !throwBottle.smash_sound.muted;
-  });
+  throwBottleMuted = !throwBottleMuted;
+  muteThrowBottleInterval = setInterval(() => {
+    world.throwableObjects.forEach((throwBottle) => {
+      throwBottle.smash_sound.muted = throwBottleMuted;
+    });
+  }, 1000 / 60);
   world.level.bottles.forEach((bottle) => {
     bottle.collect_sound.muted = !bottle.collect_sound.muted;
   });
@@ -92,7 +106,28 @@ function muteObjects() {
 }
 
 function startGame() {
+  createNewWorld();
   gameStarted = true;
+  muteImage.classList.remove("inactive");
+  hideOverlays();
+}
+
+function returnToMenu() {
+  gameStarted = false;
+  resetMute();
+  resetWorld();
+  resetOverlaysReturn();
+}
+
+function restartGame() {
+  resetMute();
+  resetWorld();
+  createNewWorld();
+  gameStarted = true;
+  resetOverlaysRestart();
+}
+
+function createNewWorld() {
   world = new World(
     canvas,
     keyboard,
@@ -102,16 +137,28 @@ function startGame() {
     restartButton,
     menuButton
   );
+}
+
+function hideOverlays() {
   overlay.style.display = "none";
   startScreen.style.display = "none";
   startButton.style.display = "none";
 }
 
-function returnToMenu() {
-  gameStarted = false;
+function resetMute() {
+  muteImage.src = "./img/not-muted.png";
+  muteImage.classList.add("not-muted");
+  clearInterval(muteThrowBottleInterval);
+  throwBottleMuted = false;
+}
+
+function resetWorld() {
   level1 = {};
   createNewLevel();
   world = {};
+}
+
+function resetOverlaysReturn() {
   startScreen.style.display = "";
   startButton.style.display = "";
   winScreen.style.display = "none";
@@ -120,20 +167,7 @@ function returnToMenu() {
   menuButton.style.display = "none";
 }
 
-function restartGame() {
-  gameStarted = true;
-  level1 = {};
-  createNewLevel();
-  world = {};
-  world = new World(
-    canvas,
-    keyboard,
-    overlay,
-    winScreen,
-    loseScreen,
-    restartButton,
-    menuButton
-  );
+function resetOverlaysRestart() {
   restartButton.style.display = "none";
   menuButton.style.display = "none";
   overlay.style.display = "none";
@@ -182,38 +216,43 @@ function addTouchNavigationLogic() {
   let navigationRight = document.getElementById("navigation-right");
   let navigationJump = document.getElementById("navigation-jump");
   let navigationThrow = document.getElementById("navigation-throw");
-  let touchElements = [navigationLeft, navigationRight, navigationJump, navigationThrow];
+  let touchElements = [
+    navigationLeft,
+    navigationRight,
+    navigationJump,
+    navigationThrow,
+  ];
   navigationLeft.addEventListener("touchstart", () => {
-      keyboard.LEFT = true;
+    keyboard.LEFT = true;
   });
   navigationRight.addEventListener("touchstart", () => {
-      keyboard.RIGHT = true;
+    keyboard.RIGHT = true;
   });
   navigationJump.addEventListener("touchstart", () => {
-      keyboard.UP = true;
+    keyboard.UP = true;
   });
   navigationThrow.addEventListener("touchstart", () => {
-      keyboard.ENTER = true;
+    keyboard.ENTER = true;
   });
   navigationLeft.addEventListener("touchend", () => {
-      keyboard.LEFT = false;
+    keyboard.LEFT = false;
   });
   navigationRight.addEventListener("touchend", () => {
-      keyboard.RIGHT = false;
+    keyboard.RIGHT = false;
   });
   navigationJump.addEventListener("touchend", () => {
-      keyboard.UP = false;
+    keyboard.UP = false;
   });
   navigationThrow.addEventListener("touchend", () => {
-      keyboard.ENTER = false;
+    keyboard.ENTER = false;
   });
-  touchElements.forEach(element => {
-      element.addEventListener("contextmenu", (e) => {
-          e.preventDefault();
-      });
-      element.addEventListener("selectstart", (e) => {
-          e.preventDefault();
-      });
+  touchElements.forEach((element) => {
+    element.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
+    element.addEventListener("selectstart", (e) => {
+      e.preventDefault();
+    });
   });
 }
 

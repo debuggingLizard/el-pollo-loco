@@ -19,7 +19,7 @@ class Chicken extends MovableObject {
     this.speed = 0.4 + Math.random() * 0.25;
     this.animate();
     this.active = true;
-    this.dying_sound.volume = 0.2;
+    this.dying_sound.volume = 0.4;
   }
 
   animate() {

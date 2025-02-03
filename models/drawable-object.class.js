@@ -25,6 +25,7 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  // drawFrame-Method for testing/development purposes only
   drawFrame(ctx) {
     if (
       this instanceof Character ||

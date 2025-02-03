@@ -35,14 +35,18 @@ class ThrowableObject extends MovableObject {
       this.x += 10;
     }, 25);
     setInterval(() => {
-      if (!this.bossIsHit) {
-        this.playAnimation(this.IMAGES_THROW);
-      } else {
-        if (!this.soundHasPlayed) {
-          this.smash_sound.play();
-          this.soundHasPlayed = true;
-        }
-      }
+      this.animateThrow();
     }, 60);
+  }
+
+  animateThrow() {
+    if (!this.bossIsHit) {
+      this.playAnimation(this.IMAGES_THROW);
+    } else {
+      if (!this.soundHasPlayed) {
+        this.smash_sound.play();
+        this.soundHasPlayed = true;
+      }
+    }
   }
 }

@@ -13,9 +13,10 @@ body {
     align-items: center;
     background-color: #7e3807;
     color: white;
-    height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -181,50 +182,75 @@ canvas {
 }
 
 .game-explain {
-    margin-top: 16px;
     display: flex;
+    flex-direction: column;
     width: 720px;
-    gap: 24px;
+    padding: 0 0 24px;
 }
 
-.game-explain .left {
+.game-explain p {
+    font-size: 18px;
+    margin: 12px 0;
+    line-height: 1.3;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
+    margin: 16px 0;
+}
+
+.controls .left {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
 }
 
-.game-explain .left>div,
-.game-explain .left .move>div,
-.game-explain .right>div {
+.controls .left>div,
+.controls .left .move>div,
+.controls .right>div {
     display: flex;
     align-items: center;
     gap: 6px;
-}
+} 
 
-.game-explain .left .move {
+.controls .left .move {
     gap: 12px;
 }
 
-.game-explain .key {
+.controls .text {
+    color: #ffde00;
+    font-size: 20px;
+}
+
+.controls .key {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
     min-width: 24px;
+    padding: 0 4px;
+}
+
+.game-explain h2,
+.controls .key {
+    box-sizing: border-box;
     font-family: 'Maiden Orange';
     font-size: 24px;
     border: unset;
     border-radius: 4px;
     box-shadow: 2px 2px 0px 0px #9a3a17;
-    padding: 0 4px;
     background-color: #ffde00;
     color: #4d1f16;
 }
 
-.game-explain .text {
-    color: #ffde00;
-    font-size: 20px;
+.game-explain h2 {
+    align-self: center;
+    width: max-content;
+    font-weight: 600;
+    padding: 4px;
+    margin: 20px 0 8px;
 }
 
 .responsive-overlay {
@@ -270,6 +296,10 @@ canvas {
 
 .mute-button .not-muted {
     filter: brightness(0) saturate(100%) invert(57%) sepia(86%) saturate(643%) hue-rotate(359deg) brightness(101%) contrast(108%);
+}
+
+.mute-button .inactive {
+    display: none !important;
 }
 
 .switch {

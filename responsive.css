@@ -1,27 +1,7 @@
-@media (max-width: 768px) {
-
-    canvas,
-    .overlay {
-        width: 100%;
-        min-width: 667px;
-    }
-
-    .overlay {
-        height: 100%;
-    }
-
-    .game-explain {
-        box-sizing: border-box;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 16px;
-    }
-
+@media (max-width: 992px) {
     .game-settings {
         box-sizing: border-box;
         justify-content: flex-end;
-        width: 100%;
-        padding: 0 16px;
     }
 
     .touch-toggle-switch {
@@ -30,6 +10,31 @@
 
     .mobile-nav-buttons {
         display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+
+    canvas,
+    .overlay {
+        width: 100%;
+        min-width: 667px;
+
+    }
+
+    .overlay {
+        height: 100%;
+    }
+
+    .game-explain {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0 16px;
+    }
+
+    .game-settings {
+        width: 100%;
+        padding: 0 16px;
     }
 }
 
@@ -47,12 +52,13 @@
     nav,
     h1,
     .game-container,
-    .game-explain {
+    .game-explain, 
+    .mute-button {
         display: none;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .touch-nav-visible {
         display: flex;
     }

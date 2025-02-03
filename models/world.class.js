@@ -23,6 +23,7 @@ class World {
   win_sound = new Audio("./audio/world/win.mp3");
   lose_sound = new Audio("./audio/world/lose.mp3");
   atmosphere_sound = new Audio("./audio/world/atmosphere.mp3");
+  music_sound = new Audio("./audio/world/game-music.mp3");
 
   constructor(
     canvas,
@@ -41,7 +42,10 @@ class World {
     this.loseScreen = loseScreen;
     this.restartButton = restartButton;
     this.menuButton = menuButton;
+    this.music_sound.volume = 0.4;
+    this.music_sound.play();
     this.atmosphere_sound.play();
+    this.music_sound.loop = true;
     this.atmosphere_sound.loop = true;
     this.setWorld();
     this.draw();
@@ -124,7 +128,7 @@ class World {
           enemy.active = false;
         }, 1000);
       } else if (enemy.energy > 0) {
-        this.character.hit(6);
+        this.character.hit(12);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -142,7 +146,7 @@ class World {
           enemySmall.active = false;
         }, 1000);
       } else if (enemySmall.energy > 0) {
-        this.character.hit(3);
+        this.character.hit(6);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -150,7 +154,7 @@ class World {
 
   checkBossCollision(boss) {
     if (this.character.isColliding(boss)) {
-      this.character.hit(10);
+      this.character.hit(20);
       this.healthBar.setPercentage(this.character.energy);
     }
   }
@@ -237,6 +241,7 @@ class World {
   w;
 
   winGameOver() {
+    this.music_sound.pause();
     this.atmosphere_sound.pause();
     this.win_sound.play();
     this.overlay.style = "";
@@ -246,6 +251,7 @@ class World {
   }
 
   lostGameOver() {
+    this.music_sound.pause();
     this.atmosphere_sound.pause();
     this.level.boss[0].boss_sound.pause();
     this.lose_sound.play();

@@ -90,11 +90,11 @@ class Character extends MovableObject {
 
   getSoundSettings() {
     this.walking_sound.playbackRate = 1.3;
-    this.walking_sound.volume = 0.2;
-    this.hurt_sound.volume = 0.2;
-    this.dying_sound.volume = 0.4;
-    this.jump_sound.volume = 0.2;
-    this.longIdle_sound.volume = 0.4;
+    this.walking_sound.volume = 0.6;
+    this.hurt_sound.volume = 0.6;
+    this.dying_sound.volume = 0.8;
+    this.jump_sound.volume = 0.6;
+    this.longIdle_sound.volume = 0.8;
   }
 
   stopSound(audio) {
