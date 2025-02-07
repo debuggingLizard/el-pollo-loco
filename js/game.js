@@ -15,6 +15,7 @@ let currentImageIndex = 0;
 let gameStarted = false;
 let touchCheckbox;
 let touchNavigation;
+let muteButton;
 let muteImage;
 let throwBottleMuted = false;
 let muteThrowBottleInterval;
@@ -22,7 +23,7 @@ let explainOverlay;
 
 function init() {
   initializeUIElements();
-  // animateStartScreen();
+  animateStartScreen();
   addTouchNavigationLogic();
   toggleTouchNavigation();
 }
@@ -35,6 +36,7 @@ function initializeUIElements() {
   loseScreen = document.getElementById("lose-screen");
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
+  muteButton = document.getElementById("mute-button");
   muteImage = document.getElementById("mute-img");
   mainMenuButtons = document.getElementById("main-menu-btns");
   endMenuButtons = document.getElementById("end-menu-btns");
@@ -55,16 +57,13 @@ function animateStartScreen() {
 }
 
 function muteSounds() {
-  if (gameStarted) {
     muteImage.src = muteImage.src.includes("not")
       ? "./img/muted.png"
       : "./img/not-muted.png";
-    muteImage.classList.toggle("not-muted");
     muteGeneralSounds();
     muteCharacter();
     muteEnemies();
     muteObjects();
-  }
 }
 
 function muteGeneralSounds() {
@@ -113,7 +112,6 @@ function muteObjects() {
 function startGame() {
   createNewWorld();
   gameStarted = true;
-  muteImage.classList.remove("inactive");
   hideOverlays();
 }
 
@@ -139,7 +137,9 @@ function createNewWorld() {
     overlay,
     winScreen,
     loseScreen,
-    endMenuButtons
+    endMenuButtons,
+    muteButton,
+    touchNavigation
   );
 }
 
@@ -151,7 +151,7 @@ function hideOverlays() {
 
 function resetMute() {
   muteImage.src = "./img/not-muted.png";
-  muteImage.classList.add("not-muted");
+  muteButton.style.display = "";
   clearInterval(muteThrowBottleInterval);
   throwBottleMuted = false;
 }
@@ -165,12 +165,15 @@ function resetWorld() {
 function resetOverlaysReturn() {
   startScreen.style.display = "";
   mainMenuButtons.style.display = "";
+  touchNavigation.style.display = "";
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
   endMenuButtons.style.display = "none";
+  
 }
 
 function resetOverlaysRestart() {
+  touchNavigation.style.display = "";
   endMenuButtons.style.display = "none";
   overlay.style.display = "none";
   winScreen.style.display = "none";

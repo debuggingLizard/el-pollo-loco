@@ -19,6 +19,8 @@ class World {
   winScreen;
   loseScreen;
   endMenuButtons;
+  muteButton;
+  touchNavigation;
   win_sound = new Audio("./audio/world/win.mp3");
   lose_sound = new Audio("./audio/world/lose.mp3");
   atmosphere_sound = new Audio("./audio/world/atmosphere.mp3");
@@ -30,7 +32,9 @@ class World {
     overlay,
     winScreen,
     loseScreen,
-    endMenuButtons
+    endMenuButtons, 
+    muteButton,
+    touchNavigation
   ) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -39,6 +43,8 @@ class World {
     this.winScreen = winScreen;
     this.loseScreen = loseScreen;
     this.endMenuButtons = endMenuButtons;
+    this.muteButton = muteButton;
+    this.touchNavigation = touchNavigation;
     this.music_sound.volume = 0.4;
     this.music_sound.play();
     this.atmosphere_sound.play();
@@ -235,15 +241,17 @@ class World {
       this.lostGameOver();
     }
   }
-  w;
 
   winGameOver() {
     this.music_sound.pause();
     this.atmosphere_sound.pause();
     this.win_sound.play();
+    this.muteButton.style = "display: none";
+    this.touchNavigation.style = "display: none";
     this.overlay.style = "";
     this.winScreen.style = "";
     this.endMenuButtons.style = "";
+   
   }
 
   lostGameOver() {
@@ -251,6 +259,8 @@ class World {
     this.atmosphere_sound.pause();
     this.level.boss[0].boss_sound.pause();
     this.lose_sound.play();
+    this.muteButton.style = "display: none";
+    this.touchNavigation.style = "display: none";
     this.overlay.style = "";
     this.loseScreen.style = "";
     this.endMenuButtons.style = "";

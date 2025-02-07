@@ -10,6 +10,7 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: #7e3807;
     color: white;
@@ -37,33 +38,11 @@ body {
     cursor: pointer;
 }
 
-nav {
-    width: 100%;
-    max-width: 1440px;
-}
-
-nav>div {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px 12px;
-}
-
-nav a {
-    color: #ffa500;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-nav a:hover {
-    color: #ffde00;
-    transition: 125ms;
-}
-
 h1 {
     font-family: 'Maiden Orange';
     color: #ffde00;
     font-size: 48px;
-    margin: 0 0 12px;
+    margin: 12px 0;
 }
 
 .game-container {
@@ -92,7 +71,7 @@ canvas {
     box-sizing: border-box;
     padding: 16px;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 4px);
     display: none;
     align-items: flex-end;
     justify-content: space-between;
@@ -149,6 +128,27 @@ canvas {
     justify-content: center;
     width: 100%;
     height: 100%;
+}
+
+#main-menu-btns {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#main-menu-btns a {
+    z-index: 110;
+    text-decoration: none;
+    margin-bottom: 16px;
+    background-color: #ffa500;
+    color: #4d1f16;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+#main-menu-btns a:hover {
+    background-color: #ffde00;
+    transition: 125ms;
 }
 
 #explain-button,
@@ -303,24 +303,36 @@ canvas {
     margin-bottom: 16px;
 }
 
-.mute-button img {
-    height: 34px;
-    width: auto;
+.mute-button {
+    position: absolute;
+    z-index: 90;
+    top: 12px;
+    right: 172px;
+    background-color: #ffde00;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    filter: brightness(0) saturate(100%) invert(10%) sepia(16%) saturate(7106%) hue-rotate(345deg) brightness(100%) contrast(90%);
 }
 
-.mute-button img:hover {
-    filter: brightness(0) saturate(100%) invert(86%) sepia(39%) saturate(2725%) hue-rotate(359deg) brightness(104%) contrast(105%);
+.mute-button:hover {
+    background-color: #ffa500;
     transition: 125ms;
 }
 
-.mute-button .not-muted {
-    filter: brightness(0) saturate(100%) invert(57%) sepia(86%) saturate(643%) hue-rotate(359deg) brightness(101%) contrast(108%);
+.mute-button img {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) saturate(100%) invert(13%) sepia(12%) saturate(5192%) hue-rotate(333deg) brightness(99%) contrast(94%);
 }
 
-.mute-button .inactive {
-    display: none !important;
+.mute-button:active {
+    border-style: none inset inset none;
+    border-width: 1px;
+    border-color: #4d1f16;
 }
 
 .switch {
@@ -347,7 +359,6 @@ canvas {
     -webkit-transition: 125ms;
     transition: 125ms;
 }
-
 
 .slider {
     position: absolute;

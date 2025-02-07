@@ -37,11 +37,6 @@
         <p>Please rotate your device</p>
         <img src="./img/device-rotate.png" alt="Please rotate your device">
     </div>
-    <nav>
-        <div>
-            <a href="imprint.html" target="_blank">Imprint</a>
-        </div>
-    </nav>
     <h1>El Pollo Loco</h1>
     <div class="game-settings">
         <div class="touch-toggle-switch">
@@ -51,18 +46,20 @@
                 <span class="switch-text">I use a touchscreen</span>
             </label>
         </div>
-        <div class="mute-button">
-            <img id="mute-img" class="not-muted inactive" onclick="muteSounds()" src="./img/not-muted.png"
-                alt="Mute Sounds" title="Mute Sounds">
-        </div>
+        
     </div>
 
     <div class="game-container">
+        <div onclick="muteSounds()" id="mute-button" class="mute-button" title="Mute Sounds">
+            <img id="mute-img" class="not-muted inactive" src="./img/not-muted.png"
+                alt="Mute Sounds" >
+        </div>
         <div id="overlay" class="overlay">
             <div class="buttons">
                 <div id="main-menu-btns">
                     <button id="start-button" onclick="startGame()">Game Start</button>
                     <button id="explain-button" onclick="toggleExplanationOverlay()" title="How to Play">?</button>
+                    <a href="imprint.html" target="_blank">Imprint</a>
                 </div>
                 <div style="display: none;" id="end-menu-btns">
                     <button id="menu-button" onclick="returnToMenu()">&larr; Back to Menu</button>
