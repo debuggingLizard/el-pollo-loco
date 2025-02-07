@@ -18,8 +18,7 @@ class World {
   overlay;
   winScreen;
   loseScreen;
-  restartButton;
-  menuButton;
+  endMenuButtons;
   win_sound = new Audio("./audio/world/win.mp3");
   lose_sound = new Audio("./audio/world/lose.mp3");
   atmosphere_sound = new Audio("./audio/world/atmosphere.mp3");
@@ -31,8 +30,7 @@ class World {
     overlay,
     winScreen,
     loseScreen,
-    restartButton,
-    menuButton
+    endMenuButtons
   ) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -40,8 +38,7 @@ class World {
     this.overlay = overlay;
     this.winScreen = winScreen;
     this.loseScreen = loseScreen;
-    this.restartButton = restartButton;
-    this.menuButton = menuButton;
+    this.endMenuButtons = endMenuButtons;
     this.music_sound.volume = 0.4;
     this.music_sound.play();
     this.atmosphere_sound.play();
@@ -246,8 +243,7 @@ class World {
     this.win_sound.play();
     this.overlay.style = "";
     this.winScreen.style = "";
-    this.restartButton.style = "";
-    this.menuButton.style = "";
+    this.endMenuButtons.style = "";
   }
 
   lostGameOver() {
@@ -257,8 +253,7 @@ class World {
     this.lose_sound.play();
     this.overlay.style = "";
     this.loseScreen.style = "";
-    this.restartButton.style = "";
-    this.menuButton.style = "";
+    this.endMenuButtons.style = "";
   }
 
   addObjectsToMap(objects) {

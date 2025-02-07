@@ -1,10 +1,10 @@
 let overlay;
 let canvas;
 let startScreen;
-let startButton;
 let winScreen;
 let loseScreen;
-let restartButton;
+let mainMenuButtons;
+let endMenuButtons;
 let world;
 let keyboard = new Keyboard();
 let startImages = [
@@ -21,7 +21,7 @@ let muteThrowBottleInterval;
 
 function init() {
   initializeUIElements();
-  animateStartScreen();
+  // animateStartScreen();
   addTouchNavigationLogic();
   toggleTouchNavigation();
 }
@@ -30,14 +30,13 @@ function initializeUIElements() {
   overlay = document.getElementById("overlay");
   canvas = document.getElementById("canvas");
   startScreen = document.getElementById("start-screen");
-  startButton = document.getElementById("start-button");
   winScreen = document.getElementById("win-screen");
   loseScreen = document.getElementById("lose-screen");
-  menuButton = document.getElementById("menu-button");
-  restartButton = document.getElementById("restart-button");
   touchCheckbox = document.getElementById("touch-checkbox");
   touchNavigation = document.getElementById("touch-navigation");
   muteImage = document.getElementById("mute-img");
+  mainMenuButtons = document.getElementById("main-menu-btns");
+  endMenuButtons = document.getElementById("end-menu-btns");
 }
 
 function animateStartScreen() {
@@ -134,15 +133,14 @@ function createNewWorld() {
     overlay,
     winScreen,
     loseScreen,
-    restartButton,
-    menuButton
+    endMenuButtons
   );
 }
 
 function hideOverlays() {
   overlay.style.display = "none";
   startScreen.style.display = "none";
-  startButton.style.display = "none";
+  mainMenuButtons.style.display = "none";
 }
 
 function resetMute() {
@@ -160,16 +158,14 @@ function resetWorld() {
 
 function resetOverlaysReturn() {
   startScreen.style.display = "";
-  startButton.style.display = "";
+  mainMenuButtons.style.display = "";
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
-  restartButton.style.display = "none";
-  menuButton.style.display = "none";
+  endMenuButtons.style.display = "none";
 }
 
 function resetOverlaysRestart() {
-  restartButton.style.display = "none";
-  menuButton.style.display = "none";
+  endMenuButtons.style.display = "none";
   overlay.style.display = "none";
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
