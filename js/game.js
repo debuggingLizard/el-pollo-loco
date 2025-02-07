@@ -18,6 +18,7 @@ let touchNavigation;
 let muteImage;
 let throwBottleMuted = false;
 let muteThrowBottleInterval;
+let explainOverlay;
 
 function init() {
   initializeUIElements();
@@ -37,6 +38,11 @@ function initializeUIElements() {
   muteImage = document.getElementById("mute-img");
   mainMenuButtons = document.getElementById("main-menu-btns");
   endMenuButtons = document.getElementById("end-menu-btns");
+  explainOverlay = document.getElementById("game-explain");
+}
+
+function toggleExplanationOverlay() {
+  explainOverlay.style.display = explainOverlay.style.display == "none" ? "" : "none";
 }
 
 function animateStartScreen() {
