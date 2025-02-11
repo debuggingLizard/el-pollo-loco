@@ -21,6 +21,7 @@ class World {
   endMenuButtons;
   muteButton;
   touchNavigation;
+  throwBottleNotification;
   win_sound = new Audio("./audio/world/win.mp3");
   lose_sound = new Audio("./audio/world/lose.mp3");
   atmosphere_sound = new Audio("./audio/world/atmosphere.mp3");
@@ -34,7 +35,8 @@ class World {
     loseScreen,
     endMenuButtons, 
     muteButton,
-    touchNavigation
+    touchNavigation,
+    throwBottleNotification
   ) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -45,6 +47,7 @@ class World {
     this.endMenuButtons = endMenuButtons;
     this.muteButton = muteButton;
     this.touchNavigation = touchNavigation;
+    this.throwBottleNotification = throwBottleNotification;
     this.music_sound.volume = 0.4;
     this.music_sound.play();
     this.atmosphere_sound.play();
@@ -82,8 +85,16 @@ class World {
       this.bossActivated = true;
       this.level.boss[0].boss_sound.play();
       this.level.boss[0].boss_sound.loop = true;
+      this.displayThrowbottleActiveNotification();
       this.level.boss[0].startAlert();
     }
+  }
+
+  displayThrowbottleActiveNotification() {
+    this.throwBottleNotification.classList.add("display-alert");
+    setTimeout(() => {
+      this.throwBottleNotification.classList.remove("display-alert");
+    }, 2000);
   }
 
   checkThrowObjects() {

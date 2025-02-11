@@ -49,6 +49,45 @@ h1 {
     position: relative;
 }
 
+.throwbottle-notification {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 90;
+    background-color: rgba(255, 221, 0, 0.8);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.throwbottle-notification img {
+    height: 48px;
+    width: auto;
+}
+
+.throwbottle-notification span {
+    color: #4d1f16;
+    font-family: 'Maiden Orange';
+    font-size: 32px;
+}
+
+.display-alert {
+    animation: grow 1s forwards;
+}
+
+@keyframes grow {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 canvas {
     background-color: #532605;
     z-index: 1;
@@ -214,6 +253,8 @@ canvas {
     margin: 12px 0;
     line-height: 1.3;
 }
+
+
 
 .controls {
     display: flex;

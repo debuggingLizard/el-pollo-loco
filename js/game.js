@@ -20,6 +20,7 @@ let muteImage;
 let throwBottleMuted = false;
 let muteThrowBottleInterval;
 let explainOverlay;
+let throwBottleNotification;
 
 function init() {
   initializeUIElements();
@@ -41,6 +42,7 @@ function initializeUIElements() {
   mainMenuButtons = document.getElementById("main-menu-btns");
   endMenuButtons = document.getElementById("end-menu-btns");
   explainOverlay = document.getElementById("game-explain");
+  throwBottleNotification = document.getElementById("throwbottle-notification");
 }
 
 function toggleExplanationOverlay() {
@@ -139,7 +141,8 @@ function createNewWorld() {
     loseScreen,
     endMenuButtons,
     muteButton,
-    touchNavigation
+    touchNavigation,
+    throwBottleNotification
   );
 }
 
