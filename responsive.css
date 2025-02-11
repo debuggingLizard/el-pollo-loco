@@ -1,8 +1,4 @@
 @media (max-width: 992px) {
-    /* .game-settings {
-        box-sizing: border-box;
-        justify-content: flex-end;
-    } */
 
     h1,
     .game-settings {
@@ -53,7 +49,7 @@
     nav,
     h1,
     .game-container,
-    .game-explain, 
+    .game-explain,
     .mute-button {
         display: none;
     }
