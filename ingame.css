@@ -1,0 +1,134 @@
+.mobile-nav-buttons button:hover,
+.overlay button:hover {
+    transition: 0.4s;
+    background-color: #ffa500;
+}
+
+.mobile-nav-buttons button:active,
+.overlay button:active {
+    box-shadow: inset 4px 4px 0px 0px #9a3a17;
+    border-style: none inset inset none;
+    border-width: 1px;
+    border-color: #4d1f16;
+}
+
+.mobile-nav-buttons {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 16px;
+    width: 100%;
+    height: calc(100% - 4px);
+    display: none;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.mobile-nav-buttons img {
+    height: 44px;
+    width: auto;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(16%) saturate(7106%) hue-rotate(345deg) brightness(100%) contrast(90%);
+}
+
+#navigation-left img {
+    transform: rotate(180deg);
+}
+
+.mobile-nav-buttons .column-left {
+    display: flex;
+    gap: 32px;
+}
+
+.mobile-nav-buttons .column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.mobile-nav-buttons button {
+    font-family: 'Maiden Orange';
+    font-size: 38px;
+    border: unset;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0px 0px #9a3a17;
+    padding: 4px;
+    cursor: pointer;
+    z-index: 90;
+    background-color: #ffde00;
+    color: #4d1f16;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mute-button {
+    position: absolute;
+    z-index: 90;
+    top: 12px;
+    right: 172px;
+    background-color: #ffde00;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mute-button:hover {
+    background-color: #ffa500;
+    transition: 125ms;
+}
+
+.mute-button img {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) saturate(100%) invert(13%) sepia(12%) saturate(5192%) hue-rotate(333deg) brightness(99%) contrast(94%);
+}
+
+.mute-button:active {
+    border-style: none inset inset none;
+    border-width: 1px;
+    border-color: #4d1f16;
+}
+
+.throwbottle-notification {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 90;
+    background-color: rgba(255, 221, 0, 0.8);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.throwbottle-notification img {
+    height: 48px;
+    width: auto;
+}
+
+.throwbottle-notification span {
+    color: #4d1f16;
+    font-family: 'Maiden Orange';
+    font-size: 32px;
+}
+
+.display-alert {
+    animation: grow 1s forwards;
+}
+
+@keyframes grow {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
