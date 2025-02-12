@@ -23,29 +23,37 @@ class Chick extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (!this.isDead()) {
-        this.followPepe();
-      }
+      this.followPepe();
     }, 1000 / 60);
     setInterval(() => {
-      if (this.isDead()) {
-       this.playDyingAnimation();
-      } else {
-        this.playAnimation(this.IMAGES_WALKING);
-      }
+      this.animateChick();
     }, 150);
   }
 
   followPepe() {
-    if (this.world && this.x >= this.world.character.x) {
-      this.moveLeft(false);
+    if (!this.isDead()) {
+      if (this.world && this.x >= this.world.character.x) {
+        this.moveLeft(false);
+      } else {
+        this.moveRight(true);
+      }
+    }
+  }
+
+  animateChick() {
+    if (this.isDead()) {
+      this.playDyingAnimation();
     } else {
-      this.moveRight(true);
+      this.playAnimation(this.IMAGES_WALKING);
     }
   }
 
   playDyingAnimation() {
     this.loadImage("./img/3_enemies_chicken/chicken_small/2_dead/dead.png");
+    this.playDyingSound();
+  }
+
+  playDyingSound() {
     if (!this.dyingHasPlayed) {
       this.dying_sound.play();
       this.dyingHasPlayed = true;

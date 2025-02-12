@@ -66,9 +66,7 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.bossIsAwake()) {
-        this.followPepe();
-      }
+      this.followPepe();
     }, 1000 / 60);
     setInterval(() => {
       this.animateBoss();
@@ -83,11 +81,7 @@ class Endboss extends MovableObject {
     } else if (this.bossIsInactive()) {
       this.playAnimation(this.IMAGES_ALERT);
     } else if (this.bossAttacks()) {
-      this.speed = 8;
-      this.playAnimation(this.IMAGES_ATTACK);
-      setTimeout(() => {
-        this.speed = 2.8;
-      }, 1000);
+      this.playAttackAnimation();
     } else if (this.bossIsActive()) {
       this.playAnimation(this.IMAGES_WALKING);
     }
@@ -98,13 +92,15 @@ class Endboss extends MovableObject {
   }
 
   followPepe() {
-    if (this.x >= this.world.character.x + 4) {
-      this.moveLeft(false);
-    } else if (this.x <= this.world.character.x - 4) {
-      this.moveRight(true);
-    } else {
-      this.standStill();
-    } 
+    if (this.bossIsAwake()) {
+      if (this.x >= this.world.character.x + 4) {
+        this.moveLeft(false);
+      } else if (this.x <= this.world.character.x - 4) {
+        this.moveRight(true);
+      } else {
+        this.standStill();
+      }
+    }
   }
 
   standStill() {
@@ -113,14 +109,18 @@ class Endboss extends MovableObject {
 
   wrapUpGame() {
     this.boss_sound.pause();
-    if (!this.dyingHasPlayed) {
-      this.dying_sound.play();
-      this.dyingHasPlayed = true;
-    }
+    this.playDyingSound();
     this.playAnimation(this.IMAGES_DEAD);
     setTimeout(() => {
       this.world.gameOver = true;
     }, 1600);
+  }
+
+  playDyingSound() {
+    if (!this.dyingHasPlayed) {
+      this.dying_sound.play();
+      this.dyingHasPlayed = true;
+    }
   }
 
   bossIsInactive() {
@@ -128,7 +128,17 @@ class Endboss extends MovableObject {
   }
 
   bossAttacks() {
-    return this.status == "attack" && Math.abs(this.x - this.world.character.x) < 220;
+    return (
+      this.status == "attack" && Math.abs(this.x - this.world.character.x) < 220
+    );
+  }
+
+  playAttackAnimation() {
+    this.speed = 8;
+    this.playAnimation(this.IMAGES_ATTACK);
+    setTimeout(() => {
+      this.speed = 2.8;
+    }, 1000);
   }
 
   bossIsActive() {

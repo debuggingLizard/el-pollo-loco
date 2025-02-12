@@ -24,7 +24,8 @@ let throwBottleNotification;
 
 function init() {
   initializeUIElements();
-  // animateStartScreen();
+  animateStartScreen();
+  addKeyBoardNavigationLogic();
   addTouchNavigationLogic();
   toggleTouchNavigation();
 }
@@ -46,7 +47,8 @@ function initializeUIElements() {
 }
 
 function toggleExplanationOverlay() {
-  explainOverlay.style.display = explainOverlay.style.display == "none" ? "" : "none";
+  explainOverlay.style.display =
+    explainOverlay.style.display == "none" ? "" : "none";
 }
 
 function animateStartScreen() {
@@ -59,13 +61,13 @@ function animateStartScreen() {
 }
 
 function muteSounds() {
-    muteImage.src = muteImage.src.includes("not")
-      ? "./img/muted.png"
-      : "./img/not-muted.png";
-    muteGeneralSounds();
-    muteCharacter();
-    muteEnemies();
-    muteObjects();
+  muteImage.src = muteImage.src.includes("not")
+    ? "./img/muted.png"
+    : "./img/not-muted.png";
+  muteGeneralSounds();
+  muteCharacter();
+  muteEnemies();
+  muteObjects();
 }
 
 function muteGeneralSounds() {
@@ -172,7 +174,6 @@ function resetOverlaysReturn() {
   winScreen.style.display = "none";
   loseScreen.style.display = "none";
   endMenuButtons.style.display = "none";
-  
 }
 
 function resetOverlaysRestart() {
@@ -183,41 +184,50 @@ function resetOverlaysRestart() {
   loseScreen.style.display = "none";
 }
 
-window.addEventListener("keydown", (e) => {
-  if (e.key == "d" || e.key == "D") {
-    keyboard.RIGHT = true;
-  }
-  if (e.key == "a" || e.key == "A") {
-    keyboard.LEFT = true;
-  }
-  if (e.key == "w" || e.key == "W") {
-    keyboard.UP = true;
-  }
-  if (e.key == "s" || e.key == "S") {
-    keyboard.DOWN = true;
-  }
-  if (e.code == "Enter") {
-    keyboard.ENTER = true;
-  }
-});
+function addKeyBoardNavigationLogic() {
+  keyActiveLogic();
+  keyInactiveLogic();
+}
 
-window.addEventListener("keyup", (e) => {
-  if (e.key == "d" || e.key == "D") {
-    keyboard.RIGHT = false;
-  }
-  if (e.key == "a" || e.key == "A") {
-    keyboard.LEFT = false;
-  }
-  if (e.key == "w" || e.key == "W") {
-    keyboard.UP = false;
-  }
-  if (e.key == "s" || e.key == "S") {
-    keyboard.DOWN = false;
-  }
-  if (e.code == "Enter") {
-    keyboard.ENTER = false;
-  }
-});
+function keyActiveLogic() {
+  window.addEventListener("keydown", (e) => {
+    if (e.key == "d" || e.key == "D") {
+      keyboard.RIGHT = true;
+    }
+    if (e.key == "a" || e.key == "A") {
+      keyboard.LEFT = true;
+    }
+    if (e.key == "w" || e.key == "W") {
+      keyboard.UP = true;
+    }
+    if (e.key == "s" || e.key == "S") {
+      keyboard.DOWN = true;
+    }
+    if (e.code == "Enter") {
+      keyboard.ENTER = true;
+    }
+  });
+}
+
+function keyInactiveLogic() {
+  window.addEventListener("keyup", (e) => {
+    if (e.key == "d" || e.key == "D") {
+      keyboard.RIGHT = false;
+    }
+    if (e.key == "a" || e.key == "A") {
+      keyboard.LEFT = false;
+    }
+    if (e.key == "w" || e.key == "W") {
+      keyboard.UP = false;
+    }
+    if (e.key == "s" || e.key == "S") {
+      keyboard.DOWN = false;
+    }
+    if (e.code == "Enter") {
+      keyboard.ENTER = false;
+    }
+  });
+}
 
 function addTouchNavigationLogic() {
   let navigationLeft = document.getElementById("navigation-left");
@@ -230,17 +240,18 @@ function addTouchNavigationLogic() {
     navigationJump,
     navigationThrow,
   ];
+  addTouchMovement(navigationLeft, navigationRight);
+  addTouchJump(navigationJump);
+  addTouchThrow(navigationThrow);
+  preventUnwantedBehaviorDuringTouch(touchElements);
+}
+
+function addTouchMovement(navigationLeft, navigationRight) {
   navigationLeft.addEventListener("touchstart", () => {
     keyboard.LEFT = true;
   });
   navigationRight.addEventListener("touchstart", () => {
     keyboard.RIGHT = true;
-  });
-  navigationJump.addEventListener("touchstart", () => {
-    keyboard.UP = true;
-  });
-  navigationThrow.addEventListener("touchstart", () => {
-    keyboard.ENTER = true;
   });
   navigationLeft.addEventListener("touchend", () => {
     keyboard.LEFT = false;
@@ -248,12 +259,27 @@ function addTouchNavigationLogic() {
   navigationRight.addEventListener("touchend", () => {
     keyboard.RIGHT = false;
   });
+}
+
+function addTouchJump(navigationJump) {
+  navigationJump.addEventListener("touchstart", () => {
+    keyboard.UP = true;
+  });
   navigationJump.addEventListener("touchend", () => {
     keyboard.UP = false;
+  });
+}
+
+function addTouchThrow(navigationThrow) {
+  navigationThrow.addEventListener("touchstart", () => {
+    keyboard.ENTER = true;
   });
   navigationThrow.addEventListener("touchend", () => {
     keyboard.ENTER = false;
   });
+}
+
+function preventUnwantedBehaviorDuringTouch(touchElements) {
   touchElements.forEach((element) => {
     element.addEventListener("contextmenu", (e) => {
       e.preventDefault();

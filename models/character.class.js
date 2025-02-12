@@ -88,6 +88,11 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  stopSound(audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
   getSoundSettings() {
     this.walking_sound.playbackRate = 1.3;
     this.walking_sound.volume = 0.6;
@@ -97,11 +102,6 @@ class Character extends MovableObject {
     this.longIdle_sound.volume = 0.8;
   }
 
-  stopSound(audio) {
-    audio.pause();
-    audio.currentTime = 0;
-  }
-
   animate() {
     setInterval(() => {
       this.enableMovement();
@@ -109,6 +109,59 @@ class Character extends MovableObject {
     setInterval(() => {
       this.animatePepe();
     }, 160);
+  }
+
+  enableMovement() {
+    if (!this.world.gameOver) {
+      let moved = this.movePepe();
+      this.noMovementTime = moved ? 0 : this.noMovementTime + 1000 / 60;
+    }
+  };
+
+  movePepe() {
+    let moved = false;
+    moved = this.horizontalMovement() || moved;
+    moved = this.jumpMovement() || moved;
+    this.updateCameraposition();
+    return moved;
+  }
+
+  horizontalMovement() {
+    let moved = false;
+    if (this.playerMovesRight()) {
+      this.moveRight(false);
+      moved = true;
+    } else if (this.playerMovesLeft()) {
+      this.moveLeft(true);
+      moved = true;
+    }
+    return moved;
+  }
+
+  jumpMovement() {
+    let moved = false;
+    if (this.playerJumps()) {
+      this.jumpHasPlayed = false;
+      this.jump();
+      moved = true;
+    }
+    return moved;
+  }
+
+  updateCameraposition() {
+    this.world.camera_x = -this.x + 80;
+  }
+
+  playerMovesRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
+
+  playerMovesLeft() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
+
+  playerJumps() {
+    return this.world.keyboard.UP && this.y == 160;
   }
 
   animatePepe() {
@@ -129,60 +182,26 @@ class Character extends MovableObject {
     }
   }
 
-  enableMovement() {
-    let moved = false;
-    if (!this.world.gameOver) {
-      moved = this.movePepe();
-    }
-    if (moved) {
-      this.noMovementTime = 0;
-    } else {
-      this.noMovementTime += 1000 / 60;
-    }
-  };
-
-  movePepe() {
-    let moved = false;
-    if (this.playerMovesRight()) {
-      this.moveRight(false);
-      moved = true;
-    } else if (this.playerMovesLeft()) {
-      this.moveLeft(true);
-      moved = true;
-    }
-    if (this.playerJumps()) {
-      this.jumpHasPlayed = false;
-      this.jump();
-      moved = true;
-    }
-    this.world.camera_x = -this.x + 80;
-    return moved;
-  }
-
-  playerMovesRight() {
-    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
-  }
-
-  playerMovesLeft() {
-    return this.world.keyboard.LEFT && this.x > 0;
-  }
-
-  playerJumps() {
-    return this.world.keyboard.UP && this.y == 160;
-  }
-
   wrapUpGame() {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);
     this.playAnimation(this.IMAGES_DEAD);
+    this.playDyingSound();
+    this.setBossInactive();
+    setTimeout(() => {
+      this.world.gameOver = true;
+    }, 1000);
+  }
+
+  playDyingSound() {
     if (!this.dyingHasPlayed) {
       this.dying_sound.play();
       this.dyingHasPlayed = true;
     }
+  }
+
+  setBossInactive() {
     this.world.level.boss[0].status = "alert";
-    setTimeout(() => {
-      this.world.gameOver = true;
-    }, 1000);
   }
 
   playHurtAnimation() {
@@ -196,6 +215,10 @@ class Character extends MovableObject {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);
     this.playAnimation(this.IMAGES_JUMPING);
+    this.playJumpSound();
+  }
+
+  playJumpSound() {
     if (!this.jumpHasPlayed) {
       this.jump_sound.play();
       this.jumpHasPlayed = true;

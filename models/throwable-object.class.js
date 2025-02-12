@@ -43,10 +43,14 @@ class ThrowableObject extends MovableObject {
     if (!this.bossIsHit) {
       this.playAnimation(this.IMAGES_THROW);
     } else {
-      if (!this.soundHasPlayed) {
-        this.smash_sound.play();
-        this.soundHasPlayed = true;
-      }
+      this.playSmashSound();
+    }
+  }
+
+  playSmashSound() {
+    if (!this.soundHasPlayed) {
+      this.smash_sound.play();
+      this.soundHasPlayed = true;
     }
   }
 }
