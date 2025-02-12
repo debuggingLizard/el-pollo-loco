@@ -24,7 +24,7 @@ let throwBottleNotification;
 
 function init() {
   initializeUIElements();
-  animateStartScreen();
+  // animateStartScreen();
   addTouchNavigationLogic();
   toggleTouchNavigation();
 }

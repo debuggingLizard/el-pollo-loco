@@ -16,7 +16,6 @@
     .overlay {
         width: 100%;
         min-width: 667px;
-
     }
 
     .overlay {
@@ -41,7 +40,7 @@
     }
 }
 
-@media (max-width: 667px) {
+@media (max-width: 666px) {
     .responsive-overlay {
         display: flex;
     }

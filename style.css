@@ -17,7 +17,6 @@ body {
     min-height: 100dvh;
     margin: 0;
     overflow-y: auto;
-    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -47,6 +46,8 @@ h1 {
 
 .game-container {
     position: relative;
+    height: 480px;
+    max-height: 100dvh;
 }
 
 canvas {

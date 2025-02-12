@@ -14,10 +14,11 @@
 
 .mobile-nav-buttons {
     position: absolute;
+    top: 0;
     box-sizing: border-box;
     padding: 16px;
     width: 100%;
-    height: calc(100% - 4px);
+    height: 100%;
     display: none;
     align-items: flex-end;
     justify-content: space-between;
