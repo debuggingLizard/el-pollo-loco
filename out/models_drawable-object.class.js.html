@@ -67,37 +67,6 @@
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
-
-  // drawFrame-Method for testing/development purposes only
-  drawFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof Chicken ||
-      this instanceof Chick ||
-      this instanceof Endboss ||
-      this instanceof Collectable
-    ) {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-    if (this instanceof Character) {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "green";
-      ctx.rect(this.x + 20 , this.y +70, this.width -40 , this.height -86);
-      ctx.stroke();
-    }
-    if (this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "green";
-      ctx.rect(this.x + 20 , this.y +70, this.width -40 , this.height -86);
-      ctx.stroke();
-    }
-  } 
 }
 </code></pre>
         </article>
