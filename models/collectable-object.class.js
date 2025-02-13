@@ -5,6 +5,13 @@ class Collectable extends MovableObject {
     super();
   }
 
+  /**
+   * Periodically checks if the item has been collected and plays a sound if it has.
+   * The check is performed every 160 milliseconds.
+   * 
+   * @method
+   * @memberof CollectableObject
+   */
   checkItemCollection() {
     setInterval(() => {
       if (!this.active) {

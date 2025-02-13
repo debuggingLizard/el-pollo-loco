@@ -22,6 +22,11 @@ class Chicken extends MovableObject {
     this.dying_sound.volume = 0.4;
   }
 
+  /**
+   * Animates the chicken by setting up two intervals:
+   * - One interval runs at 60 frames per second to make the chicken follow Pepe.
+   * - Another interval runs every 150 milliseconds to animate the chicken.
+   */
   animate() {
     setInterval(() => {
       this.followPepe();
@@ -31,6 +36,10 @@ class Chicken extends MovableObject {
     }, 150);
   }
 
+  /**
+   * Makes the chicken follow the character "Pepe" in the game world.
+   * If the chicken is not dead and the world is defined, it will move left if it is to the right of the character, otherwise, it will move right.
+   */
   followPepe() {
     if (!this.isDead()) {
       if (this.world && this.x >= this.world.character.x) {
@@ -41,6 +50,11 @@ class Chicken extends MovableObject {
     }
   }
 
+  /**
+   * Animates the chicken based on its current state.
+   * If the chicken is dead, it plays the dying animation.
+   * Otherwise, it plays the walking animation.
+   */
   animateChicken() {
     if (this.isDead()) {
       this.playDyingAnimation();
@@ -49,11 +63,19 @@ class Chicken extends MovableObject {
     }
   }
 
+  /**
+   * Plays the dying animation for the chicken.
+   * Loads the image of the dead chicken and plays the dying sound.
+   */
   playDyingAnimation() {
     this.loadImage("./img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
     this.playDyingSound();
   }
 
+  /**
+   * Plays the dying sound for the chicken if it hasn't been played already.
+   * Sets the flag `dyingHasPlayed` to true after playing the sound to ensure the sound is only played once.
+   */
   playDyingSound() {
     if (!this.dyingHasPlayed) {
       this.dying_sound.play();

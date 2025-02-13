@@ -6,7 +6,7 @@ class World {
   bossBar = new BossBar();
   gameOver = false;
   throwableObjects = [];
-  inventory = 0; 
+  inventory = 0;
   coinCounter = 0;
   level = level1;
   canvas;
@@ -33,7 +33,7 @@ class World {
     overlay,
     winScreen,
     loseScreen,
-    endMenuButtons, 
+    endMenuButtons,
     muteButton,
     touchNavigation,
     throwBottleNotification
@@ -58,6 +58,9 @@ class World {
     this.run();
   }
 
+  /**
+   * Sets the world reference for the character, boss, and all enemies in the level for functionality.
+   */
   setWorld() {
     this.character.world = this;
     this.level.boss[0].world = this;
@@ -69,6 +72,9 @@ class World {
     });
   }
 
+  /**
+   * Starts the game loop which runs every 30 milliseconds.
+   */
   run() {
     setInterval(() => {
       if (!this.gameOver) {
@@ -80,6 +86,9 @@ class World {
     }, 30);
   }
 
+  /**
+   * Checks if the boss should be activated based on the character's position.
+   */
   checkBossActivation() {
     if (this.character.x > 9280 && !this.bossActivated) {
       this.bossActivated = true;
@@ -90,6 +99,9 @@ class World {
     }
   }
 
+  /**
+   * Displays a notification indicating that the player can now throw objects.
+   */
   displayThrowbottleActiveNotification() {
     this.throwBottleNotification.classList.add("display-alert");
     setTimeout(() => {
@@ -97,6 +109,9 @@ class World {
     }, 2000);
   }
 
+  /**
+   * Checks if the player can throw an object and performs the throw action if that is the case.
+   */
   checkThrowObjects() {
     if (this.keyboard.ENTER && this.canThrow && this.inventory > 0) {
       this.inventory--;
@@ -113,6 +128,9 @@ class World {
     }
   }
 
+  /**
+   * Checks for collisions between the player and various game objects.
+   */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       this.checkEnemyCollision(enemy);
@@ -134,6 +152,11 @@ class World {
     });
   }
 
+  /**
+   * Checks for a collision between the character and an enemy.
+   *
+   * @param {Object} enemy - The enemy object to check for collision.
+   */
   checkEnemyCollision(enemy) {
     if (enemy.active && this.character.isColliding(enemy)) {
       if (this.character.isJumpingOn(enemy)) {
@@ -148,6 +171,11 @@ class World {
     }
   }
 
+  /**
+   * Checks for collision between the character and a small enemy.
+   *
+   * @param {Object} enemySmall - The small enemy object to check collision with.
+   */
   checkSmallEnemyCollision(enemySmall) {
     if (enemySmall.active && this.character.isColliding(enemySmall)) {
       if (
@@ -166,6 +194,12 @@ class World {
     }
   }
 
+  /**
+   * Checks for a collision between the character and the boss.
+   * If a collision is detected, the character takes damage and the health bar is updated.
+   *
+   * @param {Object} boss - The boss object to check for collision with.
+   */
   checkBossCollision(boss) {
     if (this.character.isColliding(boss)) {
       this.character.hit(20);
@@ -173,6 +207,11 @@ class World {
     }
   }
 
+  /**
+   * Checks for a collision between a thrown bottle and the boss.
+   *
+   * @param {Object} throwBottle - The thrown bottle object to check for collision.
+   */
   checkThrowBottleCollision(throwBottle) {
     if (this.level.boss[0].isColliding(throwBottle)) {
       this.level.boss[0].hit(7);
@@ -185,6 +224,11 @@ class World {
     }
   }
 
+  /**
+   * Checks for a collision between the character and a bottle.
+   *
+   * @param {Object} bottle - The bottle object to check for collision.
+   */
   checkBottleCollision(bottle) {
     if (bottle.active && this.character.isColliding(bottle)) {
       bottle.active = false;
@@ -193,6 +237,11 @@ class World {
     }
   }
 
+  /**
+   * Checks for a collision between the character and a coin.
+   *
+   * @param {Object} coin - The coin object to check for collision.
+   */
   checkCoinCollision(coin) {
     if (coin.active && this.character.isColliding(coin)) {
       coin.active = false;
@@ -201,6 +250,11 @@ class World {
     }
   }
 
+  /**
+   * Draws the game world on the canvas.
+   *
+   * If the game is over, it calls the finishGame method and stops further drawing. Otherwise, it continues to request the next animation frame to keep drawing.
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
@@ -220,6 +274,9 @@ class World {
     });
   }
 
+  /**
+   * Adds all movable objects to the game map while the game is running.
+   */
   addMovableObjects() {
     if (!this.gameOver) {
       this.addObjectsToMap(this.level.clouds);
@@ -233,6 +290,9 @@ class World {
     }
   }
 
+  /**
+   * Adds status bars to the game map while the game is running.
+   */
   addStatusBars() {
     if (!this.gameOver) {
       this.addToMap(this.bottleBar);
@@ -244,6 +304,9 @@ class World {
     }
   }
 
+  /**
+   * Checks the energy levels of the boss and the character to determine the game's outcome (win or lose).
+   */
   finishGame() {
     if (this.level.boss[0].energy <= 0) {
       this.winGameOver();
@@ -253,6 +316,9 @@ class World {
     }
   }
 
+  /**
+   * Handles the game over scenario when the player wins.
+   */
   winGameOver() {
     this.music_sound.pause();
     this.atmosphere_sound.pause();
@@ -262,9 +328,11 @@ class World {
     this.overlay.style = "";
     this.winScreen.style = "";
     this.endMenuButtons.style = "";
-   
   }
 
+  /**
+   * Handles the game over scenario when the player loses.
+   */
   lostGameOver() {
     this.music_sound.pause();
     this.atmosphere_sound.pause();
@@ -277,6 +345,11 @@ class World {
     this.endMenuButtons.style = "";
   }
 
+  /**
+   * Adds active objects to the map.
+   *
+   * @param {Array} objects - The array of objects to be added to the map.
+   */
   addObjectsToMap(objects) {
     objects.forEach((element) => {
       if (element.active) {
@@ -285,6 +358,11 @@ class World {
     });
   }
 
+  /**
+   * Adds a movable object to the map and handles its drawing.
+   *
+   * @param {Object} mo - The movable object to be added to the map.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -296,6 +374,11 @@ class World {
     }
   }
 
+  /**
+   * Flips the given image horizontally.
+   *
+   * @param {Object} mo - The image object to be flipped.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -303,6 +386,11 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * Flips the image of the given object back to its original orientation.
+   *
+   * @param {Object} mo - The object whose image is to be flipped back.
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();

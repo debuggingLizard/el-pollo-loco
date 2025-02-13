@@ -88,11 +88,19 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Stops the given audio by pausing it and resetting its current time to 0.
+   * 
+   * @param {HTMLAudioElement} audio - The audio element to stop.
+   */
   stopSound(audio) {
     audio.pause();
     audio.currentTime = 0;
   }
 
+  /**
+   * Adjusts the playback rate and volume settings for various character sounds.
+   */
   getSoundSettings() {
     this.walking_sound.playbackRate = 1.3;
     this.walking_sound.volume = 0.6;
@@ -102,6 +110,11 @@ class Character extends MovableObject {
     this.longIdle_sound.volume = 0.8;
   }
 
+  /**
+   * Starts the animation for the character by setting up two intervals:
+   * - One interval runs at 60 frames per second to enable movement.
+   * - Another interval runs every 160 milliseconds to animate the character.
+   */
   animate() {
     setInterval(() => {
       this.enableMovement();
@@ -111,6 +124,11 @@ class Character extends MovableObject {
     }, 160);
   }
 
+  /**
+   * Enables the movement of the character while the game is running. 
+   * Sets the noMovementTime (necessary for the sleeping animation) dependent on the character's movement.
+   * noMovementTime increases if character does not move, otherwise it resets to 0.
+   */
   enableMovement() {
     if (!this.world.gameOver) {
       let moved = this.movePepe();
@@ -118,6 +136,12 @@ class Character extends MovableObject {
     }
   };
 
+  /**
+   * Moves the character Pepe by handling horizontal and jump movements.
+   * Updates the camera position accordingly.
+   * 
+   * @returns {boolean} - Returns true if any movement occurred, otherwise false.
+   */
   movePepe() {
     let moved = false;
     moved = this.horizontalMovement() || moved;
@@ -126,6 +150,12 @@ class Character extends MovableObject {
     return moved;
   }
 
+  /**
+   * Handles the horizontal movement of the character.
+   * Checks if the player is moving right or left and updates the character's position accordingly.
+   * 
+   * @returns {boolean} - Returns true if the character moved, otherwise false.
+   */
   horizontalMovement() {
     let moved = false;
     if (this.playerMovesRight()) {
@@ -138,6 +168,11 @@ class Character extends MovableObject {
     return moved;
   }
 
+  /**
+   * Handles the jump movement of the character.
+   * 
+   * @returns {boolean} - Returns true if the character has jumped, otherwise false.
+   */
   jumpMovement() {
     let moved = false;
     if (this.playerJumps()) {
@@ -148,22 +183,47 @@ class Character extends MovableObject {
     return moved;
   }
 
+  /**
+   * Updates the camera position based on the character's current x-coordinate.
+   * Adjusts the world's camera_x property to follow the character.
+   */
   updateCameraposition() {
     this.world.camera_x = -this.x + 80;
   }
 
+  /**
+   * Checks if the player is moving to the right.
+   * 
+   * @returns {boolean} True if the right arrow key is pressed and the player has not reached the end of the level, otherwise false.
+   */
   playerMovesRight() {
     return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
   }
 
+  /**
+   * Checks if the player is moving left and if the player's position is greater than 0.
+   * 
+   * @returns {boolean} True if the player is pressing the left key and the player's x position is greater than 0, otherwise false.
+   */
   playerMovesLeft() {
     return this.world.keyboard.LEFT && this.x > 0;
   }
 
+  /**
+   * Checks if the player is attempting to jump.
+   * 
+   * @returns {boolean} True if the player is pressing the UP key and the player's y-coordinate is 160, otherwise false.
+   */
   playerJumps() {
     return this.world.keyboard.UP && this.y == 160;
   }
 
+  /**
+   * Animates the character "Pepe" based on its current state.
+   * The animation will vary depending on whether the game is over,
+   * the character is dead, hurt, above ground, walking, or asleep.
+   * If none of these conditions are met, the idle animation will be played.
+   */
   animatePepe() {
     if (!this.world.gameOver) {
       if (this.isDead()) {
@@ -182,6 +242,10 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Ends the game by stopping character sounds, playing the death animation and sound,
+   * setting the boss to inactive, and marking the game as over after a delay.
+   */
   wrapUpGame() {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);
@@ -193,6 +257,10 @@ class Character extends MovableObject {
     }, 1000);
   }
 
+  /**
+   * Plays the dying sound if it hasn't been played already.
+   * This method ensures that the dying sound is only played once.
+   */
   playDyingSound() {
     if (!this.dyingHasPlayed) {
       this.dying_sound.play();
@@ -200,10 +268,17 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Sets the status of the boss character in the game world to "alert" (the default state of the boss).
+   */
   setBossInactive() {
     this.world.level.boss[0].status = "alert";
   }
 
+  /**
+   * Plays the hurt animation for the character.
+   * Stops the walking and long idle sounds, plays the hurt animation, and plays the hurt sound.
+   */
   playHurtAnimation() {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);
@@ -211,6 +286,12 @@ class Character extends MovableObject {
     this.hurt_sound.play();
   }
 
+  /**
+   * Plays the jump animation for the character.
+   * 
+   * This method stops any currently playing walking or long idle sounds,
+   * then plays the jump animation and the associated jump sound.
+   */
   playJumpAnimation() {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);
@@ -218,6 +299,10 @@ class Character extends MovableObject {
     this.playJumpSound();
   }
 
+  /**
+   * Plays the jump sound if it hasn't been played yet.
+   * Sets the `jumpHasPlayed` flag to true after playing the sound.
+   */
   playJumpSound() {
     if (!this.jumpHasPlayed) {
       this.jump_sound.play();
@@ -225,27 +310,50 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Checks if Pepe (the character) is walking.
+   * 
+   * @returns {boolean} True if Pepe is at y-coordinate 160 and either the RIGHT or LEFT keyboard key is pressed.
+   */
   pepeIsWalking() {
     return (
       this.y == 160 && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
     );
   }
 
+  /**
+   * Plays the walking animation for the character.
+   * This method triggers the walking animation sequence and plays the walking sound.
+   */
   playWalkingAnimation() {
     this.playAnimation(this.IMAGES_WALKING);
     this.walking_sound.play();
   }
 
+  /**
+   * Checks if Pepe has fallen asleep based on the duration of no movement.
+   * 
+   * @returns {boolean} True if the no movement time is greater than or equal to the long idle delay, otherwise false.
+   */
   pepeFellAsleep() {
     return this.noMovementTime >= this.longIdleDelay;
   }
 
+  /**
+   * Plays the sleeping animation for the character.
+   * Stops the walking sound, plays the long idle animation, and plays the long idle sound.
+   */
   playSleepingAnimation() {
     this.stopSound(this.walking_sound);
     this.playAnimation(this.IMAGES_LONG_IDLE);
     this.longIdle_sound.play();
   }
 
+  /**
+   * Plays the idle animation for the character.
+   * Stops the walking and long idle sounds, then plays the idle animation.
+   * Increments the idle frame count after playing the animation.
+   */
   playIdleAnimation() {
     this.stopSound(this.walking_sound);
     this.stopSound(this.longIdle_sound);

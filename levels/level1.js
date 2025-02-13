@@ -1,3 +1,8 @@
+/**
+ * Creates a new level with predefined objects including bottles, coins, chickens, chicks, endboss, clouds, and background objects.
+ * 
+ * @returns {Level} The newly created level instance.
+ */
 function createNewLevel() {
   return level1 = new Level(
     [

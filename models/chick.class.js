@@ -21,6 +21,11 @@ class Chick extends MovableObject {
     this.active = true;
   }
 
+  /**
+   * Animates the chick by setting up two intervals:
+   * - One interval runs at 60 frames per second to make the chick follow Pepe.
+   * - Another interval runs every 150 milliseconds to animate the chick.
+   */
   animate() {
     setInterval(() => {
       this.followPepe();
@@ -30,6 +35,10 @@ class Chick extends MovableObject {
     }, 150);
   }
 
+  /**
+   * Makes the chick follow Pepe (the main character).
+   * If the chick is not dead and the world is defined, it will move left if it is to the right of Pepe, otherwise it will move right.
+   */
   followPepe() {
     if (!this.isDead()) {
       if (this.world && this.x >= this.world.character.x) {
@@ -40,6 +49,11 @@ class Chick extends MovableObject {
     }
   }
 
+  /**
+   * Animates the chick based on its current state.
+   * If the chick is dead, it plays the dying animation.
+   * Otherwise, it plays the walking animation.
+   */
   animateChick() {
     if (this.isDead()) {
       this.playDyingAnimation();
@@ -48,11 +62,19 @@ class Chick extends MovableObject {
     }
   }
 
+  /**
+   * Plays the dying animation for the chick.
+   * Loads the image of the dead chick and plays the dying sound.
+   */
   playDyingAnimation() {
     this.loadImage("./img/3_enemies_chicken/chicken_small/2_dead/dead.png");
     this.playDyingSound();
   }
 
+  /**
+   * Plays the dying sound if it has not been played yet.
+   * Sets the flag `dyingHasPlayed` to true after playing the sound to ensure the sound is only played once.
+   */
   playDyingSound() {
     if (!this.dyingHasPlayed) {
       this.dying_sound.play();
