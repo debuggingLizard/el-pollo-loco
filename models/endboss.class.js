@@ -74,6 +74,8 @@ class Endboss extends MovableObject {
    * Animates the end boss by setting up two intervals:
    * - One interval runs at 60 frames per second to make the boss follow Pepe.
    * - Another interval runs every 200 milliseconds to animate the boss.
+   * 
+   * @method animate
    */
   animate() {
     setInterval(() => {
@@ -93,6 +95,8 @@ class Endboss extends MovableObject {
    * - If the boss is inactive, it plays the alert animation.
    * - If the boss is attacking, it plays the attack animation.
    * - If the boss is active, it plays the walking animation.
+   * 
+   * @method animateBoss
    */
   animateBoss() {
     if (this.isDead()) {
@@ -111,6 +115,7 @@ class Endboss extends MovableObject {
   /**
    * Checks if the boss is awake and in attack mode.
    *
+   * @method bossIsAwake
    * @returns {boolean} True if the boss is in attack mode and not dead, otherwise false.
    */
   bossIsAwake() {
@@ -121,6 +126,8 @@ class Endboss extends MovableObject {
    * Makes the boss follow the character (Pepe) if the boss is awake.
    * The boss will move left or right depending on the character's position.
    * If the boss is close enough to the character, it will stand still.
+   * 
+   * @method followPepe
    */
   followPepe() {
     if (this.bossIsAwake()) {
@@ -136,6 +143,8 @@ class Endboss extends MovableObject {
 
   /**
    * Keeps the end boss in the same position without moving.
+   * 
+   * @method standStill
    */
   standStill() {
     this.x += 0;
@@ -144,6 +153,8 @@ class Endboss extends MovableObject {
   /**
    * Ends the game by pausing the boss sound, playing the dying sound and animation,
    * and setting the game over state after a delay.
+   * 
+   * @method wrapUpGame
    */
   wrapUpGame() {
     this.boss_sound.pause();
@@ -157,6 +168,8 @@ class Endboss extends MovableObject {
   /**
    * Plays the dying sound for the end boss if it hasn't been played already.
    * This method ensures that the dying sound is only played once.
+   * 
+   * @method playDyingSound
    */
   playDyingSound() {
     if (!this.dyingHasPlayed) {
@@ -168,6 +181,7 @@ class Endboss extends MovableObject {
   /**
    * Checks if the boss is inactive.
    *
+   * @method bossIsInactive
    * @returns {boolean} True if the boss's status is "alert", otherwise false.
    */
   bossIsInactive() {
@@ -177,6 +191,7 @@ class Endboss extends MovableObject {
   /**
    * Checks if the boss is in attack mode and within a certain distance from the character.
    *
+   * @method bossAttacks
    * @returns {boolean} True if the boss is attacking and within 220 units of the character, otherwise false.
    */
   bossAttacks() {
@@ -189,6 +204,8 @@ class Endboss extends MovableObject {
    * Plays the attack animation for the end boss.
    * Temporarily increases the speed to 8 for the duration of the attack animation,
    * then resets the speed back to 2.8 after 1 second.
+   * 
+   * @method playAttackAnimation
    */
   playAttackAnimation() {
     this.speed = 8;
@@ -201,6 +218,7 @@ class Endboss extends MovableObject {
   /**
    * Checks if the boss is currently in attack mode.
    *
+   * @method bossIsActive
    * @returns {boolean} True if the boss is in attack mode, otherwise false.
    */
   bossIsActive() {

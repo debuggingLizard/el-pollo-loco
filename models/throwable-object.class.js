@@ -33,6 +33,8 @@ class ThrowableObject extends MovableObject {
    * Sets the initial vertical speed and applies gravity.
    * Moves the object horizontally at a constant rate.
    * Animates the throw action at regular intervals.
+   * 
+   * @method throw
    */
   throw() {
     this.speedY = 30;
@@ -49,6 +51,8 @@ class ThrowableObject extends MovableObject {
    * Animates the throw action of the object.
    * If the boss is not hit, it plays the throw animation.
    * If the boss is hit, it plays the smash sound.
+   * 
+   * @method animateThrow
    */
   animateThrow() {
     if (!this.bossIsHit) {
@@ -61,6 +65,8 @@ class ThrowableObject extends MovableObject {
   /**
    * Plays the smash sound if it hasn't been played already.
    * This method ensures that the smash sound is only played once.
+   * 
+   * @method playSmashSound
    */
   playSmashSound() {
     if (!this.soundHasPlayed) {

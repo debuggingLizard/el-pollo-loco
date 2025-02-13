@@ -16,6 +16,7 @@ class MovableObject extends DrawableObject {
   /**
    * Checks if current object is colliding (overlapping) with another movable object (mo).
    * 
+   * @method isColliding
    * @param {Object} mo - The other movable object to check collision with.
    * - checks if object is colliding with mo on the right side (x + width)
    * - checks if object is colliding with mo on the left side (x)
@@ -35,6 +36,7 @@ class MovableObject extends DrawableObject {
   /**
    * Checks if the current object is jumping on (colliding/overlapping from above) another movable object (mo).
    *
+   * @method isJumpingOn
    * @param {Object} mo - The movable object to check against.
    * - checks if bottom side of object is below top side of mo (y + height >= mo.y)
    * - checks if bottom side of object is above bottom side of mo (y + height <= mo.y + mo.height)
@@ -56,6 +58,8 @@ class MovableObject extends DrawableObject {
   /**
    * Updates the previous Y-coordinate to the current Y-coordinate.
    * Necessary for checking jumping-on collisions.
+   * 
+   * @method updatePreviousY
    */
   updatePreviousY() {
     this.previousY = this.y;
@@ -66,6 +70,7 @@ class MovableObject extends DrawableObject {
    * If the energy drops to 0 or below, it is set to 0 (to avoid negative values)
    * If the object takes damage, it becomes invincible for a specified duration.
    *
+   * @method hit  
    * @param {number} damage - The amount of damage to inflict on the object.
    */
   hit(damage) {
@@ -90,6 +95,7 @@ class MovableObject extends DrawableObject {
    * if it is less than 1 second. If the time passed is less than 1 second,
    * the object is considered to be hurt.
    * 
+   * @method isHurt
    * @returns {boolean} True if the object is hurt, false otherwise.
    */
   isHurt() {
@@ -101,6 +107,7 @@ class MovableObject extends DrawableObject {
   /**
    * Checks if the object is dead.
    * 
+   * @method isDead
    * @returns {boolean} True if the object's energy is 0, otherwise false.
    */
   isDead() {
@@ -110,6 +117,7 @@ class MovableObject extends DrawableObject {
   /**
    * Plays an animation by cycling through a set of images.
    *
+   * @method playAnimation
    * @param {string[]} images - An array of image paths to be used in the animation.
    * @param {number} [frameCount=null] - The current frame count. If null, the animation will play on every call.
    * @param {number} [frameDelay=1] - The delay between frames. The animation will update every `frameDelay` calls.
@@ -127,6 +135,7 @@ class MovableObject extends DrawableObject {
    * Moves the object to the right by increasing its x-coordinate by the object's speed.
    * Also sets the visual direction of the object.
    *
+   * @method moveRight
    * @param {boolean} bool - A boolean indicating the visual direction of the object.
    */
   moveRight(bool) {
@@ -138,6 +147,7 @@ class MovableObject extends DrawableObject {
    * Moves the object to the left by decreasing its x-coordinate by the object's speed.
    * Also sets the visual direction of the object.
    *
+   * @method moveLeft
    * @param {boolean} bool - A boolean indicating the visual direction of the object.
    */
   moveLeft(bool) {
@@ -151,6 +161,8 @@ class MovableObject extends DrawableObject {
    * and then updates the object's position and speed accordingly.
    * 
    * The interval is set to 40 milliseconds (1000 / 25), which means the gravity effect is applied 25 times per second.
+   * 
+   * @method applyGravity
    */
   applyGravity() {
     setInterval(() => {
@@ -167,6 +179,7 @@ class MovableObject extends DrawableObject {
    * This method determines if the object is either an instance of ThrowableObject,
    * is dead, or its y-coordinate is less than 160.
    * 
+   * @method isAboveGround
    * @returns {boolean} - Returns true if the object is above the ground, otherwise false.
    */
   isAboveGround() {
@@ -180,6 +193,8 @@ class MovableObject extends DrawableObject {
   /**
    * Makes the object jump by setting its vertical speed.
    * This method sets the `speedY` property to 28, causing the object to move upwards.
+   * 
+   * @method jump
    */
   jump() {
     this.speedY = 28;

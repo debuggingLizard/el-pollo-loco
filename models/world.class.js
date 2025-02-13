@@ -60,6 +60,7 @@ class World {
 
   /**
    * Sets the world reference for the character, boss, and all enemies in the level for functionality.
+   * @method setWorld
    */
   setWorld() {
     this.character.world = this;
@@ -74,6 +75,7 @@ class World {
 
   /**
    * Starts the game loop which runs every 30 milliseconds.
+   * @method run
    */
   run() {
     setInterval(() => {
@@ -88,6 +90,7 @@ class World {
 
   /**
    * Checks if the boss should be activated based on the character's position.
+   * @method checkBossActivation
    */
   checkBossActivation() {
     if (this.character.x > 9280 && !this.bossActivated) {
@@ -101,6 +104,7 @@ class World {
 
   /**
    * Displays a notification indicating that the player can now throw objects.
+   * @method displayThrowbottleActiveNotification
    */
   displayThrowbottleActiveNotification() {
     this.throwBottleNotification.classList.add("display-alert");
@@ -111,6 +115,7 @@ class World {
 
   /**
    * Checks if the player can throw an object and performs the throw action if that is the case.
+   * @method checkThrowObjects
    */
   checkThrowObjects() {
     if (this.keyboard.ENTER && this.canThrow && this.inventory > 0) {
@@ -130,13 +135,14 @@ class World {
 
   /**
    * Checks for collisions between the player and various game objects.
+   * @method checkCollisions
    */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      this.checkEnemyCollision(enemy);
+      this.checkEnemyCollision(enemy, 12);
     });
     this.level.enemiesSmall.forEach((enemySmall) => {
-      this.checkSmallEnemyCollision(enemySmall);
+      this.checkEnemyCollision(enemySmall, 6, () => this.keyboard.RIGHT || this.keyboard.LEFT);
     });
     this.level.boss.forEach((boss) => {
       this.checkBossCollision(boss);
@@ -145,50 +151,30 @@ class World {
       this.checkThrowBottleCollision(throwBottle);
     });
     this.level.bottles.forEach((bottle) => {
-      this.checkBottleCollision(bottle);
+      this.checkCollectableCollision(bottle, this.inventory, this.bottleBar);
     });
     this.level.coins.forEach((coin) => {
-      this.checkCoinCollision(coin);
+      this.checkCollectableCollision(coin, this.coinCounter, this.coinBar);
     });
   }
 
   /**
-   * Checks for a collision between the character and an enemy.
+   * Checks for a collision between the character and an enemy, applying damage or deactivating the enemy based on conditions.
    *
+   * @method checkEnemyCollision
    * @param {Object} enemy - The enemy object to check for collision.
+   * @param {number} damage - The amount of damage to apply to the character if collision occurs.
+   * @param {Function} [additionalCondition=() => false] - An optional additional condition to check for defeating the enemy.
    */
-  checkEnemyCollision(enemy) {
+  checkEnemyCollision(enemy, damage, additionalCondition = () => false) {
     if (enemy.active && this.character.isColliding(enemy)) {
-      if (this.character.isJumpingOn(enemy)) {
+      if (this.character.isJumpingOn(enemy) || additionalCondition()) {
         enemy.energy = 0;
         setTimeout(() => {
           enemy.active = false;
         }, 1000);
       } else if (enemy.energy > 0) {
-        this.character.hit(12);
-        this.healthBar.setPercentage(this.character.energy);
-      }
-    }
-  }
-
-  /**
-   * Checks for collision between the character and a small enemy.
-   *
-   * @param {Object} enemySmall - The small enemy object to check collision with.
-   */
-  checkSmallEnemyCollision(enemySmall) {
-    if (enemySmall.active && this.character.isColliding(enemySmall)) {
-      if (
-        this.character.isJumpingOn(enemySmall) ||
-        this.keyboard.RIGHT ||
-        this.keyboard.LEFT
-      ) {
-        enemySmall.energy = 0;
-        setTimeout(() => {
-          enemySmall.active = false;
-        }, 1000);
-      } else if (enemySmall.energy > 0) {
-        this.character.hit(6);
+        this.character.hit(damage);
         this.healthBar.setPercentage(this.character.energy);
       }
     }
@@ -197,7 +183,7 @@ class World {
   /**
    * Checks for a collision between the character and the boss.
    * If a collision is detected, the character takes damage and the health bar is updated.
-   *
+   * @method checkBossCollision
    * @param {Object} boss - The boss object to check for collision with.
    */
   checkBossCollision(boss) {
@@ -209,7 +195,7 @@ class World {
 
   /**
    * Checks for a collision between a thrown bottle and the boss.
-   *
+   * @method checkThrowBottleCollision
    * @param {Object} throwBottle - The thrown bottle object to check for collision.
    */
   checkThrowBottleCollision(throwBottle) {
@@ -225,35 +211,24 @@ class World {
   }
 
   /**
-   * Checks for a collision between the character and a bottle.
-   *
-   * @param {Object} bottle - The bottle object to check for collision.
+   * Checks for a collision between the character and a collectable item.
+   * If a collision is detected, the collectable is deactivated, the counter is incremented, and the status bar percentage is updated.
+   * @method checkCollectableCollision
+   * @param {Object} collectable - The collectable item to check for collision.
+   * @param {number} counter - The current count of collected items.
+   * @param {Object} statusbar - The status bar object to update the percentage.
    */
-  checkBottleCollision(bottle) {
-    if (bottle.active && this.character.isColliding(bottle)) {
-      bottle.active = false;
-      this.inventory++;
-      this.bottleBar.setPercentage(6.25 * this.inventory);
-    }
-  }
-
-  /**
-   * Checks for a collision between the character and a coin.
-   *
-   * @param {Object} coin - The coin object to check for collision.
-   */
-  checkCoinCollision(coin) {
-    if (coin.active && this.character.isColliding(coin)) {
-      coin.active = false;
-      this.coinCounter++;
-      this.coinBar.setPercentage(6.25 * this.coinCounter);
+  checkCollectableCollision(collectable, counter, statusbar) {
+    if (collectable.active && this.character.isColliding(collectable)) {
+      collectable.active = false;
+      counter++;
+      statusbar.setPercentage(6.25 * counter);
     }
   }
 
   /**
    * Draws the game world on the canvas.
-   *
-   * If the game is over, it calls the finishGame method and stops further drawing. Otherwise, it continues to request the next animation frame to keep drawing.
+   * @method draw
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -276,6 +251,7 @@ class World {
 
   /**
    * Adds all movable objects to the game map while the game is running.
+   * @method addMovableObjects
    */
   addMovableObjects() {
     if (!this.gameOver) {
@@ -292,6 +268,7 @@ class World {
 
   /**
    * Adds status bars to the game map while the game is running.
+   * @method addStatusBars
    */
   addStatusBars() {
     if (!this.gameOver) {
@@ -305,9 +282,18 @@ class World {
   }
 
   /**
-   * Checks the energy levels of the boss and the character to determine the game's outcome (win or lose).
+   * Ends the game by pausing the music and atmosphere sounds, hiding certain UI elements, and displaying the end game overlay. 
+   * Depending on the energy levels of the boss and the character, it will either trigger the win or lose game over sequence.
+   * 
+   * @method finishGame
    */
   finishGame() {
+    this.music_sound.pause();
+    this.atmosphere_sound.pause();
+    this.muteButton.style = "display: none";
+    this.touchNavigation.style = "display: none";
+    this.overlay.style = "";
+    this.endMenuButtons.style = "";
     if (this.level.boss[0].energy <= 0) {
       this.winGameOver();
     }
@@ -318,36 +304,26 @@ class World {
 
   /**
    * Handles the game over scenario when the player wins.
+   * @method winGameOver
    */
   winGameOver() {
-    this.music_sound.pause();
-    this.atmosphere_sound.pause();
     this.win_sound.play();
-    this.muteButton.style = "display: none";
-    this.touchNavigation.style = "display: none";
-    this.overlay.style = "";
     this.winScreen.style = "";
-    this.endMenuButtons.style = "";
   }
 
   /**
    * Handles the game over scenario when the player loses.
+   * @method lostGameOver
    */
   lostGameOver() {
-    this.music_sound.pause();
-    this.atmosphere_sound.pause();
     this.level.boss[0].boss_sound.pause();
     this.lose_sound.play();
-    this.muteButton.style = "display: none";
-    this.touchNavigation.style = "display: none";
-    this.overlay.style = "";
     this.loseScreen.style = "";
-    this.endMenuButtons.style = "";
   }
 
   /**
    * Adds active objects to the map.
-   *
+   * @method addObjectsToMap
    * @param {Array} objects - The array of objects to be added to the map.
    */
   addObjectsToMap(objects) {
@@ -360,7 +336,7 @@ class World {
 
   /**
    * Adds a movable object to the map and handles its drawing.
-   *
+   * @method addToMap
    * @param {Object} mo - The movable object to be added to the map.
    */
   addToMap(mo) {
@@ -375,7 +351,7 @@ class World {
 
   /**
    * Flips the given image horizontally.
-   *
+   * @method flipImage
    * @param {Object} mo - The image object to be flipped.
    */
   flipImage(mo) {
@@ -387,7 +363,7 @@ class World {
 
   /**
    * Flips the image of the given object back to its original orientation.
-   *
+   * @method flipImageBack
    * @param {Object} mo - The object whose image is to be flipped back.
    */
   flipImageBack(mo) {

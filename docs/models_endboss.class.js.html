@@ -102,6 +102,8 @@
    * Animates the end boss by setting up two intervals:
    * - One interval runs at 60 frames per second to make the boss follow Pepe.
    * - Another interval runs every 200 milliseconds to animate the boss.
+   * 
+   * @method animate
    */
   animate() {
     setInterval(() => {
@@ -121,6 +123,8 @@
    * - If the boss is inactive, it plays the alert animation.
    * - If the boss is attacking, it plays the attack animation.
    * - If the boss is active, it plays the walking animation.
+   * 
+   * @method animateBoss
    */
   animateBoss() {
     if (this.isDead()) {
@@ -139,6 +143,7 @@
   /**
    * Checks if the boss is awake and in attack mode.
    *
+   * @method bossIsAwake
    * @returns {boolean} True if the boss is in attack mode and not dead, otherwise false.
    */
   bossIsAwake() {
@@ -149,6 +154,8 @@
    * Makes the boss follow the character (Pepe) if the boss is awake.
    * The boss will move left or right depending on the character's position.
    * If the boss is close enough to the character, it will stand still.
+   * 
+   * @method followPepe
    */
   followPepe() {
     if (this.bossIsAwake()) {
@@ -164,6 +171,8 @@
 
   /**
    * Keeps the end boss in the same position without moving.
+   * 
+   * @method standStill
    */
   standStill() {
     this.x += 0;
@@ -172,6 +181,8 @@
   /**
    * Ends the game by pausing the boss sound, playing the dying sound and animation,
    * and setting the game over state after a delay.
+   * 
+   * @method wrapUpGame
    */
   wrapUpGame() {
     this.boss_sound.pause();
@@ -185,6 +196,8 @@
   /**
    * Plays the dying sound for the end boss if it hasn't been played already.
    * This method ensures that the dying sound is only played once.
+   * 
+   * @method playDyingSound
    */
   playDyingSound() {
     if (!this.dyingHasPlayed) {
@@ -196,6 +209,7 @@
   /**
    * Checks if the boss is inactive.
    *
+   * @method bossIsInactive
    * @returns {boolean} True if the boss's status is "alert", otherwise false.
    */
   bossIsInactive() {
@@ -205,6 +219,7 @@
   /**
    * Checks if the boss is in attack mode and within a certain distance from the character.
    *
+   * @method bossAttacks
    * @returns {boolean} True if the boss is attacking and within 220 units of the character, otherwise false.
    */
   bossAttacks() {
@@ -217,6 +232,8 @@
    * Plays the attack animation for the end boss.
    * Temporarily increases the speed to 8 for the duration of the attack animation,
    * then resets the speed back to 2.8 after 1 second.
+   * 
+   * @method playAttackAnimation
    */
   playAttackAnimation() {
     this.speed = 8;
@@ -229,6 +246,7 @@
   /**
    * Checks if the boss is currently in attack mode.
    *
+   * @method bossIsActive
    * @returns {boolean} True if the boss is in attack mode, otherwise false.
    */
   bossIsActive() {
@@ -245,13 +263,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKeyBoardNavigationLogic">addKeyBoardNavigationLogic</a></li><li><a href="global.html#addTouchJump">addTouchJump</a></li><li><a href="global.html#addTouchMovement">addTouchMovement</a></li><li><a href="global.html#addTouchNavigationLogic">addTouchNavigationLogic</a></li><li><a href="global.html#addTouchThrow">addTouchThrow</a></li><li><a href="global.html#animateStartScreen">animateStartScreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#createNewWorld">createNewWorld</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initializeUIElements">initializeUIElements</a></li><li><a href="global.html#keyActiveLogic">keyActiveLogic</a></li><li><a href="global.html#keyInactiveLogic">keyInactiveLogic</a></li><li><a href="global.html#muteCharacter">muteCharacter</a></li><li><a href="global.html#muteEnemies">muteEnemies</a></li><li><a href="global.html#muteGeneralSounds">muteGeneralSounds</a></li><li><a href="global.html#muteObjects">muteObjects</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#preventUnwantedBehaviorDuringTouch">preventUnwantedBehaviorDuringTouch</a></li><li><a href="global.html#resetMute">resetMute</a></li><li><a href="global.html#resetOverlaysRestart">resetOverlaysRestart</a></li><li><a href="global.html#resetOverlaysReturn">resetOverlaysReturn</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#startAlert">startAlert</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleExplanationOverlay">toggleExplanationOverlay</a></li><li><a href="global.html#toggleTouchNavigation">toggleTouchNavigation</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKeyBoardNavigationLogic">addKeyBoardNavigationLogic</a></li><li><a href="global.html#addMovableObjects">addMovableObjects</a></li><li><a href="global.html#addObjectsToMap">addObjectsToMap</a></li><li><a href="global.html#addStatusBars">addStatusBars</a></li><li><a href="global.html#addToMap">addToMap</a></li><li><a href="global.html#addTouchJump">addTouchJump</a></li><li><a href="global.html#addTouchMovement">addTouchMovement</a></li><li><a href="global.html#addTouchNavigationLogic">addTouchNavigationLogic</a></li><li><a href="global.html#addTouchThrow">addTouchThrow</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#animateBoss">animateBoss</a></li><li><a href="global.html#animatePepe">animatePepe</a></li><li><a href="global.html#animateStartScreen">animateStartScreen</a></li><li><a href="global.html#animateThrow">animateThrow</a></li><li><a href="global.html#applyGravity">applyGravity</a></li><li><a href="global.html#bossAttacks">bossAttacks</a></li><li><a href="global.html#bossIsActive">bossIsActive</a></li><li><a href="global.html#bossIsAwake">bossIsAwake</a></li><li><a href="global.html#bossIsInactive">bossIsInactive</a></li><li><a href="global.html#checkBossActivation">checkBossActivation</a></li><li><a href="global.html#checkBossCollision">checkBossCollision</a></li><li><a href="global.html#checkCollectableCollision">checkCollectableCollision</a></li><li><a href="global.html#checkCollisions">checkCollisions</a></li><li><a href="global.html#checkEnemyCollision">checkEnemyCollision</a></li><li><a href="global.html#checkThrowBottleCollision">checkThrowBottleCollision</a></li><li><a href="global.html#checkThrowObjects">checkThrowObjects</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#createNewWorld">createNewWorld</a></li><li><a href="global.html#displayThrowbottleActiveNotification">displayThrowbottleActiveNotification</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#enableMovement">enableMovement</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#flipImage">flipImage</a></li><li><a href="global.html#flipImageBack">flipImageBack</a></li><li><a href="global.html#followPepe">followPepe</a></li><li><a href="global.html#getSoundSettings">getSoundSettings</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#hit">hit</a></li><li><a href="global.html#horizontalMovement">horizontalMovement</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initializeUIElements">initializeUIElements</a></li><li><a href="global.html#isAboveGround">isAboveGround</a></li><li><a href="global.html#isColliding">isColliding</a></li><li><a href="global.html#isDead">isDead</a></li><li><a href="global.html#isHurt">isHurt</a></li><li><a href="global.html#isJumpingOn">isJumpingOn</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#jumpMovement">jumpMovement</a></li><li><a href="global.html#keyActiveLogic">keyActiveLogic</a></li><li><a href="global.html#keyInactiveLogic">keyInactiveLogic</a></li><li><a href="global.html#lostGameOver">lostGameOver</a></li><li><a href="global.html#moveLeft">moveLeft</a></li><li><a href="global.html#movePepe">movePepe</a></li><li><a href="global.html#moveRight">moveRight</a></li><li><a href="global.html#muteCharacter">muteCharacter</a></li><li><a href="global.html#muteEnemies">muteEnemies</a></li><li><a href="global.html#muteGeneralSounds">muteGeneralSounds</a></li><li><a href="global.html#muteObjects">muteObjects</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#pepeFellAsleep">pepeFellAsleep</a></li><li><a href="global.html#pepeIsWalking">pepeIsWalking</a></li><li><a href="global.html#playAnimation">playAnimation</a></li><li><a href="global.html#playAttackAnimation">playAttackAnimation</a></li><li><a href="global.html#playDyingSound">playDyingSound</a></li><li><a href="global.html#playHurtAnimation">playHurtAnimation</a></li><li><a href="global.html#playIdleAnimation">playIdleAnimation</a></li><li><a href="global.html#playJumpAnimation">playJumpAnimation</a></li><li><a href="global.html#playJumpSound">playJumpSound</a></li><li><a href="global.html#playSleepingAnimation">playSleepingAnimation</a></li><li><a href="global.html#playSmashSound">playSmashSound</a></li><li><a href="global.html#playWalkingAnimation">playWalkingAnimation</a></li><li><a href="global.html#playerJumps">playerJumps</a></li><li><a href="global.html#playerMovesLeft">playerMovesLeft</a></li><li><a href="global.html#playerMovesRight">playerMovesRight</a></li><li><a href="global.html#preventUnwantedBehaviorDuringTouch">preventUnwantedBehaviorDuringTouch</a></li><li><a href="global.html#resetMute">resetMute</a></li><li><a href="global.html#resetOverlaysRestart">resetOverlaysRestart</a></li><li><a href="global.html#resetOverlaysReturn">resetOverlaysReturn</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#resolveImageIndex">resolveImageIndex</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#setBossInactive">setBossInactive</a></li><li><a href="global.html#setPercentage">setPercentage</a></li><li><a href="global.html#setWorld">setWorld</a></li><li><a href="global.html#standStill">standStill</a></li><li><a href="global.html#startAlert">startAlert</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#throw">throw</a></li><li><a href="global.html#toggleExplanationOverlay">toggleExplanationOverlay</a></li><li><a href="global.html#toggleTouchNavigation">toggleTouchNavigation</a></li><li><a href="global.html#updateCameraposition">updateCameraposition</a></li><li><a href="global.html#updatePreviousY">updatePreviousY</a></li><li><a href="global.html#winGameOver">winGameOver</a></li><li><a href="global.html#wrapUpGame">wrapUpGame</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 13 2025 14:16:20 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 13 2025 15:38:09 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

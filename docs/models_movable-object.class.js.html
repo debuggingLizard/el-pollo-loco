@@ -44,6 +44,7 @@
   /**
    * Checks if current object is colliding (overlapping) with another movable object (mo).
    * 
+   * @method isColliding
    * @param {Object} mo - The other movable object to check collision with.
    * - checks if object is colliding with mo on the right side (x + width)
    * - checks if object is colliding with mo on the left side (x)
@@ -63,6 +64,7 @@
   /**
    * Checks if the current object is jumping on (colliding/overlapping from above) another movable object (mo).
    *
+   * @method isJumpingOn
    * @param {Object} mo - The movable object to check against.
    * - checks if bottom side of object is below top side of mo (y + height >= mo.y)
    * - checks if bottom side of object is above bottom side of mo (y + height &lt;= mo.y + mo.height)
@@ -84,6 +86,8 @@
   /**
    * Updates the previous Y-coordinate to the current Y-coordinate.
    * Necessary for checking jumping-on collisions.
+   * 
+   * @method updatePreviousY
    */
   updatePreviousY() {
     this.previousY = this.y;
@@ -94,6 +98,7 @@
    * If the energy drops to 0 or below, it is set to 0 (to avoid negative values)
    * If the object takes damage, it becomes invincible for a specified duration.
    *
+   * @method hit  
    * @param {number} damage - The amount of damage to inflict on the object.
    */
   hit(damage) {
@@ -118,6 +123,7 @@
    * if it is less than 1 second. If the time passed is less than 1 second,
    * the object is considered to be hurt.
    * 
+   * @method isHurt
    * @returns {boolean} True if the object is hurt, false otherwise.
    */
   isHurt() {
@@ -129,6 +135,7 @@
   /**
    * Checks if the object is dead.
    * 
+   * @method isDead
    * @returns {boolean} True if the object's energy is 0, otherwise false.
    */
   isDead() {
@@ -138,6 +145,7 @@
   /**
    * Plays an animation by cycling through a set of images.
    *
+   * @method playAnimation
    * @param {string[]} images - An array of image paths to be used in the animation.
    * @param {number} [frameCount=null] - The current frame count. If null, the animation will play on every call.
    * @param {number} [frameDelay=1] - The delay between frames. The animation will update every `frameDelay` calls.
@@ -155,6 +163,7 @@
    * Moves the object to the right by increasing its x-coordinate by the object's speed.
    * Also sets the visual direction of the object.
    *
+   * @method moveRight
    * @param {boolean} bool - A boolean indicating the visual direction of the object.
    */
   moveRight(bool) {
@@ -166,6 +175,7 @@
    * Moves the object to the left by decreasing its x-coordinate by the object's speed.
    * Also sets the visual direction of the object.
    *
+   * @method moveLeft
    * @param {boolean} bool - A boolean indicating the visual direction of the object.
    */
   moveLeft(bool) {
@@ -179,6 +189,8 @@
    * and then updates the object's position and speed accordingly.
    * 
    * The interval is set to 40 milliseconds (1000 / 25), which means the gravity effect is applied 25 times per second.
+   * 
+   * @method applyGravity
    */
   applyGravity() {
     setInterval(() => {
@@ -195,6 +207,7 @@
    * This method determines if the object is either an instance of ThrowableObject,
    * is dead, or its y-coordinate is less than 160.
    * 
+   * @method isAboveGround
    * @returns {boolean} - Returns true if the object is above the ground, otherwise false.
    */
   isAboveGround() {
@@ -208,6 +221,8 @@
   /**
    * Makes the object jump by setting its vertical speed.
    * This method sets the `speedY` property to 28, causing the object to move upwards.
+   * 
+   * @method jump
    */
   jump() {
     this.speedY = 28;
@@ -223,13 +238,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKeyBoardNavigationLogic">addKeyBoardNavigationLogic</a></li><li><a href="global.html#addTouchJump">addTouchJump</a></li><li><a href="global.html#addTouchMovement">addTouchMovement</a></li><li><a href="global.html#addTouchNavigationLogic">addTouchNavigationLogic</a></li><li><a href="global.html#addTouchThrow">addTouchThrow</a></li><li><a href="global.html#animateStartScreen">animateStartScreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#createNewWorld">createNewWorld</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initializeUIElements">initializeUIElements</a></li><li><a href="global.html#keyActiveLogic">keyActiveLogic</a></li><li><a href="global.html#keyInactiveLogic">keyInactiveLogic</a></li><li><a href="global.html#muteCharacter">muteCharacter</a></li><li><a href="global.html#muteEnemies">muteEnemies</a></li><li><a href="global.html#muteGeneralSounds">muteGeneralSounds</a></li><li><a href="global.html#muteObjects">muteObjects</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#preventUnwantedBehaviorDuringTouch">preventUnwantedBehaviorDuringTouch</a></li><li><a href="global.html#resetMute">resetMute</a></li><li><a href="global.html#resetOverlaysRestart">resetOverlaysRestart</a></li><li><a href="global.html#resetOverlaysReturn">resetOverlaysReturn</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#startAlert">startAlert</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleExplanationOverlay">toggleExplanationOverlay</a></li><li><a href="global.html#toggleTouchNavigation">toggleTouchNavigation</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKeyBoardNavigationLogic">addKeyBoardNavigationLogic</a></li><li><a href="global.html#addMovableObjects">addMovableObjects</a></li><li><a href="global.html#addObjectsToMap">addObjectsToMap</a></li><li><a href="global.html#addStatusBars">addStatusBars</a></li><li><a href="global.html#addToMap">addToMap</a></li><li><a href="global.html#addTouchJump">addTouchJump</a></li><li><a href="global.html#addTouchMovement">addTouchMovement</a></li><li><a href="global.html#addTouchNavigationLogic">addTouchNavigationLogic</a></li><li><a href="global.html#addTouchThrow">addTouchThrow</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#animateBoss">animateBoss</a></li><li><a href="global.html#animatePepe">animatePepe</a></li><li><a href="global.html#animateStartScreen">animateStartScreen</a></li><li><a href="global.html#animateThrow">animateThrow</a></li><li><a href="global.html#applyGravity">applyGravity</a></li><li><a href="global.html#bossAttacks">bossAttacks</a></li><li><a href="global.html#bossIsActive">bossIsActive</a></li><li><a href="global.html#bossIsAwake">bossIsAwake</a></li><li><a href="global.html#bossIsInactive">bossIsInactive</a></li><li><a href="global.html#checkBossActivation">checkBossActivation</a></li><li><a href="global.html#checkBossCollision">checkBossCollision</a></li><li><a href="global.html#checkCollectableCollision">checkCollectableCollision</a></li><li><a href="global.html#checkCollisions">checkCollisions</a></li><li><a href="global.html#checkEnemyCollision">checkEnemyCollision</a></li><li><a href="global.html#checkThrowBottleCollision">checkThrowBottleCollision</a></li><li><a href="global.html#checkThrowObjects">checkThrowObjects</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#createNewWorld">createNewWorld</a></li><li><a href="global.html#displayThrowbottleActiveNotification">displayThrowbottleActiveNotification</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#enableMovement">enableMovement</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#flipImage">flipImage</a></li><li><a href="global.html#flipImageBack">flipImageBack</a></li><li><a href="global.html#followPepe">followPepe</a></li><li><a href="global.html#getSoundSettings">getSoundSettings</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#hit">hit</a></li><li><a href="global.html#horizontalMovement">horizontalMovement</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initializeUIElements">initializeUIElements</a></li><li><a href="global.html#isAboveGround">isAboveGround</a></li><li><a href="global.html#isColliding">isColliding</a></li><li><a href="global.html#isDead">isDead</a></li><li><a href="global.html#isHurt">isHurt</a></li><li><a href="global.html#isJumpingOn">isJumpingOn</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#jumpMovement">jumpMovement</a></li><li><a href="global.html#keyActiveLogic">keyActiveLogic</a></li><li><a href="global.html#keyInactiveLogic">keyInactiveLogic</a></li><li><a href="global.html#lostGameOver">lostGameOver</a></li><li><a href="global.html#moveLeft">moveLeft</a></li><li><a href="global.html#movePepe">movePepe</a></li><li><a href="global.html#moveRight">moveRight</a></li><li><a href="global.html#muteCharacter">muteCharacter</a></li><li><a href="global.html#muteEnemies">muteEnemies</a></li><li><a href="global.html#muteGeneralSounds">muteGeneralSounds</a></li><li><a href="global.html#muteObjects">muteObjects</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#pepeFellAsleep">pepeFellAsleep</a></li><li><a href="global.html#pepeIsWalking">pepeIsWalking</a></li><li><a href="global.html#playAnimation">playAnimation</a></li><li><a href="global.html#playAttackAnimation">playAttackAnimation</a></li><li><a href="global.html#playDyingSound">playDyingSound</a></li><li><a href="global.html#playHurtAnimation">playHurtAnimation</a></li><li><a href="global.html#playIdleAnimation">playIdleAnimation</a></li><li><a href="global.html#playJumpAnimation">playJumpAnimation</a></li><li><a href="global.html#playJumpSound">playJumpSound</a></li><li><a href="global.html#playSleepingAnimation">playSleepingAnimation</a></li><li><a href="global.html#playSmashSound">playSmashSound</a></li><li><a href="global.html#playWalkingAnimation">playWalkingAnimation</a></li><li><a href="global.html#playerJumps">playerJumps</a></li><li><a href="global.html#playerMovesLeft">playerMovesLeft</a></li><li><a href="global.html#playerMovesRight">playerMovesRight</a></li><li><a href="global.html#preventUnwantedBehaviorDuringTouch">preventUnwantedBehaviorDuringTouch</a></li><li><a href="global.html#resetMute">resetMute</a></li><li><a href="global.html#resetOverlaysRestart">resetOverlaysRestart</a></li><li><a href="global.html#resetOverlaysReturn">resetOverlaysReturn</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#resolveImageIndex">resolveImageIndex</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#setBossInactive">setBossInactive</a></li><li><a href="global.html#setPercentage">setPercentage</a></li><li><a href="global.html#setWorld">setWorld</a></li><li><a href="global.html#standStill">standStill</a></li><li><a href="global.html#startAlert">startAlert</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopSound">stopSound</a></li><li><a href="global.html#throw">throw</a></li><li><a href="global.html#toggleExplanationOverlay">toggleExplanationOverlay</a></li><li><a href="global.html#toggleTouchNavigation">toggleTouchNavigation</a></li><li><a href="global.html#updateCameraposition">updateCameraposition</a></li><li><a href="global.html#updatePreviousY">updatePreviousY</a></li><li><a href="global.html#winGameOver">winGameOver</a></li><li><a href="global.html#wrapUpGame">wrapUpGame</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 13 2025 14:16:20 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 13 2025 15:38:09 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>
