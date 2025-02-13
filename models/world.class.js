@@ -48,6 +48,8 @@ class World {
     this.muteButton = muteButton;
     this.touchNavigation = touchNavigation;
     this.throwBottleNotification = throwBottleNotification;
+    this.inventory = 0;
+    this.coinCounter = 0;
     this.music_sound.volume = 0.4;
     this.music_sound.play();
     this.atmosphere_sound.play();
@@ -151,10 +153,10 @@ class World {
       this.checkThrowBottleCollision(throwBottle);
     });
     this.level.bottles.forEach((bottle) => {
-      this.checkCollectableCollision(bottle, this.inventory, this.bottleBar);
+      this.checkCollectableCollision(bottle, 'inventory', this.bottleBar);
     });
     this.level.coins.forEach((coin) => {
-      this.checkCollectableCollision(coin, this.coinCounter, this.coinBar);
+      this.checkCollectableCollision(coin, 'coinCounter', this.coinBar);
     });
   }
 
@@ -218,11 +220,14 @@ class World {
    * @param {number} counter - The current count of collected items.
    * @param {Object} statusbar - The status bar object to update the percentage.
    */
-  checkCollectableCollision(collectable, counter, statusbar) {
+  checkCollectableCollision(collectable, counterName, statusbar) {
     if (collectable.active && this.character.isColliding(collectable)) {
       collectable.active = false;
-      counter++;
-      statusbar.setPercentage(6.25 * counter);
+      console.log("object collected");
+      this[counterName]++;
+      statusbar.setPercentage(6.25 * this[counterName]);
+      console.log("counter has value of: ", this[counterName]);
+      
     }
   }
 
