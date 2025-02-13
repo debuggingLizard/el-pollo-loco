@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/chicken.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/chicken.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Chicken extends MovableObject {
+  y = 360;
+  height = 60;
+  width = 60;
+  world;
+
+  IMAGES_WALKING = [
+    "./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
+    "./img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
+    "./img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+  ];
+  dying_sound = new Audio("./audio/enemies/chicken_dead.mp3");
+  dyingHasPlayed = false;
+
+  constructor(start) {
+    super().loadImage(this.IMAGES_WALKING[0]);
+    this.loadImages(this.IMAGES_WALKING);
+    this.x = start + Math.random() * 600;
+    this.speed = 0.4 + Math.random() * 0.25;
+    this.animate();
+    this.active = true;
+    this.dying_sound.volume = 0.4;
+  }
+
+  /**
+   * Animates the chicken by setting up two intervals:
+   * - One interval runs at 60 frames per second to make the chicken follow Pepe.
+   * - Another interval runs every 150 milliseconds to animate the chicken.
+   */
+  animate() {
+    setInterval(() => {
+      this.followPepe();
+    }, 1000 / 60);
+    setInterval(() => {
+      this.animateChicken();
+    }, 150);
+  }
+
+  /**
+   * Makes the chicken follow the character "Pepe" in the game world.
+   * If the chicken is not dead and the world is defined, it will move left if it is to the right of the character, otherwise, it will move right.
+   */
+  followPepe() {
+    if (!this.isDead()) {
+      if (this.world &amp;&amp; this.x >= this.world.character.x) {
+        this.moveLeft(false);
+      } else {
+        this.moveRight(true);
+      }
+    }
+  }
+
+  /**
+   * Animates the chicken based on its current state.
+   * If the chicken is dead, it plays the dying animation.
+   * Otherwise, it plays the walking animation.
+   */
+  animateChicken() {
+    if (this.isDead()) {
+      this.playDyingAnimation();
+    } else {
+      this.playAnimation(this.IMAGES_WALKING);
+    }
+  }
+
+  /**
+   * Plays the dying animation for the chicken.
+   * Loads the image of the dead chicken and plays the dying sound.
+   */
+  playDyingAnimation() {
+    this.loadImage("./img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
+    this.playDyingSound();
+  }
+
+  /**
+   * Plays the dying sound for the chicken if it hasn't been played already.
+   * Sets the flag `dyingHasPlayed` to true after playing the sound to ensure the sound is only played once.
+   */
+  playDyingSound() {
+    if (!this.dyingHasPlayed) {
+      this.dying_sound.play();
+      this.dyingHasPlayed = true;
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKeyBoardNavigationLogic">addKeyBoardNavigationLogic</a></li><li><a href="global.html#addTouchJump">addTouchJump</a></li><li><a href="global.html#addTouchMovement">addTouchMovement</a></li><li><a href="global.html#addTouchNavigationLogic">addTouchNavigationLogic</a></li><li><a href="global.html#addTouchThrow">addTouchThrow</a></li><li><a href="global.html#animateStartScreen">animateStartScreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#createNewWorld">createNewWorld</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initializeUIElements">initializeUIElements</a></li><li><a href="global.html#keyActiveLogic">keyActiveLogic</a></li><li><a href="global.html#keyInactiveLogic">keyInactiveLogic</a></li><li><a href="global.html#muteCharacter">muteCharacter</a></li><li><a href="global.html#muteEnemies">muteEnemies</a></li><li><a href="global.html#muteGeneralSounds">muteGeneralSounds</a></li><li><a href="global.html#muteObjects">muteObjects</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#preventUnwantedBehaviorDuringTouch">preventUnwantedBehaviorDuringTouch</a></li><li><a href="global.html#resetMute">resetMute</a></li><li><a href="global.html#resetOverlaysRestart">resetOverlaysRestart</a></li><li><a href="global.html#resetOverlaysReturn">resetOverlaysReturn</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#startAlert">startAlert</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleExplanationOverlay">toggleExplanationOverlay</a></li><li><a href="global.html#toggleTouchNavigation">toggleTouchNavigation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 13 2025 14:16:20 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
