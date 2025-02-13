@@ -223,11 +223,8 @@ class World {
   checkCollectableCollision(collectable, counterName, statusbar) {
     if (collectable.active && this.character.isColliding(collectable)) {
       collectable.active = false;
-      console.log("object collected");
       this[counterName]++;
-      statusbar.setPercentage(6.25 * this[counterName]);
-      console.log("counter has value of: ", this[counterName]);
-      
+      statusbar.setPercentage(6.25 * this[counterName]); 
     }
   }
 
