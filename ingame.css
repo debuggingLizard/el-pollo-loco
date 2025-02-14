@@ -1,3 +1,8 @@
+#navigation-left img {
+    touch-action: none;
+    user-select: none;
+}
+
 .mobile-nav-buttons button:hover,
 .overlay button:hover {
     transition: 0.4s;
