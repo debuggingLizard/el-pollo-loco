@@ -327,16 +327,16 @@ function addTouchNavigationLogic() {
 function addTouchMovement(navigationLeft, navigationRight) {
   navigationLeft.addEventListener("touchstart", () => {
     keyboard.LEFT = true;
-  });
+  }, { passive: false });
   navigationRight.addEventListener("touchstart", () => {
     keyboard.RIGHT = true;
-  });
+  }, { passive: false });
   navigationLeft.addEventListener("touchend", () => {
     keyboard.LEFT = false;
-  });
+  }, { passive: false });
   navigationRight.addEventListener("touchend", () => {
     keyboard.RIGHT = false;
-  });
+  }, { passive: false });
 }
 
 /**
@@ -347,10 +347,10 @@ function addTouchMovement(navigationLeft, navigationRight) {
 function addTouchJump(navigationJump) {
   navigationJump.addEventListener("touchstart", () => {
     keyboard.UP = true;
-  });
+  }, { passive: false });
   navigationJump.addEventListener("touchend", () => {
     keyboard.UP = false;
-  });
+  }, { passive: false });
 }
 
 /**
@@ -361,10 +361,10 @@ function addTouchJump(navigationJump) {
 function addTouchThrow(navigationThrow) {
   navigationThrow.addEventListener("touchstart", () => {
     keyboard.ENTER = true;
-  });
+  }, { passive: false });
   navigationThrow.addEventListener("touchend", () => {
     keyboard.ENTER = false;
-  });
+  }, { passive: false });
 }
 
 /**
