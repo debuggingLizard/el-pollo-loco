@@ -11,6 +11,7 @@ class DrawableObject {
   /**
    * Loads an image from the specified path and assigns it to the `img` property.
    * 
+   * @method loadImage
    * @param {string} path - The path to the image file.
    */
   loadImage(path) {
@@ -21,6 +22,7 @@ class DrawableObject {
   /**
    * Loads an array of image paths into the image cache.
    * 
+   * @method loadImages
    * @param {string[]} arr - An array of image paths to be loaded.
    */
   loadImages(arr) {
@@ -34,6 +36,7 @@ class DrawableObject {
   /**
    * Draws the image of the object on the given canvas context.
    *
+   * @method draw
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context to draw the image on.
    */
   draw(ctx) {

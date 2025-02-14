@@ -19,6 +19,8 @@ class Coin extends Collectable {
    * Animates the coin by playing its animation at a set interval.
    * The animation is played using the images defined in `this.IMAGES_COIN`.
    * The interval for the animation is set to 400 milliseconds.
+   * 
+   * @method animate
    */
   animate() {
     setInterval(() => {

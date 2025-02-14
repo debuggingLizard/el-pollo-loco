@@ -376,10 +376,10 @@ function preventUnwantedBehaviorDuringTouch(touchElements) {
   touchElements.forEach((element) => {
     element.addEventListener("contextmenu", (e) => {
       e.preventDefault();
-    });
+    }, { passive: false });
     element.addEventListener("selectstart", (e) => {
       e.preventDefault();
-    });
+    }, { passive: false });
   });
 }
 

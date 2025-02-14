@@ -9,7 +9,7 @@ class Collectable extends MovableObject {
    * Periodically checks if the item has been collected and plays a sound if it has.
    * The check is performed every 160 milliseconds.
    * 
-   * @method
+   * @method checkItemCollection
    * @memberof CollectableObject
    */
   checkItemCollection() {
