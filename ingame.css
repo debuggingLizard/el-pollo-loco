@@ -1,4 +1,18 @@
-#navigation-left img {
+#main-menu-btns,
+#start-button,
+#explain-button,
+#end-menu-btns,
+#menu-button,
+#restart-button,
+.mobile-nav-buttons,
+.mobile-nav-buttons .column-left,
+.mobile-nav-buttons .column-right,
+#navigation-left,
+#navigation-right,
+#navigation-left img,
+#navigation-right img,
+#navigation-throw,
+#navigation-jump {
     touch-action: none;
     user-select: none;
     -webkit-touch-callout: none;
