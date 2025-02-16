@@ -1,6 +1,9 @@
 #navigation-left img {
     touch-action: none;
     user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-nav-buttons button:hover,
